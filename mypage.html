@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイページ - ASKUL風ECサイト</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mypage.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <span>法人のお客様</span>
+                <span>個人のお客様</span>
+            </div>
+            <div class="top-bar-right">
+                <a href="#"><i class="fas fa-phone"></i>お問い合わせ</a>
+                <a href="#"><i class="fas fa-info-circle"></i>ヘルプ</a>
+                <a href="#"><i class="fas fa-sign-in-alt"></i>ログイン</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html">
+                        <h1>EC Design</h1>
+                    </a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" placeholder="商品名・型番・メーカー名などで検索" class="search-input">
+                        <button class="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="search-suggestions">
+                        <!-- 検索候補がここに表示される -->
+                    </div>
+                </div>
+
+                <!-- Right Functions -->
+                <div class="header-functions">
+                    <a href="favorites.html" class="function-item favorites">
+                        <i class="fas fa-heart"></i>
+                        <span>お気に入り</span>
+                        <span class="count">3</span>
+                    </a>
+                    <a href="cart.html" class="function-item cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>カート</span>
+                        <span class="count">5</span>
+                    </a>
+                    <a href="mypage.html#orders" class="function-item orders">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>注文履歴</span>
+                    </a>
+                    <a href="mypage.html" class="function-item account active">
+                        <i class="fas fa-user"></i>
+                        <span>マイページ</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Global Navigation -->
+    <nav class="global-nav">
+        <div class="container">
+            <ul class="nav-categories">
+                <li><a href="#"><i class="fas fa-desktop"></i>オフィス用品</a></li>
+                <li><a href="#"><i class="fas fa-print"></i>文具・事務用品</a></li>
+                <li><a href="#"><i class="fas fa-tools"></i>工具・作業用品</a></li>
+                <li><a href="#"><i class="fas fa-medkit"></i>医療・介護用品</a></li>
+                <li><a href="#"><i class="fas fa-tshirt"></i>制服・作業服</a></li>
+                <li><a href="#"><i class="fas fa-coffee"></i>食品・飲料</a></li>
+                <li><a href="#"><i class="fas fa-spray-can"></i>清掃・衛生用品</a></li>
+                <li><a href="#"><i class="fas fa-tag"></i>セール商品</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="index.html">ホーム</a>
+                <span>マイページ</span>
+            </nav>
+
+            <div class="mypage-layout">
+                <!-- Sidebar Navigation -->
+                <aside class="mypage-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="user-details">
+                            <h3>田中 太郎様</h3>
+                            <p class="user-id">会員ID: 12345678</p>
+                            <p class="membership-type">プレミアム会員</p>
+                        </div>
+                    </div>
+
+                    <nav class="sidebar-nav">
+                        <ul>
+                            <li class="active">
+                                <a href="#dashboard" data-section="dashboard">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    ダッシュボード
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#orders" data-section="orders">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    注文履歴
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#favorites" data-section="favorites">
+                                    <i class="fas fa-heart"></i>
+                                    お気に入り
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#addresses" data-section="addresses">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    配送先管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#payment" data-section="payment">
+                                    <i class="fas fa-credit-card"></i>
+                                    支払い方法
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#profile" data-section="profile">
+                                    <i class="fas fa-user-edit"></i>
+                                    プロフィール設定
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#notifications" data-section="notifications">
+                                    <i class="fas fa-bell"></i>
+                                    通知設定
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#security" data-section="security">
+                                    <i class="fas fa-shield-alt"></i>
+                                    セキュリティ
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <div class="mypage-content">
+                    <!-- Dashboard Section -->
+                    <section id="dashboard" class="content-section active">
+                        <h2>ダッシュボード</h2>
+                        
+                        <!-- Quick Stats -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>今月の注文</h3>
+                                    <p class="stat-number">12件</p>
+                                    <p class="stat-amount">¥145,600</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>お気に入り</h3>
+                                    <p class="stat-number">28商品</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>ポイント</h3>
+                                    <p class="stat-number">2,450pt</p>
+                                    <p class="stat-note">有効期限: 2024/12/31</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>配送中</h3>
+                                    <p class="stat-number">2件</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Orders -->
+                        <div class="dashboard-section">
+                            <h3>最近の注文</h3>
+                            <div class="recent-orders">
+                                <div class="order-item">
+                                    <div class="order-info">
+                                        <p class="order-number">注文番号: #ORD-2024-001</p>
+                                        <p class="order-date">2024年1月15日</p>
+                                    </div>
+                                    <div class="order-status">
+                                        <span class="status-badge shipped">配送中</span>
+                                    </div>
+                                    <div class="order-amount">¥24,800</div>
+                                </div>
+                                <div class="order-item">
+                                    <div class="order-info">
+                                        <p class="order-number">注文番号: #ORD-2024-002</p>
+                                        <p class="order-date">2024年1月18日</p>
+                                    </div>
+                                    <div class="order-status">
+                                        <span class="status-badge processing">処理中</span>
+                                    </div>
+                                    <div class="order-amount">¥15,200</div>
+                                </div>
+                            </div>
+                            <a href="#orders" class="view-all-link" data-section="orders">すべての注文を見る</a>
+                        </div>
+
+                        <!-- Recommendations -->
+                        <div class="dashboard-section">
+                            <h3>おすすめ商品</h3>
+                            <div class="recommendation-grid">
+                                <div class="product-card">
+                                    <img src="https://via.placeholder.com/150x150" alt="商品画像">
+                                    <h4>A4コピー用紙</h4>
+                                    <p class="price">¥890</p>
+                                    <button class="add-to-cart-btn">カートに追加</button>
+                                </div>
+                                <div class="product-card">
+                                    <img src="https://via.placeholder.com/150x150" alt="商品画像">
+                                    <h4>ボールペン 10本セット</h4>
+                                    <p class="price">¥1,200</p>
+                                    <button class="add-to-cart-btn">カートに追加</button>
+                                </div>
+                                <div class="product-card">
+                                    <img src="https://via.placeholder.com/150x150" alt="商品画像">
+                                    <h4>クリアファイル</h4>
+                                    <p class="price">¥320</p>
+                                    <button class="add-to-cart-btn">カートに追加</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Orders Section -->
+                    <section id="orders" class="content-section">
+                        <h2>注文履歴</h2>
+                        
+                        <div class="orders-filter">
+                            <div class="filter-group">
+                                <label>期間:</label>
+                                <select class="filter-select">
+                                    <option value="all">すべて</option>
+                                    <option value="1month">過去1ヶ月</option>
+                                    <option value="3months">過去3ヶ月</option>
+                                    <option value="6months">過去6ヶ月</option>
+                                    <option value="1year">過去1年</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>ステータス:</label>
+                                <select class="filter-select">
+                                    <option value="all">すべて</option>
+                                    <option value="processing">処理中</option>
+                                    <option value="shipped">配送中</option>
+                                    <option value="delivered">配送完了</option>
+                                    <option value="cancelled">キャンセル</option>
+                                </select>
+                            </div>
+                            <button class="search-btn">検索</button>
+                        </div>
+
+                        <div class="orders-list">
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <div class="order-info">
+                                        <h3>注文番号: #ORD-2024-001</h3>
+                                        <p>注文日: 2024年1月15日</p>
+                                    </div>
+                                    <div class="order-status">
+                                        <span class="status-badge shipped">配送中</span>
+                                    </div>
+                                    <div class="order-total">¥24,800</div>
+                                </div>
+                                <div class="order-items">
+                                    <div class="item">
+                                        <img src="https://via.placeholder.com/80x80" alt="商品画像">
+                                        <div class="item-details">
+                                            <h4>A4コピー用紙 500枚×5冊</h4>
+                                            <p>数量: 1</p>
+                                            <p class="item-price">¥4,500</p>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="https://via.placeholder.com/80x80" alt="商品画像">
+                                        <div class="item-details">
+                                            <h4>オフィスチェア エルゴノミクス</h4>
+                                            <p>数量: 1</p>
+                                            <p class="item-price">¥19,800</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="order-actions">
+                                    <button class="btn-outline">追跡</button>
+                                    <button class="btn-outline">再注文</button>
+                                    <button class="btn-outline">レシート</button>
+                                </div>
+                            </div>
+
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <div class="order-info">
+                                        <h3>注文番号: #ORD-2024-002</h3>
+                                        <p>注文日: 2024年1月18日</p>
+                                    </div>
+                                    <div class="order-status">
+                                        <span class="status-badge delivered">配送完了</span>
+                                    </div>
+                                    <div class="order-total">¥15,200</div>
+                                </div>
+                                <div class="order-items">
+                                    <div class="item">
+                                        <img src="https://via.placeholder.com/80x80" alt="商品画像">
+                                        <div class="item-details">
+                                            <h4>ボールペン 黒 10本セット</h4>
+                                            <p>数量: 3</p>
+                                            <p class="item-price">¥3,600</p>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="https://via.placeholder.com/80x80" alt="商品画像">
+                                        <div class="item-details">
+                                            <h4>クリアファイル A4 20枚入り</h4>
+                                            <p>数量: 5</p>
+                                            <p class="item-price">¥1,600</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="order-actions">
+                                    <button class="btn-outline">再注文</button>
+                                    <button class="btn-outline">レシート</button>
+                                    <button class="btn-outline">レビュー</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Favorites Section -->
+                    <section id="favorites" class="content-section">
+                        <h2>お気に入り商品</h2>
+                        
+                        <div class="favorites-actions">
+                            <div class="bulk-actions">
+                                <input type="checkbox" id="select-all-favorites">
+                                <label for="select-all-favorites">すべて選択</label>
+                                <button class="btn-outline" disabled>選択した商品を削除</button>
+                                <button class="btn-primary" disabled>選択した商品をカートへ</button>
+                            </div>
+                            <div class="sort-options">
+                                <select class="sort-select">
+                                    <option value="newest">追加日の新しい順</option>
+                                    <option value="oldest">追加日の古い順</option>
+                                    <option value="price-low">価格の安い順</option>
+                                    <option value="price-high">価格の高い順</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="favorites-grid">
+                            <div class="favorite-item">
+                                <input type="checkbox" class="item-checkbox">
+                                <div class="favorite-image">
+                                    <img src="https://via.placeholder.com/200x200" alt="商品画像">
+                                </div>
+                                <div class="favorite-details">
+                                    <h3>A4コピー用紙 高白色 500枚×5冊</h3>
+                                    <p class="brand">メーカー: コクヨ</p>
+                                    <p class="model">型番: KB-39N</p>
+                                    <p class="price">¥4,500</p>
+                                    <div class="stock-status in-stock">
+                                        <i class="fas fa-check-circle"></i>在庫あり
+                                    </div>
+                                    <div class="favorite-actions">
+                                        <button class="add-to-cart-btn">カートに追加</button>
+                                        <button class="remove-favorite-btn">
+                                            <i class="fas fa-heart-broken"></i>削除
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="favorite-item">
+                                <input type="checkbox" class="item-checkbox">
+                                <div class="favorite-image">
+                                    <img src="https://via.placeholder.com/200x200" alt="商品画像">
+                                    <span class="sale-badge">セール</span>
+                                </div>
+                                <div class="favorite-details">
+                                    <h3>エルゴノミクス オフィスチェア</h3>
+                                    <p class="brand">メーカー: オカムラ</p>
+                                    <p class="model">型番: CG-M</p>
+                                    <p class="price">
+                                        <span class="original-price">¥24,800</span>
+                                        <span class="sale-price">¥19,800</span>
+                                    </p>
+                                    <div class="stock-status low-stock">
+                                        <i class="fas fa-exclamation-triangle"></i>残りわずか
+                                    </div>
+                                    <div class="favorite-actions">
+                                        <button class="add-to-cart-btn">カートに追加</button>
+                                        <button class="remove-favorite-btn">
+                                            <i class="fas fa-heart-broken"></i>削除
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="favorite-item">
+                                <input type="checkbox" class="item-checkbox">
+                                <div class="favorite-image">
+                                    <img src="https://via.placeholder.com/200x200" alt="商品画像">
+                                </div>
+                                <div class="favorite-details">
+                                    <h3>ボールペン ジェットストリーム 0.5mm 黒 10本</h3>
+                                    <p class="brand">メーカー: 三菱鉛筆</p>
+                                    <p class="model">型番: SXN-150-05</p>
+                                    <p class="price">¥1,200</p>
+                                    <div class="stock-status out-of-stock">
+                                        <i class="fas fa-times-circle"></i>在庫切れ
+                                    </div>
+                                    <div class="favorite-actions">
+                                        <button class="notify-btn">入荷通知</button>
+                                        <button class="remove-favorite-btn">
+                                            <i class="fas fa-heart-broken"></i>削除
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Addresses Section -->
+                    <section id="addresses" class="content-section">
+                        <h2>配送先管理</h2>
+                        
+                        <div class="section-actions">
+                            <button class="btn-primary add-address-btn">新しい配送先を追加</button>
+                        </div>
+
+                        <div class="addresses-list">
+                            <div class="address-card default">
+                                <div class="address-header">
+                                    <h3>メインオフィス</h3>
+                                    <span class="default-badge">既定</span>
+                                </div>
+                                <div class="address-details">
+                                    <p class="recipient">田中 太郎</p>
+                                    <p class="company">株式会社サンプル</p>
+                                    <p class="postal-code">〒100-0001</p>
+                                    <p class="address">東京都千代田区千代田1-1-1</p>
+                                    <p class="address">千代田ビル 5F</p>
+                                    <p class="phone">TEL: 03-1234-5678</p>
+                                </div>
+                                <div class="address-actions">
+                                    <button class="btn-outline edit-address-btn">編集</button>
+                                    <button class="btn-outline">複製</button>
+                                </div>
+                            </div>
+
+                            <div class="address-card">
+                                <div class="address-header">
+                                    <h3>支社</h3>
+                                </div>
+                                <div class="address-details">
+                                    <p class="recipient">山田 花子</p>
+                                    <p class="company">株式会社サンプル 大阪支社</p>
+                                    <p class="postal-code">〒530-0001</p>
+                                    <p class="address">大阪府大阪市北区梅田1-1-1</p>
+                                    <p class="address">梅田ビル 10F</p>
+                                    <p class="phone">TEL: 06-1234-5678</p>
+                                </div>
+                                <div class="address-actions">
+                                    <button class="btn-outline edit-address-btn">編集</button>
+                                    <button class="btn-outline">複製</button>
+                                    <button class="btn-outline set-default-btn">既定に設定</button>
+                                    <button class="btn-danger delete-address-btn">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Payment Methods Section -->
+                    <section id="payment" class="content-section">
+                        <h2>支払い方法管理</h2>
+                        
+                        <div class="section-actions">
+                            <button class="btn-primary add-payment-btn">新しい支払い方法を追加</button>
+                        </div>
+
+                        <div class="payment-methods-list">
+                            <div class="payment-card default">
+                                <div class="payment-header">
+                                    <div class="payment-type">
+                                        <i class="fab fa-cc-visa"></i>
+                                        <span>VISA カード</span>
+                                    </div>
+                                    <span class="default-badge">既定</span>
+                                </div>
+                                <div class="payment-details">
+                                    <p class="card-number">**** **** **** 1234</p>
+                                    <p class="card-holder">TARO TANAKA</p>
+                                    <p class="expiry">有効期限: 12/26</p>
+                                </div>
+                                <div class="payment-actions">
+                                    <button class="btn-outline edit-payment-btn">編集</button>
+                                </div>
+                            </div>
+
+                            <div class="payment-card">
+                                <div class="payment-header">
+                                    <div class="payment-type">
+                                        <i class="fas fa-university"></i>
+                                        <span>銀行振込</span>
+                                    </div>
+                                </div>
+                                <div class="payment-details">
+                                    <p>三菱UFJ銀行</p>
+                                    <p>新宿支店 (普) 1234567</p>
+                                    <p>株式会社サンプル</p>
+                                </div>
+                                <div class="payment-actions">
+                                    <button class="btn-outline edit-payment-btn">編集</button>
+                                    <button class="btn-outline set-default-btn">既定に設定</button>
+                                    <button class="btn-danger delete-payment-btn">削除</button>
+                                </div>
+                            </div>
+
+                            <div class="payment-card">
+                                <div class="payment-header">
+                                    <div class="payment-type">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <span>代金引換</span>
+                                    </div>
+                                </div>
+                                <div class="payment-details">
+                                    <p>配送時に現金でお支払い</p>
+                                    <p class="note">手数料: ¥330</p>
+                                </div>
+                                <div class="payment-actions">
+                                    <button class="btn-outline set-default-btn">既定に設定</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Profile Settings Section -->
+                    <section id="profile" class="content-section">
+                        <h2>プロフィール設定</h2>
+                        
+                        <div class="profile-form">
+                            <div class="form-section">
+                                <h3>基本情報</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>お名前</label>
+                                        <input type="text" value="田中 太郎" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>フリガナ</label>
+                                        <input type="text" value="タナカ タロウ" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>メールアドレス</label>
+                                        <input type="email" value="tanaka@example.com" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>電話番号</label>
+                                        <input type="tel" value="03-1234-5678" class="form-input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>会社情報</h3>
+                                <div class="form-grid">
+                                    <div class="form-group full-width">
+                                        <label>会社名</label>
+                                        <input type="text" value="株式会社サンプル" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>部署名</label>
+                                        <input type="text" value="総務部" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>役職</label>
+                                        <input type="text" value="課長" class="form-input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>アカウント設定</h3>
+                                <div class="form-group">
+                                    <label>言語設定</label>
+                                    <select class="form-select">
+                                        <option value="ja">日本語</option>
+                                        <option value="en">English</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>タイムゾーン</label>
+                                    <select class="form-select">
+                                        <option value="Asia/Tokyo">日本標準時 (JST)</option>
+                                        <option value="UTC">協定世界時 (UTC)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button class="btn-primary save-profile-btn">変更を保存</button>
+                                <button class="btn-outline cancel-btn">キャンセル</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Notifications Section -->
+                    <section id="notifications" class="content-section">
+                        <h2>通知設定</h2>
+                        
+                        <div class="notifications-settings">
+                            <div class="setting-section">
+                                <h3>メール通知</h3>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>注文確認</h4>
+                                        <p>注文が完了した際にメールでお知らせします</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>配送通知</h4>
+                                        <p>商品が発送された際にメールでお知らせします</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>キャンペーン情報</h4>
+                                        <p>セール情報やキャンペーンをメールでお知らせします</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>入荷通知</h4>
+                                        <p>お気に入り商品の入荷をメールでお知らせします</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="setting-section">
+                                <h3>プッシュ通知</h3>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>ブラウザ通知</h4>
+                                        <p>重要な通知をブラウザでお知らせします</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="setting-section">
+                                <h3>通知頻度</h3>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>まとめて通知</h4>
+                                        <p>複数の通知をまとめて送信します</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="form-select">
+                                            <option value="immediate">即座に通知</option>
+                                            <option value="daily" selected>1日1回まとめて</option>
+                                            <option value="weekly">週1回まとめて</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button class="btn-primary save-notifications-btn">変更を保存</button>
+                                <button class="btn-outline cancel-btn">キャンセル</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Security Section -->
+                    <section id="security" class="content-section">
+                        <h2>セキュリティ設定</h2>
+                        
+                        <div class="security-settings">
+                            <div class="security-section">
+                                <h3>パスワード変更</h3>
+                                <div class="form-group">
+                                    <label>現在のパスワード</label>
+                                    <input type="password" class="form-input" placeholder="現在のパスワードを入力">
+                                </div>
+                                <div class="form-group">
+                                    <label>新しいパスワード</label>
+                                    <input type="password" class="form-input" placeholder="新しいパスワードを入力">
+                                </div>
+                                <div class="form-group">
+                                    <label>新しいパスワード（確認）</label>
+                                    <input type="password" class="form-input" placeholder="新しいパスワードを再入力">
+                                </div>
+                                <button class="btn-primary change-password-btn">パスワードを変更</button>
+                            </div>
+
+                            <div class="security-section">
+                                <h3>二段階認証</h3>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>SMS認証</h4>
+                                        <p>ログイン時にSMSで認証コードを送信します</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>メール認証</h4>
+                                        <p>ログイン時にメールで認証コードを送信します</p>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="security-section">
+                                <h3>ログイン履歴</h3>
+                                <div class="login-history">
+                                    <div class="login-item current">
+                                        <div class="login-info">
+                                            <p class="login-time">2024年1月20日 14:30</p>
+                                            <p class="login-location">東京都, 日本</p>
+                                            <p class="login-device">Chrome on Windows</p>
+                                        </div>
+                                        <div class="login-status">
+                                            <span class="status-badge current">現在のセッション</span>
+                                        </div>
+                                    </div>
+                                    <div class="login-item">
+                                        <div class="login-info">
+                                            <p class="login-time">2024年1月19日 09:15</p>
+                                            <p class="login-location">東京都, 日本</p>
+                                            <p class="login-device">Chrome on Windows</p>
+                                        </div>
+                                    </div>
+                                    <div class="login-item">
+                                        <div class="login-info">
+                                            <p class="login-time">2024年1月18日 16:45</p>
+                                            <p class="login-location">東京都, 日本</p>
+                                            <p class="login-device">Safari on iPhone</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn-outline">すべてのセッションからログアウト</button>
+                            </div>
+
+                            <div class="security-section">
+                                <h3>アカウント削除</h3>
+                                <div class="danger-zone">
+                                    <p>アカウントを削除すると、すべてのデータが永久に失われます。この操作は取り消すことができません。</p>
+                                    <button class="btn-danger delete-account-btn">アカウントを削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>サービス</h3>
+                    <ul>
+                        <li><a href="#">商品カテゴリ</a></li>
+                        <li><a href="#">セール・特価</a></li>
+                        <li><a href="#">新商品情報</a></li>
+                        <li><a href="#">カタログ請求</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>サポート</h3>
+                    <ul>
+                        <li><a href="#">お問い合わせ</a></li>
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">配送について</a></li>
+                        <li><a href="#">返品・交換</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>会社情報</h3>
+                    <ul>
+                        <li><a href="#">会社概要</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">利用規約</a></li>
+                        <li><a href="#">採用情報</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>お問い合わせ</h3>
+                    <p><i class="fas fa-phone"></i> 0120-123-456</p>
+                    <p><i class="fas fa-envelope"></i> support@ecdesign.com</p>
+                    <p><i class="fas fa-clock"></i> 平日 9:00-18:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EC Design. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Address Modal -->
+    <div id="addressModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>配送先を編集</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form class="address-form">
+                <div class="form-group">
+                    <label>配送先名</label>
+                    <input type="text" class="form-input" placeholder="例: メインオフィス">
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>お名前</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>会社名</label>
+                        <input type="text" class="form-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>郵便番号</label>
+                    <input type="text" class="form-input" placeholder="123-4567">
+                </div>
+                <div class="form-group">
+                    <label>住所</label>
+                    <input type="text" class="form-input" placeholder="都道府県市区町村">
+                    <input type="text" class="form-input" placeholder="番地・建物名">
+                </div>
+                <div class="form-group">
+                    <label>電話番号</label>
+                    <input type="tel" class="form-input">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">保存</button>
+                    <button type="button" class="btn-outline cancel-btn">キャンセル</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>支払い方法を編集</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form class="payment-form">
+                <div class="form-group">
+                    <label>支払い方法</label>
+                    <select class="form-select payment-type-select">
+                        <option value="credit">クレジットカード</option>
+                        <option value="bank">銀行振込</option>
+                        <option value="cod">代金引換</option>
+                    </select>
+                </div>
+                
+                <div id="creditCardFields" class="payment-fields">
+                    <div class="form-group">
+                        <label>カード番号</label>
+                        <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>有効期限</label>
+                            <input type="text" class="form-input" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label>セキュリティコード</label>
+                            <input type="text" class="form-input" placeholder="123">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>カード名義</label>
+                        <input type="text" class="form-input" placeholder="TARO TANAKA">
+                    </div>
+                </div>
+
+                <div id="bankTransferFields" class="payment-fields" style="display: none;">
+                    <div class="form-group">
+                        <label>銀行名</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>支店名</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>口座種別</label>
+                            <select class="form-select">
+                                <option value="ordinary">普通</option>
+                                <option value="current">当座</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>口座番号</label>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>口座名義</label>
+                        <input type="text" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">保存</button>
+                    <button type="button" class="btn-outline cancel-btn">キャンセル</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/mypage.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>

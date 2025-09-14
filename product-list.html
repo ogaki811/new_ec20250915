@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文房具・オフィス用品 | ProOffice</title>
+    <meta name="description" content="プロ向け文房具・オフィス用品を最安値でお届け。ボールペン、ファイル、デスク用品など豊富な品揃え。">
+    <link rel="stylesheet" href="css/config.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/product-list.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="site-header">
+        <!-- デスクトップヘッダー -->
+        <div class="header-desktop">
+            <!-- トップヘッダー（アカウント情報など） -->
+            <div class="header-top-bar">
+                <div class="container">
+                    <div class="top-bar-content">
+                        <div class="top-bar-left">
+                            <span class="welcome-message">プロ向け事務用品通販サイト</span>
+                        </div>
+                        <div class="top-bar-right">
+                            <a href="login.html" class="top-link">ログイン</a>
+                            <a href="signup.html" class="top-link">新規登録</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- メインヘッダー -->
+            <div class="header-main">
+                <div class="container">
+                    <div class="header-content">
+                        <!-- ロゴエリア -->
+                        <div class="logo-area">
+                            <a href="index.html" class="logo-link">
+                                <img src="img/header_logo.png" alt="ECサイト" class="logo-img">
+                                <span class="company-name">ProOffice</span>
+                            </a>
+                        </div>
+                        
+                        <!-- 検索エリア -->
+                        <div class="search-area">
+                            <form class="search-form">
+                                <div class="search-input-wrapper">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="search-icon">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                    <input type="text" placeholder="商品名やメーカー、品番から探す" class="search-input" value="ファイルボックス">
+                                </div>
+                                <button type="submit" class="search-btn">
+                                    <span>検索</span>
+                                </button>
+                            </form>
+                            <div class="search-suggestions"></div>
+                        </div>
+                        
+                        <!-- 機能エリア -->
+                        <div class="header-functions">
+                            <a href="cart.html" class="function-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                <span class="function-text">カート</span>
+                                <span class="function-badge">2</span>
+                            </a>
+                            
+                            <a href="favorites.html" class="function-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span class="function-text">お気に入り</span>
+                                <span class="function-badge">5</span>
+                            </a>
+                            
+                            <a href="mypage.html#orders" class="function-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span class="function-text">注文履歴</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- グローバルナビゲーション -->
+            <nav class="global-nav">
+                <div class="container">
+                    <ul class="nav-menu">
+                        <li class="nav-item has-mega-menu active">
+                            <a href="#" class="nav-link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <rect x="7" y="7" width="10" height="10" rx="1" ry="1"></rect>
+                                </svg>
+                                文房具・オフィス用品
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                                    <circle cx="12" cy="12" r="2"></circle>
+                                    <path d="m6 16-2-2 2-2"></path>
+                                    <path d="m16 16 2-2-2-2"></path>
+                                </svg>
+                                OA・PC用品
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">家具・インテリア</a>
+                        </li>
+                        <li class="nav-item special-offer">
+                            <a href="#" class="nav-link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9"></polygon>
+                                </svg>
+                                特価・アウトレット
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- モバイルヘッダー（簡略） -->
+        <div class="header-mobile" style="display: none;"></div>
+    </header>
+    
+    <!-- メインコンテンツ -->
+    <main class="product-list-main">
+        <div class="container">
+            <!-- パンくずリスト -->
+            <nav class="breadcrumb">
+                <ol class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="index.html">ホーム</a></li>
+                    <li class="breadcrumb-item"><a href="#">文房具・オフィス用品</a></li>
+                    <li class="breadcrumb-item active">検索結果</li>
+                </ol>
+            </nav>
+
+            <!-- 検索結果ヘッダー -->
+            <section class="search-header">
+                <div class="search-info">
+                    <h1 class="search-title">「ファイルボックス」の検索結果</h1>
+                    <p class="search-count">127件の商品が見つかりました</p>
+                </div>
+                
+                <div class="search-tools">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="sort-options">
+                        <label for="sortSelect">並び替え:</label>
+                        <select id="sortSelect" class="sort-select">
+                            <option value="relevance">関連度順</option>
+                            <option value="price-low">価格の安い順</option>
+                            <option value="price-high">価格の高い順</option>
+                            <option value="name">商品名順</option>
+                            <option value="rating">評価順</option>
+                            <option value="newest">新着順</option>
+                        </select>
+                    </div>
+                    
+                    <div class="per-page-options">
+                        <label for="perPageSelect">表示件数:</label>
+                        <select id="perPageSelect" class="per-page-select">
+                            <option value="24">24件</option>
+                            <option value="48" selected>48件</option>
+                            <option value="96">96件</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- フィルター＆商品一覧 -->
+            <section class="main-content">
+                <div class="content-layout">
+                    <!-- サイドバーフィルター -->
+                    <aside class="filters-sidebar">
+                        <div class="filters-header">
+                            <h2>絞り込み</h2>
+                            <button class="filters-clear">クリア</button>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h3 class="filter-title">価格帯</h3>
+                            <div class="filter-content">
+                                <div class="price-range">
+                                    <input type="number" placeholder="最低価格" class="price-input" id="minPrice">
+                                    <span class="price-separator">〜</span>
+                                    <input type="number" placeholder="最高価格" class="price-input" id="maxPrice">
+                                    <button class="price-apply-btn">適用</button>
+                                </div>
+                                <div class="price-presets">
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="0-500">
+                                        <span class="checkmark"></span>
+                                        〜¥500
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="500-1000">
+                                        <span class="checkmark"></span>
+                                        ¥500〜¥1,000
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="1000-3000">
+                                        <span class="checkmark"></span>
+                                        ¥1,000〜¥3,000
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="3000+">
+                                        <span class="checkmark"></span>
+                                        ¥3,000以上
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h3 class="filter-title">ブランド</h3>
+                            <div class="filter-content">
+                                <div class="filter-search">
+                                    <input type="text" placeholder="ブランド名で検索" class="filter-search-input">
+                                </div>
+                                <div class="filter-options">
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="kokuyo">
+                                        <span class="checkmark"></span>
+                                        コクヨ (45)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="plus">
+                                        <span class="checkmark"></span>
+                                        プラス (32)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="king-jim">
+                                        <span class="checkmark"></span>
+                                        キングジム (28)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="lihit-lab">
+                                        <span class="checkmark"></span>
+                                        リヒトラブ (22)
+                                    </label>
+                                    <button class="show-more-brands">もっと見る</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h3 class="filter-title">カテゴリー</h3>
+                            <div class="filter-content">
+                                <div class="filter-options">
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="file-box">
+                                        <span class="checkmark"></span>
+                                        ファイルボックス (78)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="clear-file">
+                                        <span class="checkmark"></span>
+                                        クリアファイル (34)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="binder">
+                                        <span class="checkmark"></span>
+                                        バインダー (15)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h3 class="filter-title">サイズ</h3>
+                            <div class="filter-content">
+                                <div class="filter-options">
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="a4">
+                                        <span class="checkmark"></span>
+                                        A4 (89)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="b4">
+                                        <span class="checkmark"></span>
+                                        B4 (25)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="a3">
+                                        <span class="checkmark"></span>
+                                        A3 (13)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h3 class="filter-title">カラー</h3>
+                            <div class="filter-content">
+                                <div class="color-filters">
+                                    <label class="color-filter" title="ホワイト">
+                                        <input type="checkbox" value="white">
+                                        <span class="color-swatch" style="background-color: #ffffff; border: 1px solid #ddd;"></span>
+                                        ホワイト (42)
+                                    </label>
+                                    <label class="color-filter" title="グレー">
+                                        <input type="checkbox" value="gray">
+                                        <span class="color-swatch" style="background-color: #9e9e9e;"></span>
+                                        グレー (35)
+                                    </label>
+                                    <label class="color-filter" title="ブラック">
+                                        <input type="checkbox" value="black">
+                                        <span class="color-swatch" style="background-color: #333333;"></span>
+                                        ブラック (28)
+                                    </label>
+                                    <label class="color-filter" title="ブルー">
+                                        <input type="checkbox" value="blue">
+                                        <span class="color-swatch" style="background-color: #2196f3;"></span>
+                                        ブルー (22)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h3 class="filter-title">評価</h3>
+                            <div class="filter-content">
+                                <div class="rating-filters">
+                                    <label class="rating-filter">
+                                        <input type="checkbox" value="5">
+                                        <div class="rating-display">
+                                            <div class="stars">
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                            </div>
+                                            <span class="rating-text">5つ星 (12)</span>
+                                        </div>
+                                    </label>
+                                    <label class="rating-filter">
+                                        <input type="checkbox" value="4+">
+                                        <div class="rating-display">
+                                            <div class="stars">
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star">★</span>
+                                            </div>
+                                            <span class="rating-text">4つ星以上 (67)</span>
+                                        </div>
+                                    </label>
+                                    <label class="rating-filter">
+                                        <input type="checkbox" value="3+">
+                                        <div class="rating-display">
+                                            <div class="stars">
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star">★</span>
+                                                <span class="star">★</span>
+                                            </div>
+                                            <span class="rating-text">3つ星以上 (98)</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section">
+                            <h3 class="filter-title">その他</h3>
+                            <div class="filter-content">
+                                <div class="filter-options">
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="sale">
+                                        <span class="checkmark"></span>
+                                        セール商品 (18)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="new">
+                                        <span class="checkmark"></span>
+                                        新商品 (7)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="fast-shipping">
+                                        <span class="checkmark"></span>
+                                        翌日配送 (92)
+                                    </label>
+                                    <label class="checkbox-filter">
+                                        <input type="checkbox" value="eco">
+                                        <span class="checkmark"></span>
+                                        エコ商品 (41)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- 商品一覧 -->
+                    <div class="products-area">
+                        <!-- アクティブフィルター表示 -->
+                        <div class="active-filters" id="activeFilters" style="display: none;">
+                            <div class="active-filters-header">
+                                <span>適用中の絞り込み:</span>
+                                <button class="clear-all-filters">すべてクリア</button>
+                            </div>
+                            <div class="active-filters-list">
+                                <!-- Dynamic filter tags will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- 商品グリッド -->
+                        <div class="products-container" id="productsContainer">
+                            <div class="products-grid" id="productsGrid">
+                                <!-- 商品カード -->
+                                <div class="product-card" data-product-id="file001" data-price="342" data-brand="kokuyo" data-category="file-box" data-size="b4" data-color="gray" data-rating="4.2">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="img/product/8027341_l1.jpg" alt="コクヨ ファイルボックス-FS ピース B4 グレー">
+                                        </a>
+                                        <div class="product-badges">
+                                            <span class="badge badge-stock">在庫あり</span>
+                                            <span class="badge badge-sale">10%OFF</span>
+                                        </div>
+                                        <button class="favorite-btn">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-brand">コクヨ</div>
+                                        <h3 class="product-title">
+                                            <a href="product-detail.html">ファイルボックス-FS ピース B4 グレー フボ-FSB4M</a>
+                                        </h3>
+                                        <div class="product-rating">
+                                            <div class="stars">
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star">★</span>
+                                            </div>
+                                            <span class="rating-score">4.2</span>
+                                            <span class="review-count">(127)</span>
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="price-current">¥342</span>
+                                            <span class="price-original">¥380</span>
+                                        </div>
+                                        <div class="product-actions">
+                                            <button class="add-to-cart">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <circle cx="9" cy="21" r="1"></circle>
+                                                    <circle cx="20" cy="21" r="1"></circle>
+                                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                                </svg>
+                                                カートに追加
+                                            </button>
+                                            <button class="btn-favorite">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                            <button class="quick-view">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 追加の商品カード（同じ構造で複数） -->
+                                <div class="product-card" data-product-id="file002" data-price="298" data-brand="kokuyo" data-category="file-box" data-size="a4" data-color="white" data-rating="4.5">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="img/product/AH85168_l1.jpg" alt="コクヨ ファイルボックス A4 ホワイト">
+                                        </a>
+                                        <div class="product-badges">
+                                            <span class="badge badge-stock">在庫あり</span>
+                                        </div>
+                                        <button class="favorite-btn">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-brand">コクヨ</div>
+                                        <h3 class="product-title">
+                                            <a href="product-detail.html">ファイルボックス A4 ホワイト</a>
+                                        </h3>
+                                        <div class="product-rating">
+                                            <div class="stars">
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                            </div>
+                                            <span class="rating-score">4.5</span>
+                                            <span class="review-count">(89)</span>
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="price-current">¥298</span>
+                                        </div>
+                                        <div class="product-actions">
+                                            <button class="add-to-cart">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <circle cx="9" cy="21" r="1"></circle>
+                                                    <circle cx="20" cy="21" r="1"></circle>
+                                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                                </svg>
+                                                カートに追加
+                                            </button>
+                                            <button class="btn-favorite">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                            <button class="quick-view">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- さらに商品を追加（パターンを繰り返し） -->
+                                <div class="product-card" data-product-id="file003" data-price="420" data-brand="plus" data-category="clear-file" data-size="a4" data-color="blue" data-rating="4.0">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="img/product/AW74957_l1.jpg" alt="プラス クリアファイル A4 20ポケット">
+                                        </a>
+                                        <div class="product-badges">
+                                            <span class="badge badge-stock">在庫あり</span>
+                                            <span class="badge badge-new">NEW</span>
+                                        </div>
+                                        <button class="favorite-btn">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-brand">プラス</div>
+                                        <h3 class="product-title">
+                                            <a href="product-detail.html">クリアファイル A4 20ポケット ブルー</a>
+                                        </h3>
+                                        <div class="product-rating">
+                                            <div class="stars">
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star">★</span>
+                                            </div>
+                                            <span class="rating-score">4.0</span>
+                                            <span class="review-count">(56)</span>
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="price-current">¥420</span>
+                                        </div>
+                                        <div class="product-actions">
+                                            <button class="add-to-cart">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <circle cx="9" cy="21" r="1"></circle>
+                                                    <circle cx="20" cy="21" r="1"></circle>
+                                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                                </svg>
+                                                カートに追加
+                                            </button>
+                                            <button class="btn-favorite">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                            <button class="quick-view">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 続きの商品（12個程度まで） -->
+                                <div class="product-card" data-product-id="file004" data-price="1280" data-brand="king-jim" data-category="file-box" data-size="a4" data-color="black" data-rating="4.8">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="img/product/8146306_l1.jpg" alt="キングジム デスク用ファイルスタンド">
+                                        </a>
+                                        <div class="product-badges">
+                                            <span class="badge badge-stock">在庫あり</span>
+                                            <span class="badge badge-premium">Premium</span>
+                                        </div>
+                                        <button class="favorite-btn">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-brand">キングジム</div>
+                                        <h3 class="product-title">
+                                            <a href="product-detail.html">デスク用ファイルスタンド ブラック</a>
+                                        </h3>
+                                        <div class="product-rating">
+                                            <div class="stars">
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                            </div>
+                                            <span class="rating-score">4.8</span>
+                                            <span class="review-count">(124)</span>
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="price-current">¥1,280</span>
+                                        </div>
+                                        <div class="product-actions">
+                                            <button class="add-to-cart">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <circle cx="9" cy="21" r="1"></circle>
+                                                    <circle cx="20" cy="21" r="1"></circle>
+                                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                                </svg>
+                                                カートに追加
+                                            </button>
+                                            <button class="btn-favorite">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                            <button class="quick-view">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 残りの商品カード（同様のパターンで8個程度追加） -->
+                                <div class="product-card" data-product-id="file005" data-price="156" data-brand="lihit-lab" data-category="file-box" data-size="a4" data-color="white" data-rating="3.8">
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="img/product/AW75003_l1.jpg" alt="リヒトラブ インデックスラベル">
+                                        </a>
+                                        <div class="product-badges">
+                                            <span class="badge badge-stock">在庫あり</span>
+                                        </div>
+                                        <button class="favorite-btn">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-brand">リヒトラブ</div>
+                                        <h3 class="product-title">
+                                            <a href="product-detail.html">インデックスラベル 5色セット</a>
+                                        </h3>
+                                        <div class="product-rating">
+                                            <div class="stars">
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star filled">★</span>
+                                                <span class="star">★</span>
+                                            </div>
+                                            <span class="rating-score">3.8</span>
+                                            <span class="review-count">(43)</span>
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="price-current">¥156</span>
+                                        </div>
+                                        <div class="product-actions">
+                                            <button class="add-to-cart">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <circle cx="9" cy="21" r="1"></circle>
+                                                    <circle cx="20" cy="21" r="1"></circle>
+                                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                                </svg>
+                                                カートに追加
+                                            </button>
+                                            <button class="btn-favorite">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                            <button class="quick-view">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ページネーション -->
+                            <nav class="pagination" id="pagination">
+                                <button class="pagination-btn pagination-prev" disabled>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="m15 18-6-6 6-6"></path>
+                                    </svg>
+                                    前へ
+                                </button>
+                                
+                                <div class="pagination-pages">
+                                    <button class="pagination-page active">1</button>
+                                    <button class="pagination-page">2</button>
+                                    <button class="pagination-page">3</button>
+                                    <span class="pagination-ellipsis">...</span>
+                                    <button class="pagination-page">6</button>
+                                </div>
+                                
+                                <button class="pagination-btn pagination-next">
+                                    次へ
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="m9 18 6-6-6-6"></path>
+                                    </svg>
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- フッター -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <h3>会社情報</h3>
+                        <ul>
+                            <li><a href="#">会社概要</a></li>
+                            <li><a href="#">採用情報</a></li>
+                            <li><a href="#">IR情報</a></li>
+                            <li><a href="#">プレスリリース</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>カスタマーサポート</h3>
+                        <ul>
+                            <li><a href="#">お問い合わせ</a></li>
+                            <li><a href="#">よくある質問</a></li>
+                            <li><a href="#">返品・交換について</a></li>
+                            <li><a href="#">サイズガイド</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>サービス</h3>
+                        <ul>
+                            <li><a href="#">配送について</a></li>
+                            <li><a href="#">支払い方法</a></li>
+                            <li><a href="#">ポイントプログラム</a></li>
+                            <li><a href="#">ギフトカード</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>フォローする</h3>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 ProOffice. All rights reserved.</p>
+                    <ul class="footer-links">
+                        <li><a href="#">利用規約</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">特定商取引法に基づく表記</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+    <script src="js/product-list.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>

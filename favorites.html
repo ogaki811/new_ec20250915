@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お気に入り商品 - ASKUL風ECサイト</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/favorites.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <span>法人のお客様</span>
+                <span>個人のお客様</span>
+            </div>
+            <div class="top-bar-right">
+                <a href="#"><i class="fas fa-phone"></i>お問い合わせ</a>
+                <a href="#"><i class="fas fa-info-circle"></i>ヘルプ</a>
+                <a href="login.html"><i class="fas fa-sign-in-alt"></i>ログイン</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html">
+                        <h1>EC Design</h1>
+                    </a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" placeholder="商品名・型番・メーカー名などで検索" class="search-input">
+                        <button class="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="search-suggestions">
+                        <!-- 検索候補がここに表示される -->
+                    </div>
+                </div>
+
+                <!-- Right Functions -->
+                <div class="header-functions">
+                    <a href="favorites.html" class="function-item favorites active">
+                        <i class="fas fa-heart"></i>
+                        <span>お気に入り</span>
+                        <span class="count" id="favoritesCount">0</span>
+                    </a>
+                    <a href="cart.html" class="function-item cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>カート</span>
+                        <span class="count">0</span>
+                    </a>
+                    <a href="mypage.html#orders" class="function-item orders">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>注文履歴</span>
+                    </a>
+                    <a href="mypage.html" class="function-item account">
+                        <i class="fas fa-user"></i>
+                        <span>マイページ</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Global Navigation -->
+    <nav class="global-nav">
+        <div class="container">
+            <ul class="nav-categories">
+                <li><a href="product-list.html"><i class="fas fa-desktop"></i>オフィス用品</a></li>
+                <li><a href="product-list.html"><i class="fas fa-print"></i>文具・事務用品</a></li>
+                <li><a href="product-list.html"><i class="fas fa-tools"></i>工具・作業用品</a></li>
+                <li><a href="#"><i class="fas fa-medkit"></i>医療・介護用品</a></li>
+                <li><a href="#"><i class="fas fa-tshirt"></i>制服・作業服</a></li>
+                <li><a href="#"><i class="fas fa-coffee"></i>食品・飲料</a></li>
+                <li><a href="#"><i class="fas fa-spray-can"></i>清掃・衛生用品</a></li>
+                <li><a href="#"><i class="fas fa-tag"></i>セール商品</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="index.html">ホーム</a>
+                <span>お気に入り商品</span>
+            </nav>
+
+            <div class="favorites-page">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1><i class="fas fa-heart"></i> お気に入り商品</h1>
+                    <div class="favorites-summary">
+                        <span class="total-items">全 <span id="totalFavorites">0</span> 商品</span>
+                    </div>
+                </div>
+
+                <!-- Favorites Controls -->
+                <div class="favorites-controls">
+                    <div class="view-options">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                            グリッド表示
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                            リスト表示
+                        </button>
+                    </div>
+
+                    <div class="sort-controls">
+                        <label>並び替え:</label>
+                        <select class="sort-select" id="sortFavorites">
+                            <option value="date-desc">追加日の新しい順</option>
+                            <option value="date-asc">追加日の古い順</option>
+                            <option value="price-asc">価格の安い順</option>
+                            <option value="price-desc">価格の高い順</option>
+                            <option value="name-asc">商品名順</option>
+                        </select>
+                    </div>
+
+                    <div class="bulk-actions">
+                        <button class="btn-select-all" id="selectAllFavorites">
+                            <i class="fas fa-check-square"></i>
+                            すべて選択
+                        </button>
+                        <button class="btn-add-to-cart" id="addSelectedToCart" disabled>
+                            <i class="fas fa-shopping-cart"></i>
+                            選択商品をカートへ
+                        </button>
+                        <button class="btn-remove" id="removeSelectedFavorites" disabled>
+                            <i class="fas fa-trash"></i>
+                            選択商品を削除
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Favorites Categories -->
+                <div class="favorites-categories">
+                    <button class="category-tab active" data-category="all">
+                        すべて
+                        <span class="badge">0</span>
+                    </button>
+                    <button class="category-tab" data-category="office">
+                        オフィス用品
+                        <span class="badge">0</span>
+                    </button>
+                    <button class="category-tab" data-category="stationery">
+                        文具・事務用品
+                        <span class="badge">0</span>
+                    </button>
+                    <button class="category-tab" data-category="tools">
+                        工具・作業用品
+                        <span class="badge">0</span>
+                    </button>
+                    <button class="category-tab" data-category="other">
+                        その他
+                        <span class="badge">0</span>
+                    </button>
+                </div>
+
+                <!-- Favorites Grid -->
+                <div class="favorites-grid" id="favoritesGrid">
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        <h2>お気に入り商品がありません</h2>
+                        <p>気になる商品を見つけたら、ハートアイコンをクリックしてお気に入りに追加しましょう</p>
+                        <a href="product-list.html" class="btn-browse">
+                            <i class="fas fa-search"></i>
+                            商品を探す
+                        </a>
+                    </div>
+
+                    <!-- Favorite Items will be dynamically added here -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="favoritesPagination" style="display: none;">
+                    <button class="page-btn prev" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="page-numbers">
+                        <button class="page-number active">1</button>
+                    </div>
+                    <button class="page-btn next" disabled>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations-section">
+                    <h2>おすすめ商品</h2>
+                    <div class="recommendations-grid">
+                        <div class="recommendation-card">
+                            <div class="product-image">
+                                <img src="https://via.placeholder.com/200x200" alt="商品画像">
+                                <button class="quick-add-favorite">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-info">
+                                <h3>A4コピー用紙 500枚×5冊</h3>
+                                <p class="brand">コクヨ</p>
+                                <p class="price">¥2,480</p>
+                                <button class="btn-add-to-cart">
+                                    <i class="fas fa-cart-plus"></i>
+                                    カートに追加
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="recommendation-card">
+                            <div class="product-image">
+                                <img src="https://via.placeholder.com/200x200" alt="商品画像">
+                                <span class="sale-badge">セール</span>
+                                <button class="quick-add-favorite">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-info">
+                                <h3>ボールペン 黒 0.5mm 10本セット</h3>
+                                <p class="brand">三菱鉛筆</p>
+                                <p class="price">
+                                    <span class="original-price">¥1,200</span>
+                                    <span class="sale-price">¥980</span>
+                                </p>
+                                <button class="btn-add-to-cart">
+                                    <i class="fas fa-cart-plus"></i>
+                                    カートに追加
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="recommendation-card">
+                            <div class="product-image">
+                                <img src="https://via.placeholder.com/200x200" alt="商品画像">
+                                <button class="quick-add-favorite">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-info">
+                                <h3>クリアファイル A4 20枚入り</h3>
+                                <p class="brand">コクヨ</p>
+                                <p class="price">¥680</p>
+                                <button class="btn-add-to-cart">
+                                    <i class="fas fa-cart-plus"></i>
+                                    カートに追加
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="recommendation-card">
+                            <div class="product-image">
+                                <img src="https://via.placeholder.com/200x200" alt="商品画像">
+                                <span class="new-badge">新商品</span>
+                                <button class="quick-add-favorite">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-info">
+                                <h3>デスクマット 透明 600×450mm</h3>
+                                <p class="brand">プラス</p>
+                                <p class="price">¥3,280</p>
+                                <button class="btn-add-to-cart">
+                                    <i class="fas fa-cart-plus"></i>
+                                    カートに追加
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>サービス</h3>
+                    <ul>
+                        <li><a href="#">商品カテゴリ</a></li>
+                        <li><a href="#">セール・特価</a></li>
+                        <li><a href="#">新商品情報</a></li>
+                        <li><a href="#">カタログ請求</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>サポート</h3>
+                    <ul>
+                        <li><a href="#">お問い合わせ</a></li>
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">配送について</a></li>
+                        <li><a href="#">返品・交換</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>会社情報</h3>
+                    <ul>
+                        <li><a href="#">会社概要</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">利用規約</a></li>
+                        <li><a href="#">採用情報</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>お問い合わせ</h3>
+                    <p><i class="fas fa-phone"></i> 0120-123-456</p>
+                    <p><i class="fas fa-envelope"></i> support@ecdesign.com</p>
+                    <p><i class="fas fa-clock"></i> 平日 9:00-18:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EC Design. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Favorite Item Template -->
+    <template id="favoriteItemTemplate">
+        <div class="favorite-item" data-product-id="">
+            <div class="item-checkbox-wrapper">
+                <input type="checkbox" class="item-checkbox">
+            </div>
+            <div class="item-image">
+                <img src="" alt="">
+                <div class="item-badges"></div>
+            </div>
+            <div class="item-details">
+                <h3 class="item-name"></h3>
+                <p class="item-brand"></p>
+                <p class="item-model"></p>
+                <div class="item-price">
+                    <span class="price-current"></span>
+                </div>
+                <div class="item-stock"></div>
+                <p class="item-added-date">追加日: <span></span></p>
+            </div>
+            <div class="item-actions">
+                <button class="btn-move-to-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    カートへ移動
+                </button>
+                <button class="btn-quick-order">
+                    <i class="fas fa-bolt"></i>
+                    すぐ注文
+                </button>
+                <button class="btn-remove-favorite">
+                    <i class="fas fa-heart-broken"></i>
+                    削除
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script src="js/favorites.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ショッピングカート | ProOffice</title>
+    <meta name="description" content="ショッピングカート - プロ向け事務用品通販サイト ProOffice">
+    <link rel="stylesheet" href="css/config.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="site-header">
+        <!-- デスクトップヘッダー -->
+        <div class="header-desktop">
+            <!-- トップヘッダー（アカウント情報など） -->
+            <div class="header-top-bar">
+                <div class="container">
+                    <div class="top-bar-content">
+                        <div class="top-bar-left">
+                            <span class="welcome-message">プロ向け事務用品通販サイト</span>
+                        </div>
+                        <div class="top-bar-right">
+                            <a href="login.html" class="top-link">ログイン</a>
+                            <a href="signup.html" class="top-link">新規登録</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- メインヘッダー -->
+            <div class="header-main">
+                <div class="container">
+                    <div class="header-content">
+                        <!-- ロゴエリア -->
+                        <div class="logo-area">
+                            <a href="index.html" class="logo-link">
+                                <img src="img/header_logo.png" alt="ECサイト" class="logo-img">
+                                <span class="company-name">ProOffice</span>
+                            </a>
+                        </div>
+                        
+                        <!-- 検索エリア -->
+                        <div class="search-area">
+                            <form class="search-form">
+                                <div class="search-input-wrapper">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="search-icon">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                    <input type="text" placeholder="商品名やメーカー、品番から探す" class="search-input">
+                                </div>
+                                <button type="submit" class="search-btn">
+                                    <span>検索</span>
+                                </button>
+                            </form>
+                            <div class="search-suggestions"></div>
+                        </div>
+                        
+                        <!-- 機能エリア -->
+                        <div class="header-functions">
+                            <a href="cart.html" class="function-link active">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                <span class="function-text">カート</span>
+                                <span class="function-badge">3</span>
+                            </a>
+                            
+                            <a href="favorites.html" class="function-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span class="function-text">お気に入り</span>
+                                <span class="function-badge">5</span>
+                            </a>
+                            
+                            <a href="mypage.html#orders" class="function-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span class="function-text">注文履歴</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- グローバルナビゲーション -->
+            <nav class="global-nav">
+                <div class="container">
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="product-list.html" class="nav-link">文房具</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="product-list.html" class="nav-link">オフィス家具</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="product-list.html" class="nav-link">PC・IT機器</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="product-list.html" class="nav-link">清掃用品</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="product-list.html" class="nav-link">食料品・飲料</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- モバイルヘッダー -->
+        <div class="header-mobile">
+            <div class="mobile-top-bar">
+                <div class="mobile-top-content">
+                    <span class="mobile-welcome">プロ向け事務用品通販サイト</span>
+                    <a href="login.html" class="mobile-login">ログイン</a>
+                </div>
+            </div>
+            
+            <div class="mobile-header-content">
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <div class="mobile-logo">
+                    <a href="index.html" class="mobile-logo-link">
+                        <img src="img/header_logo.png" alt="ECサイト" class="mobile-logo-img">
+                        <span class="mobile-company-name">ProOffice</span>
+                    </a>
+                </div>
+                
+                <div class="mobile-actions">
+                    <button class="mobile-search-toggle" id="searchToggle">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    
+                    <a href="cart.html" class="mobile-function">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="mobile-badge">3</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- パンくずナビゲーション -->
+        <section class="breadcrumb-section">
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="index.html">ホーム</a>
+                    <span class="breadcrumb-separator">></span>
+                    <span class="breadcrumb-current">ショッピングカート</span>
+                </nav>
+            </div>
+        </section>
+
+        <!-- カートページヘッダー -->
+        <section class="cart-header">
+            <div class="container">
+                <h1 class="page-title">ショッピングカート</h1>
+                <div class="cart-progress">
+                    <div class="progress-step active">
+                        <div class="step-number">1</div>
+                        <div class="step-label">カート確認</div>
+                    </div>
+                    <div class="progress-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">2</div>
+                        <div class="step-label">お客様情報</div>
+                    </div>
+                    <div class="progress-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">3</div>
+                        <div class="step-label">決済・完了</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- カートコンテンツ -->
+        <section class="cart-content">
+            <div class="container">
+                <div class="cart-layout">
+                    <!-- カートアイテム一覧 -->
+                    <div class="cart-items-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                カート内商品 (<span class="item-count">3</span>点)
+                            </h2>
+                            <div class="bulk-actions">
+                                <label class="select-all">
+                                    <input type="checkbox" id="selectAll" checked>
+                                    <span>すべて選択</span>
+                                </label>
+                                <button class="btn-remove-selected" id="removeSelected">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <polyline points="3,6 5,6 21,6"></polyline>
+                                        <path d="m19,6 v14c0,1 -1,2 -2,2H7c-1,0 -2,-1 -2,-2V6m3,0V4c0,-1 1,-2 2,-2h4c1,0 2,1 2,2v2"></path>
+                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                    </svg>
+                                    選択商品を削除
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="cart-items" id="cartItems">
+                            <!-- カートアイテム1 -->
+                            <div class="cart-item" data-item-id="item001">
+                                <div class="item-select">
+                                    <input type="checkbox" class="item-checkbox" checked>
+                                </div>
+                                <div class="item-image">
+                                    <img src="img/product/A-74769_l1.jpg" alt="コクヨ ファイルボックス-FS ピース B4 グレー" loading="lazy">
+                                </div>
+                                <div class="item-details">
+                                    <h3 class="item-name">
+                                        <a href="product-detail.html">コクヨ ファイルボックス-FS ピース B4 グレー</a>
+                                    </h3>
+                                    <div class="item-meta">
+                                        <div class="item-code">品番: フボ-FSB4M</div>
+                                        <div class="item-brand">ブランド: コクヨ</div>
+                                    </div>
+                                    <div class="item-features">
+                                        <span class="feature-tag">翌日配送</span>
+                                        <span class="feature-tag">送料無料対象</span>
+                                    </div>
+                                    <div class="item-stock">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M20 6L9 17l-5-5"></path>
+                                        </svg>
+                                        在庫あり (98個)
+                                    </div>
+                                </div>
+                                <div class="item-price-info">
+                                    <div class="unit-price">
+                                        <span class="price-label">単価:</span>
+                                        <span class="current-price">¥342</span>
+                                        <span class="original-price">¥380</span>
+                                        <span class="discount-badge">10%OFF</span>
+                                    </div>
+                                    <div class="bulk-price-info">
+                                        <div class="bulk-discount">10個以上で ¥308</div>
+                                    </div>
+                                </div>
+                                <div class="item-quantity">
+                                    <label class="quantity-label">数量:</label>
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn decrease" data-action="decrease">-</button>
+                                        <input type="number" class="quantity-input" value="2" min="1" max="999">
+                                        <button class="quantity-btn increase" data-action="increase">+</button>
+                                    </div>
+                                </div>
+                                <div class="item-total">
+                                    <div class="total-price">¥684</div>
+                                    <div class="tax-info">(税込)</div>
+                                </div>
+                                <div class="item-actions">
+                                    <button class="btn-favorite" title="お気に入りに追加">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="btn-remove" title="カートから削除">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <polyline points="3,6 5,6 21,6"></polyline>
+                                            <path d="m19,6 v14c0,1 -1,2 -2,2H7c-1,0 -2,-1 -2,-2V6m3,0V4c0,-1 1,-2 2,-2h4c1,0 2,1 2,2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- カートアイテム2 -->
+                            <div class="cart-item" data-item-id="item002">
+                                <div class="item-select">
+                                    <input type="checkbox" class="item-checkbox" checked>
+                                </div>
+                                <div class="item-image">
+                                    <img src="img/product/AW75003_l1.jpg" alt="リヒトラブ インデックスラベル 5色セット" loading="lazy">
+                                </div>
+                                <div class="item-details">
+                                    <h3 class="item-name">
+                                        <a href="product-detail.html">リヒトラブ インデックスラベル 5色セット</a>
+                                    </h3>
+                                    <div class="item-meta">
+                                        <div class="item-code">品番: HK753</div>
+                                        <div class="item-brand">ブランド: リヒトラブ</div>
+                                    </div>
+                                    <div class="item-features">
+                                        <span class="feature-tag">翌日配送</span>
+                                    </div>
+                                    <div class="item-stock">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M20 6L9 17l-5-5"></path>
+                                        </svg>
+                                        在庫あり (156個)
+                                    </div>
+                                </div>
+                                <div class="item-price-info">
+                                    <div class="unit-price">
+                                        <span class="price-label">単価:</span>
+                                        <span class="current-price">¥156</span>
+                                    </div>
+                                </div>
+                                <div class="item-quantity">
+                                    <label class="quantity-label">数量:</label>
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn decrease" data-action="decrease">-</button>
+                                        <input type="number" class="quantity-input" value="5" min="1" max="999">
+                                        <button class="quantity-btn increase" data-action="increase">+</button>
+                                    </div>
+                                </div>
+                                <div class="item-total">
+                                    <div class="total-price">¥780</div>
+                                    <div class="tax-info">(税込)</div>
+                                </div>
+                                <div class="item-actions">
+                                    <button class="btn-favorite" title="お気に入りに追加">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="btn-remove" title="カートから削除">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <polyline points="3,6 5,6 21,6"></polyline>
+                                            <path d="m19,6 v14c0,1 -1,2 -2,2H7c-1,0 -2,-1 -2,-2V6m3,0V4c0,-1 1,-2 2,-2h4c1,0 2,1 2,2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- カートアイテム3 -->
+                            <div class="cart-item" data-item-id="item003">
+                                <div class="item-select">
+                                    <input type="checkbox" class="item-checkbox" checked>
+                                </div>
+                                <div class="item-image">
+                                    <img src="img/product/XU14820_l1.jpg" alt="プラス クリアファイル A4 20ポケット ブルー" loading="lazy">
+                                </div>
+                                <div class="item-details">
+                                    <h3 class="item-name">
+                                        <a href="product-detail.html">プラス クリアファイル A4 20ポケット ブルー</a>
+                                    </h3>
+                                    <div class="item-meta">
+                                        <div class="item-code">品番: FC-122EL</div>
+                                        <div class="item-brand">ブランド: プラス</div>
+                                    </div>
+                                    <div class="item-features">
+                                        <span class="feature-tag">翌日配送</span>
+                                        <span class="feature-tag">送料無料対象</span>
+                                    </div>
+                                    <div class="item-stock">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"></path>
+                                        </svg>
+                                        残りわずか (3個)
+                                    </div>
+                                </div>
+                                <div class="item-price-info">
+                                    <div class="unit-price">
+                                        <span class="price-label">単価:</span>
+                                        <span class="current-price">¥420</span>
+                                    </div>
+                                </div>
+                                <div class="item-quantity">
+                                    <label class="quantity-label">数量:</label>
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn decrease" data-action="decrease">-</button>
+                                        <input type="number" class="quantity-input" value="1" min="1" max="3">
+                                        <button class="quantity-btn increase" data-action="increase">+</button>
+                                    </div>
+                                </div>
+                                <div class="item-total">
+                                    <div class="total-price">¥420</div>
+                                    <div class="tax-info">(税込)</div>
+                                </div>
+                                <div class="item-actions">
+                                    <button class="btn-favorite" title="お気に入りに追加">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="btn-remove" title="カートから削除">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <polyline points="3,6 5,6 21,6"></polyline>
+                                            <path d="m19,6 v14c0,1 -1,2 -2,2H7c-1,0 -2,-1 -2,-2V6m3,0V4c0,-1 1,-2 2,-2h4c1,0 2,1 2,2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- おすすめ商品 -->
+                        <div class="recommendations">
+                            <h3 class="recommendations-title">この商品と一緒によく購入されている商品</h3>
+                            <div class="recommended-items">
+                                <div class="recommended-item">
+                                    <div class="item-image">
+                                        <img src="img/product/AWA4132_l1.jpg" alt="デスクトレー A4 クリア" loading="lazy">
+                                    </div>
+                                    <div class="item-info">
+                                        <h4 class="item-name">デスクトレー A4 クリア</h4>
+                                        <div class="item-price">¥280</div>
+                                    </div>
+                                    <button class="btn-add-to-cart">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="9" cy="21" r="1"></circle>
+                                            <circle cx="20" cy="21" r="1"></circle>
+                                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="recommended-item">
+                                    <div class="item-image">
+                                        <img src="img/product/cathead-0604005.jpg" alt="スティックのり" loading="lazy">
+                                    </div>
+                                    <div class="item-info">
+                                        <h4 class="item-name">スティックのり 40g</h4>
+                                        <div class="item-price">¥120</div>
+                                    </div>
+                                    <button class="btn-add-to-cart">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="9" cy="21" r="1"></circle>
+                                            <circle cx="20" cy="21" r="1"></circle>
+                                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 注文サマリー -->
+                    <div class="order-summary">
+                        <div class="summary-header">
+                            <h2 class="summary-title">注文サマリー</h2>
+                        </div>
+
+                        <div class="summary-content">
+                            <div class="summary-row">
+                                <span class="label">小計 (8点)</span>
+                                <span class="value">¥1,884</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="label">配送料</span>
+                                <span class="value free">無料</span>
+                            </div>
+                            <div class="summary-divider"></div>
+                            <div class="summary-row total">
+                                <span class="label">合計 (税込)</span>
+                                <span class="value">¥1,884</span>
+                            </div>
+
+                            <div class="delivery-info">
+                                <div class="delivery-date">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <rect x="1" y="3" width="15" height="13"></rect>
+                                        <polygon points="16,8 20,8 23,11 23,16 16,16 16,8"></polygon>
+                                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                    </svg>
+                                    <div>
+                                        <div class="delivery-label">お届け予定</div>
+                                        <div class="delivery-date-text">明日 12月16日(月)</div>
+                                    </div>
+                                </div>
+                                <div class="delivery-note">
+                                    午後2時までのご注文で翌日お届け
+                                </div>
+                            </div>
+
+                            <div class="promo-section">
+                                <div class="promo-input">
+                                    <input type="text" placeholder="クーポンコードまたはギフトカード" class="promo-code">
+                                    <button class="btn-apply-promo">適用</button>
+                                </div>
+                                <div class="available-promos">
+                                    <div class="promo-item">
+                                        <input type="checkbox" id="promo1">
+                                        <label for="promo1">
+                                            <span class="promo-name">初回購入10%OFF</span>
+                                            <span class="promo-discount">-¥188</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="checkout-actions">
+                                <button class="btn-checkout primary" id="checkoutBtn">
+                                    <span>レジに進む</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="m9 18 6-6-6-6"></path>
+                                    </svg>
+                                </button>
+                                <button class="btn-continue-shopping" id="continueShoppingBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="m15 18-6-6 6-6"></path>
+                                    </svg>
+                                    買い物を続ける
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- セキュリティ・保証情報 -->
+        <section class="security-info">
+            <div class="container">
+                <div class="security-features">
+                    <div class="security-item">
+                        <div class="security-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <path d="m9 12 2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="security-content">
+                            <div class="security-title">SSL暗号化通信</div>
+                            <div class="security-desc">お客様の個人情報を安全に保護</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 12l2 2 4-4"></path>
+                                <path d="M21 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"></path>
+                                <path d="M3 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"></path>
+                                <path d="M12 21c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"></path>
+                                <path d="M12 3c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"></path>
+                            </svg>
+                        </div>
+                        <div class="security-content">
+                            <div class="security-title">100%返金保証</div>
+                            <div class="security-desc">商品に満足いただけない場合は返金</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="m22 21-3-3m1-4a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"></path>
+                            </svg>
+                        </div>
+                        <div class="security-content">
+                            <div class="security-title">24時間サポート</div>
+                            <div class="security-desc">お困りの際はいつでもサポート</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <h3>会社情報</h3>
+                        <ul>
+                            <li><a href="#">会社概要</a></li>
+                            <li><a href="#">採用情報</a></li>
+                            <li><a href="#">IR情報</a></li>
+                            <li><a href="#">プレスリリース</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>カスタマーサポート</h3>
+                        <ul>
+                            <li><a href="#">お問い合わせ</a></li>
+                            <li><a href="#">よくある質問</a></li>
+                            <li><a href="#">返品・交換について</a></li>
+                            <li><a href="#">サイズガイド</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>サービス</h3>
+                        <ul>
+                            <li><a href="#">配送について</a></li>
+                            <li><a href="#">支払い方法</a></li>
+                            <li><a href="#">ポイントプログラム</a></li>
+                            <li><a href="#">ギフトカード</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>フォローする</h3>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 ProOffice. All rights reserved.</p>
+                    <ul class="footer-links">
+                        <li><a href="#">利用規約</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">特定商取引法に基づく表記</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>

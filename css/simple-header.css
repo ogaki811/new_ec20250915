@@ -1,0 +1,59 @@
+/* Simple Header for Authentication Pages */
+
+.simple-header {
+    background-color: var(--color-bg-white);
+    box-shadow: 0 2px 4px var(--shadow-light);
+    padding: var(--spacing-md) 0;
+}
+
+.simple-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.simple-header .logo img {
+    height: 40px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
+}
+
+.simple-header .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.simple-header .nav-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    transition: var(--transition-color);
+}
+
+.simple-header .nav-link:hover {
+    color: var(--color-primary);
+}
+
+.simple-header .nav-link.active {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Mobile Simple Header */
+@media screen and (max-width: 768px) {
+    .simple-header .header-nav {
+        gap: var(--spacing-md);
+    }
+    
+    .simple-header .nav-link {
+        font-size: var(--font-size-xs);
+    }
+    
+    .simple-header .logo img {
+        height: 32px;
+        max-width: 140px;
+    }
+}
