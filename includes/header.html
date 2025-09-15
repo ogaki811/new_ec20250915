@@ -1,62 +1,81 @@
 <!-- Top Bar -->
-<div class="top-bar">
-    <div class="container">
-        <div class="top-bar-left">
-            <span>プロ向け事務用品通販サイト</span>
-        </div>
-        <div class="top-bar-right">
-            <a href="#"><i class="fas fa-phone"></i>お問い合わせ</a>
-            <a href="#"><i class="fas fa-info-circle"></i>ヘルプ</a>
-            <a href="login.html"><i class="fas fa-sign-in-alt"></i>ログイン</a>
-            <a href="signup.html" class="signup-link">新規登録</a>
+<div class="bg-gray-100 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-2 text-sm">
+            <div class="text-gray-600">
+                <span>プロ向け事務用品通販サイト</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-blue-600 flex items-center space-x-1">
+                    <i class="fas fa-phone"></i>
+                    <span>お問い合わせ</span>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-blue-600 flex items-center space-x-1">
+                    <i class="fas fa-info-circle"></i>
+                    <span>ヘルプ</span>
+                </a>
+                <a href="login.html" class="text-gray-600 hover:text-blue-600 flex items-center space-x-1">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>ログイン</span>
+                </a>
+                <a href="signup.html" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                    新規登録
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Main Header -->
-<header class="main-header">
-    <div class="container">
-        <div class="header-content">
+<header class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between py-4">
             <!-- Logo -->
-            <div class="logo">
-                <a href="index.html">
-                    <img src="img/header_logo.png" alt="ECサイト" class="logo-img" style="display: none;">
-                    <h1>EC Design</h1>
+            <div class="flex-shrink-0">
+                <a href="index.html" class="flex items-center">
+                    <img src="img/header_logo.png" alt="ECサイト" class="h-8 w-auto hidden">
+                    <h1 class="text-2xl font-bold text-blue-600">EC Design</h1>
                 </a>
             </div>
 
             <!-- Search Bar -->
-            <div class="search-container">
-                <div class="search-wrapper">
-                    <input type="text" placeholder="商品名・型番・メーカー名などで検索" class="search-input">
-                    <button class="search-button">
+            <div class="flex-1 max-w-2xl mx-8 relative">
+                <div class="relative">
+                    <input type="text" 
+                           placeholder="商品名・型番・メーカー名などで検索" 
+                           class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent search-input">
+                    <button class="absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors search-button">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
-                <div class="search-suggestions">
+                <div class="search-suggestions absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-b-lg shadow-lg hidden z-50">
                     <!-- 検索候補がここに表示される -->
                 </div>
             </div>
 
             <!-- Right Functions -->
-            <div class="header-functions">
-                <a href="favorites.html" class="function-item favorites">
-                    <i class="fas fa-heart"></i>
-                    <span>お気に入り</span>
-                    <span class="count" id="favoritesCount">0</span>
+            <div class="flex items-center space-x-4">
+                <a href="favorites.html" class="function-item favorites flex flex-col items-center p-2 text-gray-600 hover:text-red-500 transition-colors">
+                    <div class="relative">
+                        <i class="fas fa-heart text-xl"></i>
+                        <span class="count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" id="favoritesCount">0</span>
+                    </div>
+                    <span class="text-xs mt-1">お気に入り</span>
                 </a>
-                <a href="cart.html" class="function-item cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>カート</span>
-                    <span class="count" id="cartCount">0</span>
+                <a href="cart.html" class="function-item cart flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
+                    <div class="relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span class="count absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" id="cartCount">0</span>
+                    </div>
+                    <span class="text-xs mt-1">カート</span>
                 </a>
-                <a href="mypage.html#orders" class="function-item orders">
-                    <i class="fas fa-clipboard-list"></i>
-                    <span>注文履歴</span>
+                <a href="mypage.html#orders" class="function-item orders flex flex-col items-center p-2 text-gray-600 hover:text-green-500 transition-colors">
+                    <i class="fas fa-clipboard-list text-xl"></i>
+                    <span class="text-xs mt-1">注文履歴</span>
                 </a>
-                <a href="mypage.html" class="function-item account">
-                    <i class="fas fa-user"></i>
-                    <span>マイページ</span>
+                <a href="mypage.html" class="function-item account flex flex-col items-center p-2 text-gray-600 hover:text-purple-500 transition-colors">
+                    <i class="fas fa-user text-xl"></i>
+                    <span class="text-xs mt-1">マイページ</span>
                 </a>
             </div>
         </div>
@@ -64,17 +83,57 @@
 </header>
 
 <!-- Global Navigation -->
-<nav class="global-nav">
-    <div class="container">
-        <ul class="nav-categories">
-            <li><a href="product-list.html"><i class="fas fa-desktop"></i>オフィス用品</a></li>
-            <li><a href="product-list.html"><i class="fas fa-print"></i>文具・事務用品</a></li>
-            <li><a href="product-list.html"><i class="fas fa-tools"></i>工具・作業用品</a></li>
-            <li><a href="#"><i class="fas fa-medkit"></i>医療・介護用品</a></li>
-            <li><a href="#"><i class="fas fa-tshirt"></i>制服・作業服</a></li>
-            <li><a href="#"><i class="fas fa-coffee"></i>食品・飲料</a></li>
-            <li><a href="#"><i class="fas fa-spray-can"></i>清掃・衛生用品</a></li>
-            <li><a href="#"><i class="fas fa-tag"></i>セール商品</a></li>
+<nav class="bg-gray-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ul class="flex flex-wrap items-center justify-center lg:justify-start space-x-8 py-3">
+            <li>
+                <a href="product-list.html" class="flex items-center space-x-2 hover:text-blue-300 transition-colors py-2">
+                    <i class="fas fa-desktop"></i>
+                    <span>オフィス用品</span>
+                </a>
+            </li>
+            <li>
+                <a href="product-list.html" class="flex items-center space-x-2 hover:text-blue-300 transition-colors py-2">
+                    <i class="fas fa-print"></i>
+                    <span>文具・事務用品</span>
+                </a>
+            </li>
+            <li>
+                <a href="product-list.html" class="flex items-center space-x-2 hover:text-blue-300 transition-colors py-2">
+                    <i class="fas fa-tools"></i>
+                    <span>工具・作業用品</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 hover:text-blue-300 transition-colors py-2">
+                    <i class="fas fa-medkit"></i>
+                    <span>医療・介護用品</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 hover:text-blue-300 transition-colors py-2">
+                    <i class="fas fa-tshirt"></i>
+                    <span>制服・作業服</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 hover:text-blue-300 transition-colors py-2">
+                    <i class="fas fa-coffee"></i>
+                    <span>食品・飲料</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 hover:text-blue-300 transition-colors py-2">
+                    <i class="fas fa-spray-can"></i>
+                    <span>清掃・衛生用品</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 hover:text-yellow-300 transition-colors py-2">
+                    <i class="fas fa-tag"></i>
+                    <span class="font-semibold">セール商品</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

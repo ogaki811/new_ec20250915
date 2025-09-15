@@ -4,16 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ご注文手続き | ProOffice</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <meta name="description" content="ご注文手続き - プロ向け事務用品通販サイト ProOffice">
     <link rel="stylesheet" href="css/config.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/checkout.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <!-- ヘッダー -->
+    <header class="site-header">
+        <!-- デスクトップヘッダー -->
+        <div class="header-desktop">
+            <!-- トップヘッダー（アカウント情報など） -->
+            <div class="header-top-bar">
+                <div class="container">
+                    <div class="top-bar-content">
+                        <div class="top-bar-left">
+                            <span class="welcome-message">プロ向け事務用品通販サイト</span>
+                        </div>
+                        <div class="top-bar-right">
+                            <div class="user-menu">
+                                <span class="user-name">田中様</span>
+                                <div class="user-dropdown">
+                                    <a href="mypage.html">マイページ</a>
+                                    <a href="#">アカウント設定</a>
+                                    <a href="#">ログアウト</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- メインヘッダー -->
+            <div class="header-main">
+                <div class="container">
+                    <div class="header-content">
+                        <!-- ロゴエリア -->
+                        <div class="logo-area">
+                            <a href="index.html" class="logo-link">
+                                <img src="img/header_logo.png" alt="ECサイト" class="logo-img">
+                                <span class="company-name">ProOffice</span>
+                            </a>
+                        </div>
+                        
+                        <!-- セキュアチェックアウト表示 -->
+                        <div class="secure-checkout">
+                            <div class="secure-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <path d="m9 12 2 2 4-4"></path>
+                                </svg>
+                            </div>
+                            <div class="secure-text">
+                                <div class="secure-title">セキュア決済</div>
+                                <div class="secure-subtitle">SSL暗号化通信</div>
+                            </div>
+                        </div>
+                        
+                        <!-- サポート情報 -->
+                        <div class="checkout-support">
+                            <div class="support-info">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                <span>サポート: 0120-123-456</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- モバイルヘッダー -->
+        <div class="header-mobile">
+            <div class="mobile-top-bar">
+                <div class="mobile-top-content">
+                    <span class="mobile-welcome">セキュア決済</span>
+                    <span class="mobile-support">サポート: 0120-123-456</span>
+                </div>
+            </div>
+            
+            <div class="mobile-header-content">
+                <div class="mobile-logo">
+                    <a href="index.html" class="mobile-logo-link">
+                        <img src="img/header_logo.png" alt="ECサイト" class="mobile-logo-img">
+                        <span class="mobile-company-name">ProOffice</span>
+                    </a>
+                </div>
+                
+                <div class="mobile-secure">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <main class="main-content">
         <!-- パンくずナビゲーション -->
         <section class="breadcrumb-section">
@@ -598,8 +687,20 @@
         </section>
     </main>
 
-    <div id="footer-placeholder"></div>
-    <script src="js/components.js"></script>
+    <!-- フッター -->
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 ProOffice. All rights reserved.</p>
+                    <div class="footer-security">
+                        <span>SSL暗号化通信により安全に保護されています</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="js/main.js"></script>
     <script src="js/checkout.js"></script>
     <script src="js/common.js"></script>
