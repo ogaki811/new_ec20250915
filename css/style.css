@@ -391,10 +391,7 @@ body {
     background: linear-gradient(135deg, #ff5252, #ff7979);
 }
 
-/* Add body padding to compensate for fixed header */
-body {
-    padding-top: 160px; /* Adjust based on header height */
-}
+/* Header is no longer fixed, so no body padding needed */
 
 /* Mega Menu */
 .mega-menu {

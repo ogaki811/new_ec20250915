@@ -44,10 +44,7 @@
         display: block;
     }
     
-    /* Adjust body padding for mobile header */
-    body {
-        padding-top: 100px !important;
-    }
+    /* Mobile header is no longer fixed, so no body padding needed */
     
     /* Mobile Top Bar */
     .mobile-top-bar {

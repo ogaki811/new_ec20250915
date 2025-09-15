@@ -5,88 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文房具・オフィス用品 | ProOffice</title>
     <meta name="description" content="プロ向け文房具・オフィス用品を最安値でお届け。ボールペン、ファイル、デスク用品など豊富な品揃え。">
+    <link rel="stylesheet" href="css/reset.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            important: true,
+            corePlugins: {
+                preflight: true,
+            },
+            theme: {
+                extend: {
+                    colors: {
+                        'blue-600': '#007bff',
+                        'blue-700': '#0056b3',
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="css/config.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/product-list.css">
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
     <!-- ヘッダー -->
-    <header class="site-header">
+    <header class="w-full">
         <!-- デスクトップヘッダー -->
-        <div class="header-desktop">
+        <div class="hidden lg:block">
             <!-- トップヘッダー（アカウント情報など） -->
-            <div class="header-top-bar">
-                <div class="container">
-                    <div class="top-bar-content">
-                        <div class="top-bar-left">
-                            <span class="welcome-message">プロ向け事務用品通販サイト</span>
+            <div class="bg-gray-100 border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center py-2 text-sm">
+                        <div class="text-gray-600">
+                            <span>プロ向け事務用品通販サイト</span>
                         </div>
-                        <div class="top-bar-right">
-                            <a href="login.html" class="top-link">ログイン</a>
-                            <a href="signup.html" class="top-link">新規登録</a>
+                        <div class="flex items-center space-x-6">
+                            <a href="login.html" class="text-gray-600 hover:text-blue-600 transition-colors">ログイン</a>
+                            <a href="signup.html" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">新規登録</a>
+                            <div class="user-menu hidden">
+                                <span class="text-gray-800 font-medium">田中様</span>
+                                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                                    <a href="mypage.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">マイページ</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">アカウント設定</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">ログアウト</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- メインヘッダー -->
-            <div class="header-main">
-                <div class="container">
-                    <div class="header-content">
+            <div class="bg-white shadow-md">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between py-4">
                         <!-- ロゴエリア -->
-                        <div class="logo-area">
-                            <a href="index.html" class="logo-link">
-                                <img src="img/header_logo.png" alt="ECサイト" class="logo-img">
-                                <span class="company-name">ProOffice</span>
+                        <div class="flex-shrink-0">
+                            <a href="index.html" class="flex items-center space-x-3">
+                                <img src="img/header_logo.png" alt="ECサイト" class="h-8 w-auto hidden">
+                                <span class="text-2xl font-bold text-blue-600">ProOffice</span>
                             </a>
                         </div>
                         
                         <!-- 検索エリア -->
-                        <div class="search-area">
-                            <form class="search-form">
-                                <div class="search-input-wrapper">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="search-icon">
+                        <div class="flex-1 max-w-2xl mx-8 relative">
+                            <form class="relative">
+                                <div class="relative">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <path d="m21 21-4.35-4.35"></path>
                                     </svg>
-                                    <input type="text" placeholder="商品名やメーカー、品番から探す" class="search-input" value="ファイルボックス">
+                                    <input type="text" placeholder="商品名やメーカー、品番から探す" class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" value="ファイルボックス">
                                 </div>
-                                <button type="submit" class="search-btn">
+                                <button type="submit" class="absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors">
                                     <span>検索</span>
                                 </button>
                             </form>
-                            <div class="search-suggestions"></div>
+                            <div class="search-suggestions absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-b-lg shadow-lg hidden z-50"></div>
                         </div>
                         
                         <!-- 機能エリア -->
-                        <div class="header-functions">
-                            <a href="cart.html" class="function-link">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <circle cx="9" cy="21" r="1"></circle>
-                                    <circle cx="20" cy="21" r="1"></circle>
-                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                                </svg>
-                                <span class="function-text">カート</span>
-                                <span class="function-badge">2</span>
+                        <div class="flex items-center space-x-4">
+                            <a href="cart.html" class="flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
+                                <div class="relative">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <circle cx="9" cy="21" r="1"></circle>
+                                        <circle cx="20" cy="21" r="1"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                    </svg>
+                                    <span class="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                                </div>
+                                <span class="text-xs mt-1">カート</span>
                             </a>
                             
-                            <a href="favorites.html" class="function-link">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                </svg>
-                                <span class="function-text">お気に入り</span>
-                                <span class="function-badge">5</span>
+                            <a href="favorites.html" class="flex flex-col items-center p-2 text-gray-600 hover:text-red-500 transition-colors">
+                                <div class="relative">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+                                </div>
+                                <span class="text-xs mt-1">お気に入り</span>
                             </a>
                             
-                            <a href="mypage.html#orders" class="function-link">
+                            <a href="mypage.html#orders" class="flex flex-col items-center p-2 text-gray-600 hover:text-green-500 transition-colors">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="16" y1="2" x2="16" y2="6"></line>
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
                                     <line x1="3" y1="10" x2="21" y2="10"></line>
                                 </svg>
-                                <span class="function-text">注文履歴</span>
+                                <span class="text-xs mt-1">注文履歴</span>
                             </a>
                         </div>
                     </div>
@@ -94,393 +131,672 @@
             </div>
             
             <!-- グローバルナビゲーション -->
-            <nav class="global-nav">
-                <div class="container">
-                    <ul class="nav-menu">
-                        <li class="nav-item has-mega-menu active">
-                            <a href="#" class="nav-link">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <nav class="bg-blue-600 border-b border-blue-700">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <ul class="flex flex-wrap items-center justify-center lg:justify-start space-x-2 lg:space-x-6 py-3">
+                        <li class="relative group">
+                            <a href="#" class="flex items-center space-x-2 px-3 py-2 text-white hover:bg-blue-500 rounded-md transition-colors duration-200">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="flex-shrink-0">
                                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     <rect x="7" y="7" width="10" height="10" rx="1" ry="1"></rect>
                                 </svg>
-                                文房具・オフィス用品
+                                <span class="whitespace-nowrap">文房具・オフィス用品</span>
                             </a>
+                            <div class="absolute top-full left-0 w-96 bg-white shadow-xl border border-gray-200 rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="p-6">
+                                    <div class="grid grid-cols-3 gap-6">
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 mb-3">筆記用具</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">ボールペン</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">シャープペン</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">マーカー</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">蛍光ペン</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 mb-3">ファイリング用品</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">クリアファイル</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">バインダー</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">ファイルボックス</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">インデックス</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 mb-3">デスク用品</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">デスクマット</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">ペン立て</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">電卓</a></li>
+                                                <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">はさみ・カッター</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <li>
+                            <a href="#" class="flex items-center space-x-2 px-3 py-2 text-white hover:bg-blue-500 rounded-md transition-colors duration-200">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="flex-shrink-0">
                                     <rect x="2" y="6" width="20" height="12" rx="2"></rect>
                                     <circle cx="12" cy="12" r="2"></circle>
                                     <path d="m6 16-2-2 2-2"></path>
                                     <path d="m16 16 2-2-2-2"></path>
                                 </svg>
-                                OA・PC用品
+                                <span class="whitespace-nowrap">OA・PC用品</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">家具・インテリア</a>
+                        <li>
+                            <a href="#" class="flex items-center space-x-2 px-3 py-2 text-white hover:bg-blue-500 rounded-md transition-colors duration-200">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="flex-shrink-0">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                </svg>
+                                <span class="whitespace-nowrap">日用品・清掃用品</span>
+                            </a>
                         </li>
-                        <li class="nav-item special-offer">
-                            <a href="#" class="nav-link">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <li>
+                            <a href="#" class="flex items-center space-x-2 px-3 py-2 text-white hover:bg-blue-500 rounded-md transition-colors duration-200">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="flex-shrink-0">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                <span class="whitespace-nowrap">医療・介護用品</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-3 py-2 text-white hover:bg-blue-500 rounded-md transition-colors duration-200 whitespace-nowrap">家具・インテリア</a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center space-x-2 px-3 py-2 text-yellow-300 hover:bg-blue-500 rounded-md transition-colors duration-200 font-medium">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="flex-shrink-0">
                                     <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9"></polygon>
                                 </svg>
-                                特価・アウトレット
+                                <span class="whitespace-nowrap">特価・アウトレット</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </nav>
         </div>
-
-        <!-- モバイルヘッダー（簡略） -->
-        <div class="header-mobile" style="display: none;"></div>
+        
+        <!-- モバイルヘッダー -->
+        <div class="header-mobile">
+            <!-- モバイルトップバー -->
+            <div class="mobile-top-bar">
+                <div class="mobile-top-content">
+                    <span class="mobile-welcome">プロ向け事務用品通販</span>
+                    <div class="mobile-account">
+                        <a href="login.html" class="mobile-login">ログイン</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- モバイルメインヘッダー -->
+            <div class="mobile-header-content">
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <div class="mobile-logo">
+                    <a href="index.html" class="mobile-logo-link">
+                        <img src="img/header_logo.png" alt="ECサイト" class="mobile-logo-img">
+                        <span class="mobile-company-name">ProOffice</span>
+                    </a>
+                </div>
+                
+                <div class="mobile-actions">
+                    <button class="mobile-search-toggle" id="mobileSearchToggle">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <a href="favorites.html" class="mobile-function">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <span class="mobile-badge">5</span>
+                    </a>
+                    <a href="cart.html" class="mobile-function">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="mobile-badge">2</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- モバイルドロワーメニュー -->
+        <div class="drawer-menu" id="drawerMenu">
+            <div class="drawer-header">
+                <div class="drawer-user">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <div>
+                        <p>ゲストユーザー</p>
+                        <a href="login.html">ログイン / 新規登録</a>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="drawer-nav">
+                <ul>
+                    <li class="has-submenu">
+                        <a href="#">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <rect x="7" y="7" width="10" height="10" rx="1" ry="1"></rect>
+                            </svg>
+                            文房具・オフィス用品
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="#">ボールペン・シャープペン</a></li>
+                            <li><a href="#">マーカー・蛍光ペン</a></li>
+                            <li><a href="#">ファイル・バインダー</a></li>
+                            <li><a href="#">デスク用品</a></li>
+                            <li><a href="#">はさみ・カッター</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                                <circle cx="12" cy="12" r="2"></circle>
+                                <path d="m6 16-2-2 2-2"></path>
+                                <path d="m16 16 2-2-2-2"></path>
+                            </svg>
+                            OA・PC用品
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            </svg>
+                            日用品・清掃用品
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 6L9 17l-5-5"></path>
+                            </svg>
+                            医療・介護用品
+                        </a>
+                    </li>
+                    <li><a href="#">家具・インテリア</a></li>
+                    <li class="special-offer">
+                        <a href="#">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9"></polygon>
+                            </svg>
+                            特価・アウトレット
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="drawer-footer">
+                <ul>
+                    <li>
+                        <a href="favorites.html">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                            お気に入り
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mypage.html#orders">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            注文履歴
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2 2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            設定
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="m9 12 2 2 4-4"></path>
+                            </svg>
+                            ヘルプ・サポート
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- モバイル検索モーダル -->
+        <div class="search-modal" id="searchModal">
+            <div class="search-modal-header">
+                <button class="search-modal-close">✕</button>
+                <form class="mobile-search-form">
+                    <input type="text" placeholder="商品を検索..." class="mobile-search-input" value="ファイルボックス">
+                    <button type="submit">検索</button>
+                </form>
+            </div>
+            <div class="search-modal-content">
+                <div class="search-section">
+                    <h3>人気の検索キーワード</h3>
+                    <div class="search-tags">
+                        <a href="#">ボールペン</a>
+                        <a href="#">ファイル</a>
+                        <a href="#">デスクマット</a>
+                        <a href="#">電卓</a>
+                        <a href="#">クリアファイル</a>
+                    </div>
+                </div>
+                <div class="search-section">
+                    <h3>カテゴリーから探す</h3>
+                    <ul class="search-categories">
+                        <li><a href="#">文房具・オフィス用品</a></li>
+                        <li><a href="#">OA・PC用品</a></li>
+                        <li><a href="#">日用品・清掃用品</a></li>
+                        <li><a href="#">医療・介護用品</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </header>
     
     <!-- メインコンテンツ -->
-    <main class="product-list-main">
-        <div class="container">
+    <main>
+        <div class="max-w-6xl mx-auto px-5">
             <!-- パンくずリスト -->
-            <nav class="breadcrumb">
-                <ol class="breadcrumb-list">
-                    <li class="breadcrumb-item"><a href="index.html">ホーム</a></li>
-                    <li class="breadcrumb-item"><a href="#">文房具・オフィス用品</a></li>
-                    <li class="breadcrumb-item active">検索結果</li>
+            <nav class="flex items-center gap-2 text-sm text-gray-600 mb-6">
+                <ol class="flex items-center gap-2">
+                    <li><a href="index.html" class="text-blue-600 hover:text-blue-800 transition-colors duration-300">ホーム</a></li>
+                    <li class="text-gray-400">></li>
+                    <li><a href="#" class="text-blue-600 hover:text-blue-800 transition-colors duration-300">文房具・オフィス用品</a></li>
+                    <li class="text-gray-400">></li>
+                    <li class="text-gray-800 font-medium">検索結果</li>
                 </ol>
             </nav>
 
             <!-- 検索結果ヘッダー -->
-            <section class="search-header">
-                <div class="search-info">
-                    <h1 class="search-title">「ファイルボックス」の検索結果</h1>
-                    <p class="search-count">127件の商品が見つかりました</p>
-                </div>
-                
-                <div class="search-tools">
-                    <div class="view-toggle">
-                        <button class="view-btn active" data-view="grid">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <rect x="3" y="3" width="7" height="7"></rect>
-                                <rect x="14" y="3" width="7" height="7"></rect>
-                                <rect x="14" y="14" width="7" height="7"></rect>
-                                <rect x="3" y="14" width="7" height="7"></rect>
-                            </svg>
-                        </button>
-                        <button class="view-btn" data-view="list">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <line x1="8" y1="6" x2="21" y2="6"></line>
-                                <line x1="8" y1="12" x2="21" y2="12"></line>
-                                <line x1="8" y1="18" x2="21" y2="18"></line>
-                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                            </svg>
-                        </button>
+            <section class="bg-white border-b border-gray-200 py-4 mb-8">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900 mb-2">「ファイルボックス」の検索結果</h1>
+                        <p class="text-gray-600 font-medium">127件の商品が見つかりました</p>
                     </div>
                     
-                    <div class="sort-options">
-                        <label for="sortSelect">並び替え:</label>
-                        <select id="sortSelect" class="sort-select">
-                            <option value="relevance">関連度順</option>
-                            <option value="price-low">価格の安い順</option>
-                            <option value="price-high">価格の高い順</option>
-                            <option value="name">商品名順</option>
-                            <option value="rating">評価順</option>
-                            <option value="newest">新着順</option>
-                        </select>
-                    </div>
-                    
-                    <div class="per-page-options">
-                        <label for="perPageSelect">表示件数:</label>
-                        <select id="perPageSelect" class="per-page-select">
-                            <option value="24">24件</option>
-                            <option value="48" selected>48件</option>
-                            <option value="96">96件</option>
-                        </select>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div class="flex border border-gray-300 rounded-md overflow-hidden">
+                            <button class="p-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300" data-view="grid">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="14" width="7" height="7"></rect>
+                                    <rect x="3" y="14" width="7" height="7"></rect>
+                                </svg>
+                            </button>
+                            <button class="p-2 bg-white text-gray-600 hover:bg-blue-600 hover:text-white transition-colors duration-300" data-view="list">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <label for="sortSelect" class="text-sm font-medium text-gray-700">並び替え:</label>
+                            <select id="sortSelect" class="px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="relevance">関連度順</option>
+                                <option value="price-low">価格の安い順</option>
+                                <option value="price-high">価格の高い順</option>
+                                <option value="name">商品名順</option>
+                                <option value="rating">評価順</option>
+                                <option value="newest">新着順</option>
+                            </select>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <label for="perPageSelect" class="text-sm font-medium text-gray-700">表示件数:</label>
+                            <select id="perPageSelect" class="px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="24">24件</option>
+                                <option value="48" selected>48件</option>
+                                <option value="96">96件</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- フィルター＆商品一覧 -->
-            <section class="main-content">
-                <div class="content-layout">
+            <section>
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                     <!-- サイドバーフィルター -->
-                    <aside class="filters-sidebar">
-                        <div class="filters-header">
-                            <h2>絞り込み</h2>
-                            <button class="filters-clear">クリア</button>
+                    <aside class="lg:col-span-1 bg-white border border-gray-200 rounded-lg p-6 h-fit sticky top-36 hidden lg:block" id="filterSidebar">
+                        <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-900">絞り込み</h2>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm underline">クリア</button>
                         </div>
                         
-                        <div class="filter-section">
-                            <h3 class="filter-title">価格帯</h3>
-                            <div class="filter-content">
-                                <div class="price-range">
-                                    <input type="number" placeholder="最低価格" class="price-input" id="minPrice">
-                                    <span class="price-separator">〜</span>
-                                    <input type="number" placeholder="最高価格" class="price-input" id="maxPrice">
-                                    <button class="price-apply-btn">適用</button>
+                        <div class="mb-6">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer py-2">価格帯</h3>
+                            <div class="space-y-4">
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-2">
+                                        <input type="number" placeholder="最低価格" class="flex-1 px-2 py-1 border border-gray-300 rounded text-sm text-center" id="minPrice">
+                                        <span class="text-gray-600 font-medium">〜</span>
+                                        <input type="number" placeholder="最高価格" class="flex-1 px-2 py-1 border border-gray-300 rounded text-sm text-center" id="maxPrice">
+                                        <button class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors duration-300">適用</button>
+                                    </div>
                                 </div>
-                                <div class="price-presets">
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="0-500">
-                                        <span class="checkmark"></span>
-                                        〜¥500
+                                <div class="space-y-2">
+                                    <label class="flex items-center gap-2 cursor-pointer py-1">
+                                        <input type="checkbox" value="0-500" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">〜¥500</span>
                                     </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="500-1000">
-                                        <span class="checkmark"></span>
-                                        ¥500〜¥1,000
+                                    <label class="flex items-center gap-2 cursor-pointer py-1">
+                                        <input type="checkbox" value="500-1000" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">¥500〜¥1,000</span>
                                     </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="1000-3000">
-                                        <span class="checkmark"></span>
-                                        ¥1,000〜¥3,000
+                                    <label class="flex items-center gap-2 cursor-pointer py-1">
+                                        <input type="checkbox" value="1000-3000" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">¥1,000〜¥3,000</span>
                                     </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="3000+">
-                                        <span class="checkmark"></span>
-                                        ¥3,000以上
+                                    <label class="flex items-center gap-2 cursor-pointer py-1">
+                                        <input type="checkbox" value="3000+" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">¥3,000以上</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="filter-section">
-                            <h3 class="filter-title">ブランド</h3>
-                            <div class="filter-content">
-                                <div class="filter-search">
-                                    <input type="text" placeholder="ブランド名で検索" class="filter-search-input">
+                        <div class="mb-6">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer py-2">ブランド</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <input type="text" placeholder="ブランド名で検索" class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 </div>
-                                <div class="filter-options">
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="kokuyo">
-                                        <span class="checkmark"></span>
-                                        コクヨ (45)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="plus">
-                                        <span class="checkmark"></span>
-                                        プラス (32)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="king-jim">
-                                        <span class="checkmark"></span>
-                                        キングジム (28)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="lihit-lab">
-                                        <span class="checkmark"></span>
-                                        リヒトラブ (22)
-                                    </label>
-                                    <button class="show-more-brands">もっと見る</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="filter-section">
-                            <h3 class="filter-title">カテゴリー</h3>
-                            <div class="filter-content">
-                                <div class="filter-options">
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="file-box">
-                                        <span class="checkmark"></span>
-                                        ファイルボックス (78)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="clear-file">
-                                        <span class="checkmark"></span>
-                                        クリアファイル (34)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="binder">
-                                        <span class="checkmark"></span>
-                                        バインダー (15)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="filter-section">
-                            <h3 class="filter-title">サイズ</h3>
-                            <div class="filter-content">
-                                <div class="filter-options">
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="a4">
-                                        <span class="checkmark"></span>
-                                        A4 (89)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="b4">
-                                        <span class="checkmark"></span>
-                                        B4 (25)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="a3">
-                                        <span class="checkmark"></span>
-                                        A3 (13)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="filter-section">
-                            <h3 class="filter-title">カラー</h3>
-                            <div class="filter-content">
-                                <div class="color-filters">
-                                    <label class="color-filter" title="ホワイト">
-                                        <input type="checkbox" value="white">
-                                        <span class="color-swatch" style="background-color: #ffffff; border: 1px solid #ddd;"></span>
-                                        ホワイト (42)
-                                    </label>
-                                    <label class="color-filter" title="グレー">
-                                        <input type="checkbox" value="gray">
-                                        <span class="color-swatch" style="background-color: #9e9e9e;"></span>
-                                        グレー (35)
-                                    </label>
-                                    <label class="color-filter" title="ブラック">
-                                        <input type="checkbox" value="black">
-                                        <span class="color-swatch" style="background-color: #333333;"></span>
-                                        ブラック (28)
-                                    </label>
-                                    <label class="color-filter" title="ブルー">
-                                        <input type="checkbox" value="blue">
-                                        <span class="color-swatch" style="background-color: #2196f3;"></span>
-                                        ブルー (22)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="filter-section">
-                            <h3 class="filter-title">評価</h3>
-                            <div class="filter-content">
-                                <div class="rating-filters">
-                                    <label class="rating-filter">
-                                        <input type="checkbox" value="5">
-                                        <div class="rating-display">
-                                            <div class="stars">
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                            </div>
-                                            <span class="rating-text">5つ星 (12)</span>
+                                <div class="space-y-2">
+                                    <label class="flex items-center justify-between cursor-pointer py-1">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" value="kokuyo" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                            <span class="text-sm text-gray-700">コクヨ</span>
                                         </div>
+                                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(45)</span>
                                     </label>
-                                    <label class="rating-filter">
-                                        <input type="checkbox" value="4+">
-                                        <div class="rating-display">
-                                            <div class="stars">
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star">★</span>
-                                            </div>
-                                            <span class="rating-text">4つ星以上 (67)</span>
+                                    <label class="flex items-center justify-between cursor-pointer py-1">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" value="plus" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                            <span class="text-sm text-gray-700">プラス</span>
                                         </div>
+                                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(32)</span>
                                     </label>
-                                    <label class="rating-filter">
-                                        <input type="checkbox" value="3+">
-                                        <div class="rating-display">
-                                            <div class="stars">
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star">★</span>
-                                                <span class="star">★</span>
-                                            </div>
-                                            <span class="rating-text">3つ星以上 (98)</span>
+                                    <label class="flex items-center justify-between cursor-pointer py-1">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" value="king-jim" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                            <span class="text-sm text-gray-700">キングジム</span>
                                         </div>
+                                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(28)</span>
                                     </label>
+                                    <label class="flex items-center justify-between cursor-pointer py-1">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" value="lihit-lab" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                            <span class="text-sm text-gray-700">リヒトラブ</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(22)</span>
+                                    </label>
+                                    <button class="text-blue-600 text-sm hover:text-blue-800 underline">もっと見る</button>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="filter-section">
-                            <h3 class="filter-title">その他</h3>
-                            <div class="filter-content">
-                                <div class="filter-options">
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="sale">
-                                        <span class="checkmark"></span>
-                                        セール商品 (18)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="new">
-                                        <span class="checkmark"></span>
-                                        新商品 (7)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="fast-shipping">
-                                        <span class="checkmark"></span>
-                                        翌日配送 (92)
-                                    </label>
-                                    <label class="checkbox-filter">
-                                        <input type="checkbox" value="eco">
-                                        <span class="checkmark"></span>
-                                        エコ商品 (41)
-                                    </label>
-                                </div>
+                        <div class="mb-6">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer py-2">カテゴリー</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="file-box" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">ファイルボックス</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(78)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="clear-file" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">クリアファイル</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(34)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="binder" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">バインダー</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(15)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer py-2">サイズ</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="a4" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">A4</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(89)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="b4" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">B4</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(25)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="a3" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">A3</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(13)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer py-2">カラー</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center justify-between cursor-pointer py-1" title="ホワイト">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="white" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="w-4 h-4 rounded border border-gray-300 bg-white"></span>
+                                        <span class="text-sm text-gray-700">ホワイト</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(42)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1" title="グレー">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="gray" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="w-4 h-4 rounded border border-gray-300 bg-gray-500"></span>
+                                        <span class="text-sm text-gray-700">グレー</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(35)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1" title="ブラック">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="black" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="w-4 h-4 rounded border border-gray-300 bg-gray-800"></span>
+                                        <span class="text-sm text-gray-700">ブラック</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(28)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1" title="ブルー">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="blue" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="w-4 h-4 rounded border border-gray-300 bg-blue-500"></span>
+                                        <span class="text-sm text-gray-700">ブルー</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(22)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer py-2">評価</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="5" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <div class="flex items-center gap-1">
+                                            <div class="flex text-yellow-400">
+                                                <span class="text-sm">★★★★★</span>
+                                            </div>
+                                            <span class="text-sm text-gray-700">5つ星</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(12)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="4+" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <div class="flex items-center gap-1">
+                                            <div class="flex text-yellow-400">
+                                                <span class="text-sm">★★★★</span><span class="text-gray-300 text-sm">★</span>
+                                            </div>
+                                            <span class="text-sm text-gray-700">4つ星以上</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(67)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="3+" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <div class="flex items-center gap-1">
+                                            <div class="flex text-yellow-400">
+                                                <span class="text-sm">★★★</span><span class="text-gray-300 text-sm">★★</span>
+                                            </div>
+                                            <span class="text-sm text-gray-700">3つ星以上</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(98)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-0">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer py-2">その他</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="sale" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">セール商品</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(18)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="new" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">新商品</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(7)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="fast-shipping" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">翌日配送</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(92)</span>
+                                </label>
+                                <label class="flex items-center justify-between cursor-pointer py-1">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" value="eco" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">エコ商品</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">(41)</span>
+                                </label>
                             </div>
                         </div>
                     </aside>
 
                     <!-- 商品一覧 -->
-                    <div class="products-area">
+                    <div class="lg:col-span-3">
+                        <!-- モバイル用フィルターボタン -->
+                        <div class="lg:hidden mb-4">
+                            <button class="w-full bg-gray-100 border border-gray-300 px-4 py-3 rounded-lg flex items-center justify-center gap-2 font-medium text-gray-700" id="mobileFilterBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
+                                </svg>
+                                フィルター
+                            </button>
+                        </div>
                         <!-- アクティブフィルター表示 -->
-                        <div class="active-filters" id="activeFilters" style="display: none;">
-                            <div class="active-filters-header">
-                                <span>適用中の絞り込み:</span>
-                                <button class="clear-all-filters">すべてクリア</button>
+                        <div class="hidden mb-6" id="activeFilters">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-sm font-medium text-gray-700">適用中の絞り込み:</span>
+                                <button class="text-blue-600 hover:text-blue-800 text-sm underline">すべてクリア</button>
                             </div>
-                            <div class="active-filters-list">
+                            <div class="flex flex-wrap gap-2">
                                 <!-- Dynamic filter tags will be inserted here -->
                             </div>
                         </div>
 
                         <!-- 商品グリッド -->
-                        <div class="products-container" id="productsContainer">
-                            <div class="products-grid" id="productsGrid">
+                        <div class="min-h-96" id="productsContainer">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="productsGrid">
                                 <!-- 商品カード -->
-                                <div class="product-card" data-product-id="file001" data-price="342" data-brand="kokuyo" data-category="file-box" data-size="b4" data-color="gray" data-rating="4.2">
-                                    <div class="product-image">
+                                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative" data-product-id="file001" data-price="342" data-brand="kokuyo" data-category="file-box" data-size="b4" data-color="gray" data-rating="4.2">
+                                    <div class="relative overflow-hidden">
                                         <a href="product-detail.html">
-                                            <img src="img/product/8027341_l1.jpg" alt="コクヨ ファイルボックス-FS ピース B4 グレー">
+                                            <img src="img/product/8027341_l1.jpg" alt="コクヨ ファイルボックス-FS ピース B4 グレー" class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300">
                                         </a>
-                                        <div class="product-badges">
-                                            <span class="badge badge-stock">在庫あり</span>
-                                            <span class="badge badge-sale">10%OFF</span>
+                                        <div class="absolute top-3 left-3 flex flex-col gap-1">
+                                            <span class="px-2 py-1 rounded text-xs font-semibold text-white bg-orange-500">在庫あり</span>
+                                            <span class="px-2 py-1 rounded text-xs font-semibold text-white bg-red-500">10%OFF</span>
                                         </div>
-                                        <button class="favorite-btn">
+                                        <button class="absolute top-3 right-3 w-9 h-9 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                             </svg>
                                         </button>
                                     </div>
-                                    <div class="product-info">
-                                        <div class="product-brand">コクヨ</div>
-                                        <h3 class="product-title">
-                                            <a href="product-detail.html">ファイルボックス-FS ピース B4 グレー フボ-FSB4M</a>
+                                    <div class="p-6">
+                                        <div class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">コクヨ</div>
+                                        <h3 class="font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
+                                            <a href="product-detail.html" class="hover:text-blue-600 transition-colors duration-300">ファイルボックス-FS ピース B4 グレー フボ-FSB4M</a>
                                         </h3>
-                                        <div class="product-rating">
-                                            <div class="stars">
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star">★</span>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="flex text-yellow-400">
+                                                <span class="text-sm">★★★★</span><span class="text-gray-300 text-sm">★</span>
                                             </div>
-                                            <span class="rating-score">4.2</span>
-                                            <span class="review-count">(127)</span>
+                                            <span class="text-sm font-medium text-gray-700">4.2</span>
+                                            <span class="text-xs text-gray-500">(127)</span>
                                         </div>
-                                        <div class="product-price">
-                                            <span class="price-current">¥342</span>
-                                            <span class="price-original">¥380</span>
+                                        <div class="flex items-center gap-2 mb-4 flex-wrap">
+                                            <span class="text-xl font-bold text-blue-600">¥342</span>
+                                            <span class="text-sm text-gray-500 line-through">¥380</span>
                                         </div>
-                                        <div class="product-actions">
-                                            <button class="add-to-cart">
+                                        <div class="flex gap-3 items-center">
+                                            <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center gap-2">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <circle cx="9" cy="21" r="1"></circle>
                                                     <circle cx="20" cy="21" r="1"></circle>
@@ -488,10 +804,7 @@
                                                 </svg>
                                                 カートに追加
                                             </button>
-                                            <button class="btn-favorite">
-                                                <i class="far fa-heart"></i>
-                                            </button>
-                                            <button class="quick-view">
+                                            <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors duration-300">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                     <circle cx="12" cy="12" r="3"></circle>
@@ -502,41 +815,37 @@
                                 </div>
 
                                 <!-- 追加の商品カード（同じ構造で複数） -->
-                                <div class="product-card" data-product-id="file002" data-price="298" data-brand="kokuyo" data-category="file-box" data-size="a4" data-color="white" data-rating="4.5">
-                                    <div class="product-image">
+                                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative" data-product-id="file002" data-price="298" data-brand="kokuyo" data-category="file-box" data-size="a4" data-color="white" data-rating="4.5">
+                                    <div class="relative overflow-hidden">
                                         <a href="product-detail.html">
-                                            <img src="img/product/AH85168_l1.jpg" alt="コクヨ ファイルボックス A4 ホワイト">
+                                            <img src="img/product/AH85168_l1.jpg" alt="コクヨ ファイルボックス A4 ホワイト" class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300">
                                         </a>
-                                        <div class="product-badges">
-                                            <span class="badge badge-stock">在庫あり</span>
+                                        <div class="absolute top-3 left-3 flex flex-col gap-1">
+                                            <span class="px-2 py-1 rounded text-xs font-semibold text-white bg-orange-500">在庫あり</span>
                                         </div>
-                                        <button class="favorite-btn">
+                                        <button class="absolute top-3 right-3 w-9 h-9 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                             </svg>
                                         </button>
                                     </div>
-                                    <div class="product-info">
-                                        <div class="product-brand">コクヨ</div>
-                                        <h3 class="product-title">
-                                            <a href="product-detail.html">ファイルボックス A4 ホワイト</a>
+                                    <div class="p-6">
+                                        <div class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">コクヨ</div>
+                                        <h3 class="font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
+                                            <a href="product-detail.html" class="hover:text-blue-600 transition-colors duration-300">ファイルボックス A4 ホワイト</a>
                                         </h3>
-                                        <div class="product-rating">
-                                            <div class="stars">
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="flex text-yellow-400">
+                                                <span class="text-sm">★★★★★</span>
                                             </div>
-                                            <span class="rating-score">4.5</span>
-                                            <span class="review-count">(89)</span>
+                                            <span class="text-sm font-medium text-gray-700">4.5</span>
+                                            <span class="text-xs text-gray-500">(89)</span>
                                         </div>
-                                        <div class="product-price">
-                                            <span class="price-current">¥298</span>
+                                        <div class="flex items-center gap-2 mb-4 flex-wrap">
+                                            <span class="text-xl font-bold text-blue-600">¥298</span>
                                         </div>
-                                        <div class="product-actions">
-                                            <button class="add-to-cart">
+                                        <div class="flex gap-3 items-center">
+                                            <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center gap-2">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <circle cx="9" cy="21" r="1"></circle>
                                                     <circle cx="20" cy="21" r="1"></circle>
@@ -544,10 +853,7 @@
                                                 </svg>
                                                 カートに追加
                                             </button>
-                                            <button class="btn-favorite">
-                                                <i class="far fa-heart"></i>
-                                            </button>
-                                            <button class="quick-view">
+                                            <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors duration-300">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                     <circle cx="12" cy="12" r="3"></circle>
@@ -558,42 +864,38 @@
                                 </div>
 
                                 <!-- さらに商品を追加（パターンを繰り返し） -->
-                                <div class="product-card" data-product-id="file003" data-price="420" data-brand="plus" data-category="clear-file" data-size="a4" data-color="blue" data-rating="4.0">
-                                    <div class="product-image">
+                                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative" data-product-id="file003" data-price="420" data-brand="plus" data-category="clear-file" data-size="a4" data-color="blue" data-rating="4.0">
+                                    <div class="relative overflow-hidden">
                                         <a href="product-detail.html">
-                                            <img src="img/product/AW74957_l1.jpg" alt="プラス クリアファイル A4 20ポケット">
+                                            <img src="img/product/AW74957_l1.jpg" alt="プラス クリアファイル A4 20ポケット" class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300">
                                         </a>
-                                        <div class="product-badges">
-                                            <span class="badge badge-stock">在庫あり</span>
-                                            <span class="badge badge-new">NEW</span>
+                                        <div class="absolute top-3 left-3 flex flex-col gap-1">
+                                            <span class="px-2 py-1 rounded text-xs font-semibold text-white bg-orange-500">在庫あり</span>
+                                            <span class="px-2 py-1 rounded text-xs font-semibold text-white bg-teal-500">NEW</span>
                                         </div>
-                                        <button class="favorite-btn">
+                                        <button class="absolute top-3 right-3 w-9 h-9 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                             </svg>
                                         </button>
                                     </div>
-                                    <div class="product-info">
-                                        <div class="product-brand">プラス</div>
-                                        <h3 class="product-title">
-                                            <a href="product-detail.html">クリアファイル A4 20ポケット ブルー</a>
+                                    <div class="p-6">
+                                        <div class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">プラス</div>
+                                        <h3 class="font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
+                                            <a href="product-detail.html" class="hover:text-blue-600 transition-colors duration-300">クリアファイル A4 20ポケット ブルー</a>
                                         </h3>
-                                        <div class="product-rating">
-                                            <div class="stars">
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star">★</span>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="flex text-yellow-400">
+                                                <span class="text-sm">★★★★</span><span class="text-gray-300 text-sm">★</span>
                                             </div>
-                                            <span class="rating-score">4.0</span>
-                                            <span class="review-count">(56)</span>
+                                            <span class="text-sm font-medium text-gray-700">4.0</span>
+                                            <span class="text-xs text-gray-500">(56)</span>
                                         </div>
-                                        <div class="product-price">
-                                            <span class="price-current">¥420</span>
+                                        <div class="flex items-center gap-2 mb-4 flex-wrap">
+                                            <span class="text-xl font-bold text-blue-600">¥420</span>
                                         </div>
-                                        <div class="product-actions">
-                                            <button class="add-to-cart">
+                                        <div class="flex gap-3 items-center">
+                                            <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center gap-2">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <circle cx="9" cy="21" r="1"></circle>
                                                     <circle cx="20" cy="21" r="1"></circle>
@@ -601,10 +903,7 @@
                                                 </svg>
                                                 カートに追加
                                             </button>
-                                            <button class="btn-favorite">
-                                                <i class="far fa-heart"></i>
-                                            </button>
-                                            <button class="quick-view">
+                                            <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors duration-300">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                     <circle cx="12" cy="12" r="3"></circle>
@@ -615,42 +914,38 @@
                                 </div>
 
                                 <!-- 続きの商品（12個程度まで） -->
-                                <div class="product-card" data-product-id="file004" data-price="1280" data-brand="king-jim" data-category="file-box" data-size="a4" data-color="black" data-rating="4.8">
-                                    <div class="product-image">
+                                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative" data-product-id="file004" data-price="1280" data-brand="king-jim" data-category="file-box" data-size="a4" data-color="black" data-rating="4.8">
+                                    <div class="relative overflow-hidden">
                                         <a href="product-detail.html">
-                                            <img src="img/product/8146306_l1.jpg" alt="キングジム デスク用ファイルスタンド">
+                                            <img src="img/product/8146306_l1.jpg" alt="キングジム デスク用ファイルスタンド" class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300">
                                         </a>
-                                        <div class="product-badges">
-                                            <span class="badge badge-stock">在庫あり</span>
-                                            <span class="badge badge-premium">Premium</span>
+                                        <div class="absolute top-3 left-3 flex flex-col gap-1">
+                                            <span class="px-2 py-1 rounded text-xs font-semibold text-white bg-orange-500">在庫あり</span>
+                                            <span class="px-2 py-1 rounded text-xs font-semibold text-white bg-purple-600">Premium</span>
                                         </div>
-                                        <button class="favorite-btn">
+                                        <button class="absolute top-3 right-3 w-9 h-9 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                             </svg>
                                         </button>
                                     </div>
-                                    <div class="product-info">
-                                        <div class="product-brand">キングジム</div>
-                                        <h3 class="product-title">
-                                            <a href="product-detail.html">デスク用ファイルスタンド ブラック</a>
+                                    <div class="p-6">
+                                        <div class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">キングジム</div>
+                                        <h3 class="font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
+                                            <a href="product-detail.html" class="hover:text-blue-600 transition-colors duration-300">デスク用ファイルスタンド ブラック</a>
                                         </h3>
-                                        <div class="product-rating">
-                                            <div class="stars">
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="flex text-yellow-400">
+                                                <span class="text-sm">★★★★★</span>
                                             </div>
-                                            <span class="rating-score">4.8</span>
-                                            <span class="review-count">(124)</span>
+                                            <span class="text-sm font-medium text-gray-700">4.8</span>
+                                            <span class="text-xs text-gray-500">(124)</span>
                                         </div>
-                                        <div class="product-price">
-                                            <span class="price-current">¥1,280</span>
+                                        <div class="flex items-center gap-2 mb-4 flex-wrap">
+                                            <span class="text-xl font-bold text-blue-600">¥1,280</span>
                                         </div>
-                                        <div class="product-actions">
-                                            <button class="add-to-cart">
+                                        <div class="flex gap-3 items-center">
+                                            <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center gap-2">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <circle cx="9" cy="21" r="1"></circle>
                                                     <circle cx="20" cy="21" r="1"></circle>
@@ -658,10 +953,7 @@
                                                 </svg>
                                                 カートに追加
                                             </button>
-                                            <button class="btn-favorite">
-                                                <i class="far fa-heart"></i>
-                                            </button>
-                                            <button class="quick-view">
+                                            <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors duration-300">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                     <circle cx="12" cy="12" r="3"></circle>
@@ -672,41 +964,37 @@
                                 </div>
 
                                 <!-- 残りの商品カード（同様のパターンで8個程度追加） -->
-                                <div class="product-card" data-product-id="file005" data-price="156" data-brand="lihit-lab" data-category="file-box" data-size="a4" data-color="white" data-rating="3.8">
-                                    <div class="product-image">
+                                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative" data-product-id="file005" data-price="156" data-brand="lihit-lab" data-category="file-box" data-size="a4" data-color="white" data-rating="3.8">
+                                    <div class="relative overflow-hidden">
                                         <a href="product-detail.html">
-                                            <img src="img/product/AW75003_l1.jpg" alt="リヒトラブ インデックスラベル">
+                                            <img src="img/product/AW75003_l1.jpg" alt="リヒトラブ インデックスラベル" class="w-full h-60 object-cover hover:scale-105 transition-transform duration-300">
                                         </a>
-                                        <div class="product-badges">
-                                            <span class="badge badge-stock">在庫あり</span>
+                                        <div class="absolute top-3 left-3 flex flex-col gap-1">
+                                            <span class="px-2 py-1 rounded text-xs font-semibold text-white bg-orange-500">在庫あり</span>
                                         </div>
-                                        <button class="favorite-btn">
+                                        <button class="absolute top-3 right-3 w-9 h-9 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                             </svg>
                                         </button>
                                     </div>
-                                    <div class="product-info">
-                                        <div class="product-brand">リヒトラブ</div>
-                                        <h3 class="product-title">
-                                            <a href="product-detail.html">インデックスラベル 5色セット</a>
+                                    <div class="p-6">
+                                        <div class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">リヒトラブ</div>
+                                        <h3 class="font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
+                                            <a href="product-detail.html" class="hover:text-blue-600 transition-colors duration-300">インデックスラベル 5色セット</a>
                                         </h3>
-                                        <div class="product-rating">
-                                            <div class="stars">
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star filled">★</span>
-                                                <span class="star">★</span>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="flex text-yellow-400">
+                                                <span class="text-sm">★★★★</span><span class="text-gray-300 text-sm">★</span>
                                             </div>
-                                            <span class="rating-score">3.8</span>
-                                            <span class="review-count">(43)</span>
+                                            <span class="text-sm font-medium text-gray-700">3.8</span>
+                                            <span class="text-xs text-gray-500">(43)</span>
                                         </div>
-                                        <div class="product-price">
-                                            <span class="price-current">¥156</span>
+                                        <div class="flex items-center gap-2 mb-4 flex-wrap">
+                                            <span class="text-xl font-bold text-blue-600">¥156</span>
                                         </div>
-                                        <div class="product-actions">
-                                            <button class="add-to-cart">
+                                        <div class="flex gap-3 items-center">
+                                            <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded font-medium text-sm hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center gap-2">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <circle cx="9" cy="21" r="1"></circle>
                                                     <circle cx="20" cy="21" r="1"></circle>
@@ -714,10 +1002,7 @@
                                                 </svg>
                                                 カートに追加
                                             </button>
-                                            <button class="btn-favorite">
-                                                <i class="far fa-heart"></i>
-                                            </button>
-                                            <button class="quick-view">
+                                            <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors duration-300">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                     <circle cx="12" cy="12" r="3"></circle>
@@ -729,23 +1014,23 @@
                             </div>
 
                             <!-- ページネーション -->
-                            <nav class="pagination" id="pagination">
-                                <button class="pagination-btn pagination-prev" disabled>
+                            <nav class="flex justify-center items-center gap-2 mt-12" id="pagination">
+                                <button class="flex items-center justify-center gap-2 bg-white border border-gray-300 px-4 py-3 rounded font-medium text-gray-700 transition-all duration-300 min-w-11 opacity-50 cursor-not-allowed" disabled>
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                         <path d="m15 18-6-6 6-6"></path>
                                     </svg>
                                     前へ
                                 </button>
                                 
-                                <div class="pagination-pages">
-                                    <button class="pagination-page active">1</button>
-                                    <button class="pagination-page">2</button>
-                                    <button class="pagination-page">3</button>
-                                    <span class="pagination-ellipsis">...</span>
-                                    <button class="pagination-page">6</button>
+                                <div class="flex items-center gap-2">
+                                    <button class="bg-blue-600 text-white border border-blue-600 px-4 py-3 rounded font-medium transition-all duration-300 min-w-11 flex items-center justify-center">1</button>
+                                    <button class="bg-white border border-gray-300 px-4 py-3 rounded font-medium text-gray-700 hover:bg-gray-50 hover:border-blue-600 transition-all duration-300 min-w-11 flex items-center justify-center">2</button>
+                                    <button class="bg-white border border-gray-300 px-4 py-3 rounded font-medium text-gray-700 hover:bg-gray-50 hover:border-blue-600 transition-all duration-300 min-w-11 flex items-center justify-center">3</button>
+                                    <span class="text-gray-500">...</span>
+                                    <button class="bg-white border border-gray-300 px-4 py-3 rounded font-medium text-gray-700 hover:bg-gray-50 hover:border-blue-600 transition-all duration-300 min-w-11 flex items-center justify-center">6</button>
                                 </div>
                                 
-                                <button class="pagination-btn pagination-next">
+                                <button class="flex items-center justify-center gap-2 bg-white border border-gray-300 px-4 py-3 rounded font-medium text-gray-700 hover:bg-gray-50 hover:border-blue-600 transition-all duration-300 min-w-11">
                                     次へ
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                         <path d="m9 18 6-6-6-6"></path>
@@ -760,41 +1045,41 @@
     </main>
     
     <!-- フッター -->
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-column">
-                        <h3>会社情報</h3>
-                        <ul>
-                            <li><a href="#">会社概要</a></li>
-                            <li><a href="#">採用情報</a></li>
-                            <li><a href="#">IR情報</a></li>
-                            <li><a href="#">プレスリリース</a></li>
+    <footer class="bg-gray-800 text-white">
+        <div class="py-12">
+            <div class="max-w-6xl mx-auto px-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">会社情報</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">会社概要</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">採用情報</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">IR情報</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">プレスリリース</a></li>
                         </ul>
                     </div>
-                    <div class="footer-column">
-                        <h3>カスタマーサポート</h3>
-                        <ul>
-                            <li><a href="#">お問い合わせ</a></li>
-                            <li><a href="#">よくある質問</a></li>
-                            <li><a href="#">返品・交換について</a></li>
-                            <li><a href="#">サイズガイド</a></li>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">カスタマーサポート</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">お問い合わせ</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">よくある質問</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">返品・交換について</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">サイズガイド</a></li>
                         </ul>
                     </div>
-                    <div class="footer-column">
-                        <h3>サービス</h3>
-                        <ul>
-                            <li><a href="#">配送について</a></li>
-                            <li><a href="#">支払い方法</a></li>
-                            <li><a href="#">ポイントプログラム</a></li>
-                            <li><a href="#">ギフトカード</a></li>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">サービス</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">配送について</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">支払い方法</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">ポイントプログラム</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">ギフトカード</a></li>
                         </ul>
                     </div>
-                    <div class="footer-column">
-                        <h3>フォローする</h3>
-                        <div class="social-links">
-                            <a href="#" aria-label="Facebook">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">フォローする</h3>
+                        <div class="flex space-x-3">
+                            <a href="#" aria-label="Facebook" class="text-gray-300 hover:text-white transition-colors duration-300">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                                 </svg>
@@ -804,14 +1089,14 @@
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="footer-bottom-content">
-                    <p>&copy; 2024 ProOffice. All rights reserved.</p>
-                    <ul class="footer-links">
-                        <li><a href="#">利用規約</a></li>
-                        <li><a href="#">プライバシーポリシー</a></li>
-                        <li><a href="#">特定商取引法に基づく表記</a></li>
+        <div class="border-t border-gray-700 py-6">
+            <div class="max-w-6xl mx-auto px-5">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-gray-300">&copy; 2024 ProOffice. All rights reserved.</p>
+                    <ul class="flex space-x-6">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">利用規約</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">プライバシーポリシー</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">特定商取引法に基づく表記</a></li>
                     </ul>
                 </div>
             </div>
