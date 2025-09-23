@@ -597,9 +597,24 @@
         <!-- おすすめ商品 -->
         <section class="products-section">
             <div class="container">
-                <h2 class="section-title">おすすめ商品</h2>
-                <div class="products-grid">
-                    <div class="product-card">
+                <div class="section-header">
+                    <h2 class="section-title">おすすめ商品</h2>
+                    <div class="slider-controls">
+                        <button class="slider-arrow slider-prev" id="recommendedPrev">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="15,18 9,12 15,6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="slider-arrow slider-next" id="recommendedNext">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="9,6 15,12 9,18"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="products-slider" id="recommendedSlider">
+                    <div class="products-grid slider-track">
+                        <div class="product-card">
                         <div class="product-image">
                             <img src="img/product/8027341_l1.jpg" alt="商品1">
                             <span class="product-badge">NEW</span>
@@ -667,6 +682,76 @@
                             <button class="btn btn-add-cart">カートに追加</button>
                         </div>
                     </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="img/product/AW75003_l1.jpg" alt="商品5">
+                            <span class="product-badge">HOT</span>
+                            <button class="product-favorite">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">人気商品 AW75003</h3>
+                            <p class="product-price">¥3,490</p>
+                            <button class="btn btn-add-cart">カートに追加</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="img/product/cathead-0604005.jpg" alt="商品6">
+                            <button class="product-favorite">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">学習用品 CAT-0604005</h3>
+                            <p class="product-price">¥1,890</p>
+                            <button class="btn btn-add-cart">カートに追加</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="img/product/8027341_l1.jpg" alt="商品7">
+                            <span class="product-badge sale">特価</span>
+                            <button class="product-favorite">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">事務用品 8027341</h3>
+                            <p class="product-price">
+                                <span class="price-sale">¥2,290</span>
+                                <span class="price-original">¥3,490</span>
+                            </p>
+                            <button class="btn btn-add-cart">カートに追加</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="img/product/AH85168_l1.jpg" alt="商品8">
+                            <button class="product-favorite">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">制作素材 AH85168</h3>
+                            <p class="product-price">¥4,790</p>
+                            <button class="btn btn-add-cart">カートに追加</button>
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -674,9 +759,24 @@
         <!-- 新着商品 -->
         <section class="products-section bg-light">
             <div class="container">
-                <h2 class="section-title">新着商品</h2>
-                <div class="products-grid">
-                    <div class="product-card">
+                <div class="section-header">
+                    <h2 class="section-title">新着商品</h2>
+                    <div class="slider-controls">
+                        <button class="slider-arrow slider-prev" id="newPrev">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="15,18 9,12 15,6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="slider-arrow slider-next" id="newNext">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="9,6 15,12 9,18"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="products-slider" id="newSlider">
+                    <div class="products-grid slider-track">
+                        <div class="product-card">
                         <div class="product-image">
                             <img src="img/product/AW75003_l1.jpg" alt="新着1">
                             <span class="product-badge">NEW</span>
@@ -742,6 +842,75 @@
                             <p class="product-price">¥3,490</p>
                             <button class="btn btn-add-cart">カートに追加</button>
                         </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="img/product/8027341_l1.jpg" alt="新着5">
+                            <span class="product-badge">NEW</span>
+                            <button class="product-favorite">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">新製品 8027341</h3>
+                            <p class="product-price">¥2,790</p>
+                            <button class="btn btn-add-cart">カートに追加</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="img/product/AH85168_l1.jpg" alt="新着6">
+                            <span class="product-badge">NEW</span>
+                            <button class="product-favorite">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">文具セット AH85168</h3>
+                            <p class="product-price">¥5,490</p>
+                            <button class="btn btn-add-cart">カートに追加</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="img/product/AW74957_l1.jpg" alt="新着7">
+                            <span class="product-badge">NEW</span>
+                            <button class="product-favorite">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">学習ツール AW74957</h3>
+                            <p class="product-price">¥6,290</p>
+                            <button class="btn btn-add-cart">カートに追加</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="img/product/8146306_l1.jpg" alt="新着8">
+                            <span class="product-badge">NEW</span>
+                            <button class="product-favorite">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">保育用品 8146306</h3>
+                            <p class="product-price">¥4,990</p>
+                            <button class="btn btn-add-cart">カートに追加</button>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

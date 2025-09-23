@@ -37,8 +37,19 @@
     }
     
     .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .products-grid.slider-track .product-card {
+        flex: 0 0 180px;
+        width: 180px;
     }
     
     .categories-grid.compact {
@@ -549,8 +560,35 @@
     }
     
     .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .products-grid.slider-track .product-card {
+        flex: 0 0 160px;
+        width: 160px;
+    }
+    
+    .product-image img {
+        height: 150px;
+    }
+    
+    .product-info {
+        padding: 0.75rem;
+    }
+    
+    .product-title {
+        font-size: 0.8rem;
+    }
+    
+    .product-price {
+        font-size: 0.85rem;
     }
     
     .categories-grid.compact {
@@ -673,8 +711,46 @@
     }
     
     .products-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .slider-controls {
+        align-self: flex-end;
+    }
+    
+    .products-grid.slider-track .product-card {
+        flex: 0 0 140px;
+        width: 140px;
+    }
+    
+    .product-image img {
+        height: 120px;
+    }
+    
+    .product-info {
+        padding: 0.5rem;
+    }
+    
+    .product-title {
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+    
+    .product-price {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .btn-add-cart {
+        font-size: 0.7rem;
+        padding: 0.4rem;
     }
     
     .categories-grid.compact {

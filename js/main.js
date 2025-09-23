@@ -1,184 +1,155 @@
-// EC Site JavaScript
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const drawerMenu = document.getElementById('drawerMenu');
-    const body = document.body;
-    let overlay;
+    console.log('DOM fully loaded, initializing components...');
 
-    // Create overlay element
-    function createOverlay() {
-        overlay = document.createElement('div');
-        overlay.className = 'overlay';
-        document.body.appendChild(overlay);
-        
-        overlay.addEventListener('click', function() {
-            closeDrawer();
-            closeSearchModal();
-        });
-    }
+    // Header functionality
+    initHeader();
+    
+    // Hero slider
+    initHeroSlider();
+    
+    // Product sliders
+    initProductSlider('recommendedSlider', 'recommendedPrev', 'recommendedNext');
+    initProductSlider('newSlider', 'newPrev', 'newNext');
+    
+    // Search functionality
+    initSearch();
+    
+    console.log('All components initialized');
 
-    // Open drawer menu
-    function openDrawer() {
-        if (!overlay) createOverlay();
-        drawerMenu.classList.add('open');
-        overlay.classList.add('active');
-        menuToggle.classList.add('active');
-        body.style.overflow = 'hidden';
-    }
+    function initHeader() {
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const closeMenuBtn = document.querySelector('.close-menu');
 
-    // Close drawer menu
-    function closeDrawer() {
-        drawerMenu.classList.remove('open');
-        if (overlay) overlay.classList.remove('active');
-        menuToggle.classList.remove('active');
-        body.style.overflow = '';
-    }
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+            });
+        }
 
-    // Toggle drawer menu
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            if (drawerMenu.classList.contains('open')) {
-                closeDrawer();
-            } else {
-                openDrawer();
-            }
-        });
-    }
+        if (closeMenuBtn && mobileMenu) {
+            closeMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        }
 
-    // Drawer submenu toggle
-    const drawerSubmenuItems = document.querySelectorAll('.drawer-nav .has-submenu > a');
-    drawerSubmenuItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const parent = this.parentElement;
-            const submenu = parent.querySelector('.submenu');
-            
-            // Toggle current submenu
-            parent.classList.toggle('open');
-            submenu.classList.toggle('open');
-            
-            // Close other submenus
-            drawerSubmenuItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    const otherParent = otherItem.parentElement;
-                    const otherSubmenu = otherParent.querySelector('.submenu');
-                    otherParent.classList.remove('open');
-                    otherSubmenu.classList.remove('open');
+        // Search toggle
+        const searchBtn = document.querySelector('.search-btn');
+        const searchOverlay = document.querySelector('.search-overlay');
+        const closeSearchBtn = document.querySelector('.close-search');
+
+        if (searchBtn && searchOverlay) {
+            searchBtn.addEventListener('click', () => {
+                searchOverlay.classList.add('active');
+            });
+        }
+
+        if (closeSearchBtn && searchOverlay) {
+            closeSearchBtn.addEventListener('click', () => {
+                searchOverlay.classList.remove('active');
+            });
+        }
+
+        // Category menu hover
+        const categoryBtn = document.querySelector('.category-btn');
+        const megaMenu = document.querySelector('.mega-menu');
+
+        if (categoryBtn && megaMenu) {
+            let hoverTimeout;
+
+            categoryBtn.addEventListener('mouseenter', () => {
+                clearTimeout(hoverTimeout);
+                megaMenu.style.display = 'block';
+            });
+
+            categoryBtn.addEventListener('mouseleave', () => {
+                hoverTimeout = setTimeout(() => {
+                    megaMenu.style.display = 'none';
+                }, 300);
+            });
+
+            megaMenu.addEventListener('mouseenter', () => {
+                clearTimeout(hoverTimeout);
+            });
+
+            megaMenu.addEventListener('mouseleave', () => {
+                megaMenu.style.display = 'none';
+            });
+        }
+
+        // Mobile category accordion
+        const mobileCategoryBtns = document.querySelectorAll('.mobile-category-item > a');
+        mobileCategoryBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const parent = btn.parentElement;
+                const submenu = parent.querySelector('.mobile-submenu');
+                
+                if (submenu) {
+                    e.preventDefault();
+                    parent.classList.toggle('active');
                 }
             });
         });
-    });
+    }
 
-    // Mobile Search Modal
-    const searchToggle = document.querySelector('.mobile-search-toggle');
-    const mobileSearchToggle = document.getElementById('mobileSearchToggle');
-    const searchModal = document.getElementById('searchModal');
-    const searchModalClose = document.querySelector('.search-modal-close');
-
-    function openSearchModal() {
-        if (!overlay) createOverlay();
-        searchModal.classList.add('open');
-        overlay.classList.add('active');
-        body.style.overflow = 'hidden';
+    function initHeroSlider() {
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        const heroDots = document.querySelectorAll('.hero-dot');
+        const sliderNext = document.querySelector('.slider-next');
+        const sliderPrev = document.querySelector('.slider-prev');
         
-        // Focus on search input
-        const searchInput = document.querySelector('.mobile-search-input');
-        if (searchInput) {
-            setTimeout(() => searchInput.focus(), 100);
-        }
-    }
-
-    function closeSearchModal() {
-        searchModal.classList.remove('open');
-        if (overlay) overlay.classList.remove('active');
-        body.style.overflow = '';
-    }
-
-    if (searchToggle) {
-        searchToggle.addEventListener('click', openSearchModal);
-    }
-    
-    if (mobileSearchToggle) {
-        mobileSearchToggle.addEventListener('click', openSearchModal);
-    }
-
-    if (searchModalClose) {
-        searchModalClose.addEventListener('click', closeSearchModal);
-    }
-
-    // Hero Carousel
-    const heroSlides = document.querySelectorAll('.hero-slide');
-    const heroDots = document.querySelectorAll('.dot');
-    const sliderPrev = document.getElementById('sliderPrev');
-    const sliderNext = document.getElementById('sliderNext');
-    let currentSlide = 0;
-    let slideInterval;
-
-    function showSlide(index) {
-        // Horizontal 3-slide carousel display
-        heroSlides.forEach((slide, i) => {
-            slide.classList.remove('active', 'prev', 'next');
+        if (!heroSlides.length) return;
+        
+        let currentSlide = 0;
+        let carouselInterval;
+        
+        function showSlide(index) {
+            heroSlides.forEach((slide, i) => {
+                slide.classList.remove('active', 'prev', 'next');
+                
+                if (i === index) {
+                    slide.classList.add('active');
+                } else if (i === (index - 1 + heroSlides.length) % heroSlides.length) {
+                    slide.classList.add('prev');
+                } else if (i === (index + 1) % heroSlides.length) {
+                    slide.classList.add('next');
+                }
+            });
             
-            if (i === index) {
-                // Current active slide (center)
-                slide.classList.add('active');
-            } else if (i === (index - 1 + heroSlides.length) % heroSlides.length) {
-                // Previous slide (left)
-                slide.classList.add('prev');
-            } else if (i === (index + 1) % heroSlides.length) {
-                // Next slide (right)
-                slide.classList.add('next');
-            } else {
-                // Hidden slides - remove inline styles
-                slide.style.transform = '';
-                slide.style.opacity = '';
-            }
-        });
-        
-        // Update dots
-        heroDots.forEach(dot => dot.classList.remove('active'));
-        if (heroDots[index]) {
-            heroDots[index].classList.add('active');
+            heroDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
         }
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % heroSlides.length;
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % heroSlides.length;
+            showSlide(currentSlide);
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + heroSlides.length) % heroSlides.length;
+            showSlide(currentSlide);
+        }
+        
+        function startCarousel() {
+            carouselInterval = setInterval(nextSlide, 5000);
+        }
+        
+        function stopCarousel() {
+            clearInterval(carouselInterval);
+        }
+        
+        // Initialize
         showSlide(currentSlide);
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + heroSlides.length) % heroSlides.length;
-        showSlide(currentSlide);
-    }
-
-    function showSlideWithDirection(index, direction) {
-        // Horizontal slide transition
-        showSlide(index);
-    }
-
-    function startCarousel() {
-        slideInterval = setInterval(nextSlide, 6000); // Change slide every 6 seconds
-    }
-
-    function stopCarousel() {
-        clearInterval(slideInterval);
-    }
-
-    // Initialize carousel if slides exist
-    if (heroSlides.length > 0) {
-        // Show initial slide
-        showSlide(0);
         startCarousel();
         
-        // Arrow button handlers
+        // Navigation buttons
         if (sliderNext) {
             sliderNext.addEventListener('click', () => {
                 nextSlide();
                 stopCarousel();
-                startCarousel(); // Restart the interval
+                startCarousel();
             });
         }
 
@@ -186,21 +157,21 @@ document.addEventListener('DOMContentLoaded', function() {
             sliderPrev.addEventListener('click', () => {
                 prevSlide();
                 stopCarousel();
-                startCarousel(); // Restart the interval
+                startCarousel();
             });
         }
         
-        // Dot click handlers
+        // Dot navigation
         heroDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
                 currentSlide = index;
                 showSlide(currentSlide);
                 stopCarousel();
-                startCarousel(); // Restart the interval
+                startCarousel();
             });
         });
 
-        // Pause carousel on hover
+        // Pause on hover
         const heroSection = document.querySelector('.hero-section');
         if (heroSection) {
             heroSection.addEventListener('mouseenter', stopCarousel);
@@ -220,29 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Click handlers for prev/next slides
-        heroSlides.forEach((slide, i) => {
-            slide.addEventListener('click', (e) => {
-                const isActive = slide.classList.contains('active');
-                const isPrev = slide.classList.contains('prev');
-                const isNext = slide.classList.contains('next');
-                
-                if (!isActive) {
-                    e.preventDefault();
-                    stopCarousel();
-                    
-                    if (isPrev) {
-                        prevSlide();
-                    } else if (isNext) {
-                        nextSlide();
-                    }
-                    
-                    startCarousel();
-                }
-            });
-        });
-
-        // Touch/swipe support for mobile
+        // Touch/swipe support
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -257,15 +206,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             function handleSwipe() {
-                const swipeThreshold = 50; // minimum distance for swipe
+                const swipeThreshold = 50;
                 const swipeDistance = touchStartX - touchEndX;
 
                 if (Math.abs(swipeDistance) > swipeThreshold) {
                     if (swipeDistance > 0) {
-                        // Swipe left - next slide
                         nextSlide();
                     } else {
-                        // Swipe right - previous slide
                         prevSlide();
                     }
                     stopCarousel();
@@ -275,225 +222,176 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Search Suggestions (Mock functionality)
-    const searchInputs = document.querySelectorAll('.search-input, .mobile-search-input');
-    const searchSuggestions = document.querySelector('.search-suggestions');
+    // Product Sliders - 無限スクロール対応
+    function initProductSlider(sliderId, prevBtnId, nextBtnId) {
+        const slider = document.getElementById(sliderId);
+        const track = slider?.querySelector('.slider-track');
+        const prevBtn = document.getElementById(prevBtnId);
+        const nextBtn = document.getElementById(nextBtnId);
+        
+        if (!slider || !track || !prevBtn || !nextBtn) {
+            console.log(`Slider initialization failed for ${sliderId}:`, {
+                slider: !!slider,
+                track: !!track,
+                prevBtn: !!prevBtn,
+                nextBtn: !!nextBtn
+            });
+            return;
+        }
+        
+        const originalCards = Array.from(track.children);
+        const cardWidth = 220; // カード幅 + マージン
+        let currentIndex = 3; // 複製分を考慮した初期位置
+        let isTransitioning = false;
+        let autoSlideInterval;
+        
+        console.log(`Initializing slider ${sliderId} with ${originalCards.length} cards`);
+        
+        // 無限スクロール用に最初と最後にカードを複製
+        function setupInfiniteSlider() {
+            // 最後の3枚を最初に複製
+            const firstClones = originalCards.slice(-3).map(card => {
+                const clone = card.cloneNode(true);
+                clone.classList.add('clone');
+                return clone;
+            });
+            
+            // 最初の3枚を最後に複製
+            const lastClones = originalCards.slice(0, 3).map(card => {
+                const clone = card.cloneNode(true);
+                clone.classList.add('clone');
+                return clone;
+            });
+            
+            // DOM に追加
+            firstClones.forEach(clone => track.insertBefore(clone, track.firstChild));
+            lastClones.forEach(clone => track.appendChild(clone));
+            
+            console.log(`Added ${firstClones.length + lastClones.length} cloned cards for infinite scroll`);
+        }
+        
+        function updateSliderPosition(animate = true) {
+            const position = currentIndex * cardWidth;
+            track.style.transition = animate ? 'transform 0.4s ease-in-out' : 'none';
+            track.style.transform = `translateX(-${position}px)`;
+        }
+        
+        function nextSlide() {
+            if (isTransitioning) return;
+            
+            isTransitioning = true;
+            currentIndex++;
+            updateSliderPosition(true);
+            
+            // 最後の複製に到達したら最初に戻る
+            setTimeout(() => {
+                if (currentIndex >= originalCards.length + 3) {
+                    currentIndex = 3;
+                    updateSliderPosition(false);
+                }
+                isTransitioning = false;
+            }, 400);
+        }
+        
+        function prevSlide() {
+            if (isTransitioning) return;
+            
+            isTransitioning = true;
+            currentIndex--;
+            updateSliderPosition(true);
+            
+            // 最初の複製に到達したら最後に戻る
+            setTimeout(() => {
+                if (currentIndex < 3) {
+                    currentIndex = originalCards.length + 2;
+                    updateSliderPosition(false);
+                }
+                isTransitioning = false;
+            }, 400);
+        }
+        
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 4000);
+        }
+        
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+        
+        // イベントリスナー
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            stopAutoSlide();
+            startAutoSlide();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            stopAutoSlide();
+            startAutoSlide();
+        });
+        
+        // ホバー時に自動スライドを停止
+        slider.addEventListener('mouseenter', stopAutoSlide);
+        slider.addEventListener('mouseleave', startAutoSlide);
+        
+        // 初期化
+        setupInfiniteSlider();
+        updateSliderPosition(false);
+        startAutoSlide();
+        
+        console.log(`Slider ${sliderId} initialized successfully`);
+    }
 
-    searchInputs.forEach(input => {
-        input.addEventListener('input', function() {
-            const query = this.value.trim();
-            if (query.length > 0 && searchSuggestions) {
-                // Mock suggestions - in real app, this would be an API call
-                const suggestions = [
-                    'Tシャツ',
-                    'デニムパンツ',
-                    'スニーカー',
-                    'ワンピース',
-                    'バッグ'
-                ].filter(item => item.toLowerCase().includes(query.toLowerCase()));
+    function initSearch() {
+        // Search suggestions
+        const searchInputs = document.querySelectorAll('.search-input, .mobile-search-input');
+        const searchSuggestions = document.querySelector('.search-suggestions');
 
-                if (suggestions.length > 0) {
-                    searchSuggestions.innerHTML = suggestions
-                        .map(item => `<div class="suggestion-item">${item}</div>`)
-                        .join('');
-                    searchSuggestions.style.display = 'block';
-                } else {
+        searchInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const query = this.value.trim();
+                if (query.length > 0 && searchSuggestions) {
+                    const suggestions = [
+                        'Tシャツ',
+                        'デニムパンツ',
+                        'スニーカー',
+                        'ワンピース',
+                        'バッグ'
+                    ].filter(item => item.toLowerCase().includes(query.toLowerCase()));
+
+                    if (suggestions.length > 0) {
+                        searchSuggestions.innerHTML = suggestions
+                            .map(item => `<div class="suggestion-item">${item}</div>`)
+                            .join('');
+                        searchSuggestions.style.display = 'block';
+                    } else {
+                        searchSuggestions.style.display = 'none';
+                    }
+                } else if (searchSuggestions) {
                     searchSuggestions.style.display = 'none';
                 }
-            } else if (searchSuggestions) {
-                searchSuggestions.style.display = 'none';
-            }
+            });
+
+            input.addEventListener('blur', function() {
+                setTimeout(() => {
+                    if (searchSuggestions) {
+                        searchSuggestions.style.display = 'none';
+                    }
+                }, 150);
+            });
         });
 
-        input.addEventListener('blur', function() {
-            // Delay hiding to allow clicking on suggestions
-            setTimeout(() => {
+        // Click handlers for suggestion items
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('suggestion-item')) {
+                searchInputs.forEach(input => {
+                    input.value = e.target.textContent;
+                });
                 if (searchSuggestions) {
                     searchSuggestions.style.display = 'none';
                 }
-            }, 200);
-        });
-    });
-
-    // Footer Accordion (Mobile)
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
-    accordionHeaders.forEach(header => {
-        header.addEventListener('click', function() {
-            const item = this.parentElement;
-            const content = item.querySelector('.accordion-content');
-            
-            // Toggle current accordion
-            item.classList.toggle('open');
-            content.classList.toggle('open');
-        });
-    });
-
-    // Add to Cart functionality (Mock)
-    const addToCartButtons = document.querySelectorAll('.btn-add-cart');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Mock add to cart
-            const originalText = this.textContent;
-            this.textContent = '追加中...';
-            this.disabled = true;
-            
-            setTimeout(() => {
-                this.textContent = '追加完了';
-                this.style.backgroundColor = '#28a745';
-                
-                // Update cart badge
-                updateCartBadge();
-                
-                setTimeout(() => {
-                    this.textContent = originalText;
-                    this.disabled = false;
-                    this.style.backgroundColor = '';
-                }, 1000);
-            }, 500);
-        });
-    });
-
-    // Update cart badge
-    function updateCartBadge() {
-        const badges = document.querySelectorAll('.badge');
-        badges.forEach(badge => {
-            let currentCount = parseInt(badge.textContent) || 0;
-            badge.textContent = currentCount + 1;
+            }
         });
     }
-
-    // Favorite button toggle
-    const favoriteButtons = document.querySelectorAll('.product-favorite');
-    favoriteButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const svg = this.querySelector('svg');
-            if (svg.style.fill === 'currentColor' || svg.style.fill === '#dc3545') {
-                // Remove from favorites
-                svg.style.fill = '';
-                svg.style.stroke = 'currentColor';
-                this.style.backgroundColor = 'white';
-            } else {
-                // Add to favorites
-                svg.style.fill = '#dc3545';
-                svg.style.stroke = '#dc3545';
-                this.style.backgroundColor = '#ffe6e6';
-            }
-        });
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            // Close mobile elements when switching to desktop
-            closeDrawer();
-            closeSearchModal();
-        }
-    });
-
-    // Lazy loading for images (simple intersection observer)
-    const images = document.querySelectorAll('img');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.src; // This would be img.dataset.src in real implementation
-                img.classList.add('loaded');
-                observer.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => imageObserver.observe(img));
 });
-
-// Utility functions for other pages
-window.ECUtils = {
-    showNotification: function(message, type = 'success') {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: 5px;
-            color: white;
-            z-index: 10000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        `;
-        
-        switch(type) {
-            case 'success':
-                notification.style.backgroundColor = '#28a745';
-                break;
-            case 'error':
-                notification.style.backgroundColor = '#dc3545';
-                break;
-            case 'warning':
-                notification.style.backgroundColor = '#ffc107';
-                notification.style.color = '#333';
-                break;
-            default:
-                notification.style.backgroundColor = '#17a2b8';
-        }
-        
-        document.body.appendChild(notification);
-        
-        // Fade in
-        setTimeout(() => {
-            notification.style.opacity = '1';
-        }, 100);
-        
-        // Auto remove
-        setTimeout(() => {
-            notification.style.opacity = '0';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
-    },
-    
-    validateEmail: function(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    },
-    
-    validatePassword: function(password) {
-        return password.length >= 8;
-    },
-    
-    getPasswordStrength: function(password) {
-        let strength = 0;
-        if (password.length >= 8) strength += 25;
-        if (password.match(/[a-z]/)) strength += 25;
-        if (password.match(/[A-Z]/)) strength += 25;
-        if (password.match(/[0-9]/)) strength += 25;
-        
-        if (strength < 50) return { level: 'weak', text: '弱い' };
-        if (strength < 75) return { level: 'medium', text: '普通' };
-        if (strength < 100) return { level: 'strong', text: '強い' };
-        return { level: 'very-strong', text: 'とても強い' };
-    }
-};
