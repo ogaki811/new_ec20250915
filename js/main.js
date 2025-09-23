@@ -117,59 +117,46 @@ document.addEventListener('DOMContentLoaded', function() {
     let slideInterval;
 
     function showSlide(index) {
-        // Hide all slides
+        // Horizontal 3-slide carousel display
         heroSlides.forEach((slide, i) => {
-            slide.classList.remove('active', 'slide-in-right', 'slide-in-left');
+            slide.classList.remove('active', 'prev', 'next');
+            
             if (i === index) {
+                // Current active slide (center)
                 slide.classList.add('active');
-                // Add slide direction based on current vs previous index
-                if (i > currentSlide) {
-                    slide.classList.add('slide-in-right');
-                } else if (i < currentSlide) {
-                    slide.classList.add('slide-in-left');
-                }
+            } else if (i === (index - 1 + heroSlides.length) % heroSlides.length) {
+                // Previous slide (left)
+                slide.classList.add('prev');
+            } else if (i === (index + 1) % heroSlides.length) {
+                // Next slide (right)
+                slide.classList.add('next');
+            } else {
+                // Hidden slides - remove inline styles
+                slide.style.transform = '';
+                slide.style.opacity = '';
             }
         });
-        heroDots.forEach(dot => dot.classList.remove('active'));
         
         // Update dots
+        heroDots.forEach(dot => dot.classList.remove('active'));
         if (heroDots[index]) {
             heroDots[index].classList.add('active');
         }
     }
 
     function nextSlide() {
-        const prevIndex = currentSlide;
         currentSlide = (currentSlide + 1) % heroSlides.length;
-        showSlideWithDirection(currentSlide, 'next');
+        showSlide(currentSlide);
     }
 
     function prevSlide() {
-        const prevIndex = currentSlide;
         currentSlide = (currentSlide - 1 + heroSlides.length) % heroSlides.length;
-        showSlideWithDirection(currentSlide, 'prev');
+        showSlide(currentSlide);
     }
 
     function showSlideWithDirection(index, direction) {
-        // Hide all slides first
-        heroSlides.forEach(slide => {
-            slide.classList.remove('active', 'slide-in-right', 'slide-in-left', 'slide-out-right', 'slide-out-left');
-        });
-        heroDots.forEach(dot => dot.classList.remove('active'));
-        
-        // Show new slide with animation
-        if (heroSlides[index]) {
-            heroSlides[index].classList.add('active');
-            if (direction === 'next') {
-                heroSlides[index].classList.add('slide-in-right');
-            } else if (direction === 'prev') {
-                heroSlides[index].classList.add('slide-in-left');
-            }
-        }
-        
-        if (heroDots[index]) {
-            heroDots[index].classList.add('active');
-        }
+        // Horizontal slide transition
+        showSlide(index);
     }
 
     function startCarousel() {
@@ -182,6 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize carousel if slides exist
     if (heroSlides.length > 0) {
+        // Show initial slide
+        showSlide(0);
         startCarousel();
         
         // Arrow button handlers
@@ -229,6 +218,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 stopCarousel();
                 startCarousel();
             }
+        });
+
+        // Click handlers for prev/next slides
+        heroSlides.forEach((slide, i) => {
+            slide.addEventListener('click', (e) => {
+                const isActive = slide.classList.contains('active');
+                const isPrev = slide.classList.contains('prev');
+                const isNext = slide.classList.contains('next');
+                
+                if (!isActive) {
+                    e.preventDefault();
+                    stopCarousel();
+                    
+                    if (isPrev) {
+                        prevSlide();
+                    } else if (isNext) {
+                        nextSlide();
+                    }
+                    
+                    startCarousel();
+                }
+            });
         });
 
         // Touch/swipe support for mobile
