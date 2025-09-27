@@ -879,4 +879,21 @@
         padding: 1rem;
         font-size: 14px;
     }
+    
+    /* News Section Responsive */
+    .news-item .flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .news-date,
+    .news-tag {
+        min-width: auto;
+    }
+    
+    /* Header delivery info responsive */
+    .delivery-info {
+        display: none;
+    }
 }

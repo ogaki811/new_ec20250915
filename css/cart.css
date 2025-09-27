@@ -623,7 +623,7 @@
     margin: 1rem 0;
 }
 
-.delivery-info {
+.order-summary .delivery-info {
     background-color: #e3f2fd;
     border-radius: 6px;
     padding: 1rem;

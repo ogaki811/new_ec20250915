@@ -51,32 +51,47 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Category menu hover
-        const categoryBtn = document.querySelector('.category-btn');
-        const megaMenu = document.querySelector('.mega-menu');
+        // All Categories Drawer
+        const allCategoriesBtn = document.getElementById('allCategoriesBtn');
+        const allCategoriesDrawer = document.getElementById('allCategoriesDrawer');
+        const allCategoriesOverlay = document.getElementById('allCategoriesOverlay');
+        const allCategoriesClose = document.getElementById('allCategoriesClose');
 
-        if (categoryBtn && megaMenu) {
-            let hoverTimeout;
+        function openAllCategoriesDrawer() {
+            if (allCategoriesDrawer) {
+                allCategoriesDrawer.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
 
-            categoryBtn.addEventListener('mouseenter', () => {
-                clearTimeout(hoverTimeout);
-                megaMenu.style.display = 'block';
-            });
+        function closeAllCategoriesDrawer() {
+            if (allCategoriesDrawer) {
+                allCategoriesDrawer.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
 
-            categoryBtn.addEventListener('mouseleave', () => {
-                hoverTimeout = setTimeout(() => {
-                    megaMenu.style.display = 'none';
-                }, 300);
-            });
-
-            megaMenu.addEventListener('mouseenter', () => {
-                clearTimeout(hoverTimeout);
-            });
-
-            megaMenu.addEventListener('mouseleave', () => {
-                megaMenu.style.display = 'none';
+        if (allCategoriesBtn) {
+            allCategoriesBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openAllCategoriesDrawer();
             });
         }
+
+        if (allCategoriesOverlay) {
+            allCategoriesOverlay.addEventListener('click', closeAllCategoriesDrawer);
+        }
+
+        if (allCategoriesClose) {
+            allCategoriesClose.addEventListener('click', closeAllCategoriesDrawer);
+        }
+
+        // ESC key to close drawer
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && allCategoriesDrawer && allCategoriesDrawer.classList.contains('active')) {
+                closeAllCategoriesDrawer();
+            }
+        });
 
         // Mobile category accordion
         const mobileCategoryBtns = document.querySelectorAll('.mobile-category-item > a');
@@ -98,11 +113,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const heroDots = document.querySelectorAll('.hero-dot');
         const sliderNext = document.querySelector('.slider-next');
         const sliderPrev = document.querySelector('.slider-prev');
+        const autoplayToggle = document.getElementById('sliderAutoplayToggle');
         
         if (!heroSlides.length) return;
         
         let currentSlide = 0;
         let carouselInterval;
+        let isAutoplayActive = true;
         
         function showSlide(index) {
             heroSlides.forEach((slide, i) => {
@@ -133,16 +150,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function startCarousel() {
-            carouselInterval = setInterval(nextSlide, 5000);
+            if (isAutoplayActive) {
+                carouselInterval = setInterval(nextSlide, 5000);
+            }
         }
         
         function stopCarousel() {
             clearInterval(carouselInterval);
         }
         
+        function toggleAutoplay() {
+            isAutoplayActive = !isAutoplayActive;
+            
+            if (isAutoplayActive) {
+                autoplayToggle.classList.add('playing');
+                startCarousel();
+            } else {
+                autoplayToggle.classList.remove('playing');
+                stopCarousel();
+            }
+        }
+        
         // Initialize
         showSlide(currentSlide);
         startCarousel();
+        
+        // Set initial state for autoplay toggle
+        if (autoplayToggle) {
+            autoplayToggle.classList.add('playing');
+        }
         
         // Navigation buttons
         if (sliderNext) {
@@ -159,6 +195,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 stopCarousel();
                 startCarousel();
             });
+        }
+        
+        // Autoplay toggle button
+        if (autoplayToggle) {
+            autoplayToggle.addEventListener('click', toggleAutoplay);
         }
         
         // Dot navigation
