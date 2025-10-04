@@ -45,9 +45,9 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">絞り込み</h2>
+    <div className="ec-search-filters bg-white rounded-lg border border-gray-200 p-4">
+      <div className="ec-search-filters__header flex items-center justify-between mb-4">
+        <h2 className="ec-search-filters__title text-lg font-semibold text-gray-900">絞り込み</h2>
         <button
           onClick={() => onFilterChange({
             categories: [],
@@ -56,21 +56,21 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
             inStock: false,
             minRating: 0,
           })}
-          className="text-sm text-blue-600 hover:text-blue-800"
+          className="ec-search-filters__clear-btn text-sm text-blue-600 hover:text-blue-800"
         >
           クリア
         </button>
       </div>
 
       {/* カテゴリ */}
-      <div className="mb-6 pb-6 border-b border-gray-200">
+      <div className="ec-search-filters__section mb-6 pb-6 border-b border-gray-200">
         <button
           onClick={() => toggleSection('category')}
-          className="flex items-center justify-between w-full mb-3"
+          className="ec-search-filters__section-toggle flex items-center justify-between w-full mb-3"
         >
-          <h3 className="font-semibold text-gray-900">カテゴリ</h3>
+          <h3 className="ec-search-filters__section-title font-semibold text-gray-900">カテゴリ</h3>
           <svg
-            className={`w-5 h-5 transition-transform ${isOpen.category ? 'rotate-180' : ''}`}
+            className={`ec-search-filters__section-icon w-5 h-5 transition-transform ${isOpen.category ? 'ec-search-filters__section-icon--open rotate-180' : ''}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -79,7 +79,7 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
           </svg>
         </button>
         {isOpen.category && (
-          <div className="space-y-2">
+          <div className="ec-search-filters__section-content ec-search-filters__checkbox-list space-y-2">
             {categories.map((category) => (
               <Checkbox
                 key={category}
@@ -94,14 +94,14 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
       </div>
 
       {/* 価格帯 */}
-      <div className="mb-6 pb-6 border-b border-gray-200">
+      <div className="ec-search-filters__section mb-6 pb-6 border-b border-gray-200">
         <button
           onClick={() => toggleSection('price')}
-          className="flex items-center justify-between w-full mb-3"
+          className="ec-search-filters__section-toggle flex items-center justify-between w-full mb-3"
         >
-          <h3 className="font-semibold text-gray-900">価格帯</h3>
+          <h3 className="ec-search-filters__section-title font-semibold text-gray-900">価格帯</h3>
           <svg
-            className={`w-5 h-5 transition-transform ${isOpen.price ? 'rotate-180' : ''}`}
+            className={`ec-search-filters__section-icon w-5 h-5 transition-transform ${isOpen.price ? 'ec-search-filters__section-icon--open rotate-180' : ''}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -110,23 +110,23 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
           </svg>
         </button>
         {isOpen.price && (
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
+          <div className="ec-search-filters__section-content space-y-3">
+            <div className="ec-search-filters__price-range flex items-center gap-2">
               <input
                 type="number"
                 name="min"
                 value={priceRange[0]}
                 onChange={handlePriceChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                className="ec-search-filters__price-input w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                 placeholder="最小"
               />
-              <span className="text-gray-500">〜</span>
+              <span className="ec-search-filters__price-separator text-gray-500">〜</span>
               <input
                 type="number"
                 name="max"
                 value={priceRange[1]}
                 onChange={handlePriceChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                className="ec-search-filters__price-input w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                 placeholder="最大"
               />
             </div>
@@ -135,14 +135,14 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
       </div>
 
       {/* ブランド */}
-      <div className="mb-6 pb-6 border-b border-gray-200">
+      <div className="ec-search-filters__section mb-6 pb-6 border-b border-gray-200">
         <button
           onClick={() => toggleSection('brand')}
-          className="flex items-center justify-between w-full mb-3"
+          className="ec-search-filters__section-toggle flex items-center justify-between w-full mb-3"
         >
-          <h3 className="font-semibold text-gray-900">ブランド</h3>
+          <h3 className="ec-search-filters__section-title font-semibold text-gray-900">ブランド</h3>
           <svg
-            className={`w-5 h-5 transition-transform ${isOpen.brand ? 'rotate-180' : ''}`}
+            className={`ec-search-filters__section-icon w-5 h-5 transition-transform ${isOpen.brand ? 'ec-search-filters__section-icon--open rotate-180' : ''}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -151,7 +151,7 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
           </svg>
         </button>
         {isOpen.brand && (
-          <div className="space-y-2 max-h-48 overflow-y-auto">
+          <div className="ec-search-filters__section-content ec-search-filters__checkbox-list space-y-2 max-h-48 overflow-y-auto">
             {brands.map((brand) => (
               <Checkbox
                 key={brand}
@@ -166,14 +166,14 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
       </div>
 
       {/* 在庫 */}
-      <div className="mb-6 pb-6 border-b border-gray-200">
+      <div className="ec-search-filters__section mb-6 pb-6 border-b border-gray-200">
         <button
           onClick={() => toggleSection('stock')}
-          className="flex items-center justify-between w-full mb-3"
+          className="ec-search-filters__section-toggle flex items-center justify-between w-full mb-3"
         >
-          <h3 className="font-semibold text-gray-900">在庫</h3>
+          <h3 className="ec-search-filters__section-title font-semibold text-gray-900">在庫</h3>
           <svg
-            className={`w-5 h-5 transition-transform ${isOpen.stock ? 'rotate-180' : ''}`}
+            className={`ec-search-filters__section-icon w-5 h-5 transition-transform ${isOpen.stock ? 'ec-search-filters__section-icon--open rotate-180' : ''}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -182,24 +182,26 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
           </svg>
         </button>
         {isOpen.stock && (
-          <Checkbox
-            id="in-stock"
-            label="在庫あり"
-            checked={filters.inStock}
-            onChange={handleStockChange}
-          />
+          <div className="ec-search-filters__section-content">
+            <Checkbox
+              id="in-stock"
+              label="在庫あり"
+              checked={filters.inStock}
+              onChange={handleStockChange}
+            />
+          </div>
         )}
       </div>
 
       {/* 評価 */}
-      <div className="mb-2">
+      <div className="ec-search-filters__section mb-2">
         <button
           onClick={() => toggleSection('rating')}
-          className="flex items-center justify-between w-full mb-3"
+          className="ec-search-filters__section-toggle flex items-center justify-between w-full mb-3"
         >
-          <h3 className="font-semibold text-gray-900">評価</h3>
+          <h3 className="ec-search-filters__section-title font-semibold text-gray-900">評価</h3>
           <svg
-            className={`w-5 h-5 transition-transform ${isOpen.rating ? 'rotate-180' : ''}`}
+            className={`ec-search-filters__section-icon w-5 h-5 transition-transform ${isOpen.rating ? 'ec-search-filters__section-icon--open rotate-180' : ''}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -208,20 +210,20 @@ function SearchFilters({ filters, onFilterChange, categories, brands }) {
           </svg>
         </button>
         {isOpen.rating && (
-          <div className="space-y-2">
+          <div className="ec-search-filters__section-content ec-search-filters__rating-list space-y-2">
             {[4, 3, 2, 1].map((rating) => (
               <button
                 key={rating}
                 onClick={() => handleRatingChange(rating)}
-                className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg transition-colors ${
-                  filters.minRating === rating ? 'bg-blue-50 text-blue-700' : 'hover:bg-gray-50'
+                className={`ec-search-filters__rating-btn flex items-center gap-2 w-full px-3 py-2 rounded-lg transition-colors ${
+                  filters.minRating === rating ? 'ec-search-filters__rating-btn--active bg-blue-50 text-blue-700' : 'hover:bg-gray-50'
                 }`}
               >
-                <span className="flex items-center">
+                <span className="ec-search-filters__rating-stars flex items-center">
                   {[...Array(5)].map((_, i) => (
                     <svg
                       key={i}
-                      className={`w-4 h-4 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                      className={`ec-search-filters__rating-star w-4 h-4 ${i < rating ? 'ec-search-filters__rating-star--filled text-yellow-400' : 'text-gray-300'}`}
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >

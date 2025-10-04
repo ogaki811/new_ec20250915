@@ -29,20 +29,20 @@ function ForgotPassword() {
   return (
     <>
       <SimpleHeader />
-      <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
-      <div className="w-full max-w-md mx-auto px-4">
-        <div className="bg-white rounded-2xl shadow-xl p-8 w-full relative">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-t-2xl"></div>
+      <main className="ec-forgot-password min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
+      <div className="ec-forgot-password__container w-full max-w-md mx-auto px-4">
+        <div className="ec-forgot-password__card bg-white rounded-2xl shadow-xl p-8 w-full relative">
+          <div className="ec-forgot-password__decoration absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-t-2xl"></div>
 
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-semibold text-gray-900 mb-2">パスワードを忘れた方</h1>
-            <p className="text-gray-600 text-sm leading-6">
+          <div className="ec-forgot-password__header text-center mb-8">
+            <h1 className="ec-forgot-password__title text-3xl font-semibold text-gray-900 mb-2">パスワードを忘れた方</h1>
+            <p className="ec-forgot-password__description text-gray-600 text-sm leading-6">
               ご登録のメールアドレスを入力してください<br />
               パスワード再設定用のリンクをお送りします
             </p>
           </div>
 
-          <form className="mb-8" onSubmit={handleSubmit}>
+          <form className="ec-forgot-password__form mb-8" onSubmit={handleSubmit}>
             <Input
               type="email"
               id="email"
@@ -61,8 +61,8 @@ function ForgotPassword() {
             </Button>
           </form>
 
-          <div className="text-center pt-6 border-t border-gray-200">
-            <Link to="/login" className="text-blue-600 no-underline text-sm transition-colors hover:text-blue-800 hover:underline">
+          <div className="ec-forgot-password__footer text-center pt-6 border-t border-gray-200">
+            <Link to="/login" className="ec-forgot-password__back-link text-blue-600 no-underline text-sm transition-colors hover:text-blue-800 hover:underline">
               ← ログイン画面に戻る
             </Link>
           </div>

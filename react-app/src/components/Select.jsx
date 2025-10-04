@@ -13,24 +13,24 @@ function Select({
   disabled = false,
   className = '',
 }) {
+  const baseClasses = 'ec-select__field w-full px-4 py-3 border rounded-lg appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors';
+
   const selectClasses = `
-    w-full px-4 py-3 border rounded-lg appearance-none bg-white
-    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-    transition-colors
-    ${error ? 'border-red-500' : 'border-gray-300'}
-    ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400'}
+    ${baseClasses}
+    ${error ? 'ec-select__field--error border-red-500' : 'border-gray-300'}
+    ${disabled ? 'ec-select__field--disabled bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400'}
     ${className}
   `.trim().replace(/\s+/g, ' ');
 
   return (
-    <div className="w-full">
+    <div className="ec-select w-full">
       {label && (
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor={name} className="ec-select__label block text-sm font-medium text-gray-700 mb-2">
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="ec-select__required text-red-500 ml-1">*</span>}
         </label>
       )}
-      <div className="relative">
+      <div className="ec-select__container relative">
         <select
           id={name}
           name={name}
@@ -41,7 +41,7 @@ function Select({
           required={required}
         >
           {placeholder && (
-            <option value="" disabled>
+            <option value="" disabled className="ec-select__placeholder">
               {placeholder}
             </option>
           )}
@@ -50,13 +50,14 @@ function Select({
               key={option.value || option}
               value={option.value || option}
               disabled={option.disabled}
+              className="ec-select__option"
             >
               {option.label || option}
             </option>
           ))}
         </select>
         {/* 矢印アイコン */}
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+        <div className="ec-select__arrow absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
           <svg
             className="w-5 h-5 text-gray-400"
             fill="none"
@@ -72,7 +73,7 @@ function Select({
           </svg>
         </div>
       </div>
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {error && <p className="ec-select__error mt-2 text-sm text-red-600">{error}</p>}
     </div>
   );
 }

@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 
 function ProductSlider({ products, size = 'compact' }) {
   return (
-    <div className="product-slider relative">
+    <div className="ec-product-slider product-slider relative">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={16}
@@ -30,10 +30,10 @@ function ProductSlider({ products, size = 'compact' }) {
             slidesPerView: 6,
           },
         }}
-        className="pb-12"
+        className="ec-product-slider__container pb-12"
       >
         {products.map((product) => (
-          <SwiperSlide key={product.id}>
+          <SwiperSlide key={product.id} className="ec-product-slider__slide">
             <ProductCard product={product} size={size} />
           </SwiperSlide>
         ))}

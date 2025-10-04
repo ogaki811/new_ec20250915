@@ -136,27 +136,27 @@ function Search() {
                            filters.minRating > 0;
 
   return (
-    <main>
+    <main className="ec-search">
       <Breadcrumb items={breadcrumbItems} />
 
-      <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="ec-search__section py-12 bg-gray-50">
+        <div className="ec-search__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* 検索結果ヘッダー */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <div className="ec-search__header mb-8">
+            <h1 className="ec-search__title text-3xl font-bold text-gray-900 mb-2">
               検索結果
             </h1>
             {query && (
-              <p className="text-gray-600">
-                「<span className="font-semibold text-blue-600">{query}</span>」の検索結果
+              <p className="ec-search__query-text text-gray-600">
+                「<span className="ec-search__query font-semibold text-blue-600">{query}</span>」の検索結果
               </p>
             )}
           </div>
 
           {/* アクティブフィルタータグ */}
           {hasActiveFilters && (
-            <div className="mb-6 flex flex-wrap items-center gap-2">
-              <span className="text-sm text-gray-700">絞り込み条件:</span>
+            <div className="ec-search__active-filters mb-6 flex flex-wrap items-center gap-2">
+              <span className="ec-search__filter-label text-sm text-gray-700">絞り込み条件:</span>
               {filters.categories.map((category) => (
                 <FilterTag
                   key={category}
@@ -186,9 +186,9 @@ function Search() {
             </div>
           )}
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="ec-search__layout grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* フィルターサイドバー */}
-            <aside className="lg:col-span-1">
+            <aside className="ec-search__sidebar lg:col-span-1">
               <SearchFilters
                 filters={filters}
                 onFilterChange={setFilters}
@@ -198,7 +198,7 @@ function Search() {
             </aside>
 
             {/* 検索結果 */}
-            <div className="lg:col-span-3">
+            <div className="ec-search__results lg:col-span-3">
               {sortedProducts.length > 0 ? (
                 <>
                   <SearchSort
@@ -207,7 +207,7 @@ function Search() {
                     resultCount={sortedProducts.length}
                   />
 
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  <div className="ec-search__products-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {paginatedItems.map((product) => (
                       <ProductCard
                         key={product.id}
@@ -227,9 +227,9 @@ function Search() {
                   )}
                 </>
               ) : (
-                <div className="text-center py-16">
+                <div className="ec-search__empty text-center py-16">
                   <svg
-                    className="mx-auto h-24 w-24 text-gray-400 mb-4"
+                    className="ec-search__empty-icon mx-auto h-24 w-24 text-gray-400 mb-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -241,10 +241,10 @@ function Search() {
                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
-                  <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                  <h2 className="ec-search__empty-title text-2xl font-semibold text-gray-900 mb-2">
                     検索結果が見つかりませんでした
                   </h2>
-                  <p className="text-gray-600 mb-6">
+                  <p className="ec-search__empty-message text-gray-600 mb-6">
                     {hasActiveFilters
                       ? 'フィルター条件を変更して再度お試しください'
                       : '別のキーワードで検索してみてください'

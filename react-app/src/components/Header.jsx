@@ -39,23 +39,23 @@ function Header() {
   };
 
   return (
-    <header className="w-full">
+    <header className="ec-header w-full">
       {/* デスクトップヘッダー */}
-      <div className="hidden lg:block">
+      <div className="ec-header--desktop hidden lg:block">
         {/* メインヘッダー */}
         <div className="bg-white">
           <div className="w-full px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between py-4 gap-4">
               {/* ロゴエリア */}
-              <div className="flex-shrink-0">
+              <div className="ec-header__logo flex-shrink-0">
                 <Link to="/" className="flex items-center space-x-3">
                   <img src="/img/header_logo.png" alt="smartsample" className="h-6 w-auto" />
                 </Link>
               </div>
 
               {/* 検索エリア */}
-              <div className="flex-1 relative">
-                <form onSubmit={handleSearch} className="relative">
+              <div className="ec-header__search flex-1 relative">
+                <form onSubmit={handleSearch} className="ec-header__search-form relative">
                   <div className="relative">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                       <circle cx="11" cy="11" r="8"></circle>
@@ -66,18 +66,18 @@ function Header() {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="商品名やメーカー、品番から探す"
-                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="ec-header__search-input w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
-                  <button type="submit" className="absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors">
+                  <button type="submit" className="ec-header__search-button absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors">
                     <span>検索</span>
                   </button>
                 </form>
               </div>
 
               {/* 機能エリア */}
-              <div className="flex items-center space-x-4">
-                <Link to="/cart" className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
+              <div className="ec-header__actions flex items-center space-x-4">
+                <Link to="/cart" className="ec-header__cart-icon flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
                   <div className="relative">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <circle cx="9" cy="21" r="1"></circle>
@@ -85,7 +85,7 @@ function Header() {
                       <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
                     {itemCount > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{itemCount}</span>
+                      <span className="ec-header__badge absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{itemCount}</span>
                     )}
                   </div>
                   <span className="text-xs mt-1">カート</span>
@@ -111,7 +111,7 @@ function Header() {
                     </button>
                   </>
                 ) : (
-                  <Link to="/login" className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
+                  <Link to="/login" className="ec-header__login-button flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
                       <polyline points="10 17 15 12 10 7"></polyline>
@@ -126,7 +126,7 @@ function Header() {
         </div>
 
         {/* ナビゲーションメニュー */}
-        <nav className="bg-gray-800 text-white">
+        <nav className="ec-header__nav bg-gray-800 text-white">
           <div className="w-full px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-12">
               <div className="flex items-center space-x-8">
@@ -146,31 +146,31 @@ function Header() {
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
       {/* モバイルヘッダー */}
-      <div className="lg:hidden bg-white">
+      <div className="ec-header--mobile lg:hidden bg-white">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between mb-3">
-            <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-gray-700 hover:text-blue-600 transition-colors">
+            <button onClick={() => setIsMobileMenuOpen(true)} className="ec-header__mobile-toggle p-2 text-gray-700 hover:text-blue-600 transition-colors">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <line x1="3" y1="12" x2="21" y2="12"></line>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <line x1="3" y1="18" x2="21" y2="18"></line>
               </svg>
             </button>
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="ec-header__logo flex items-center">
               <img src="/img/header_logo.png" alt="smartsample" className="h-5 w-auto" />
             </Link>
-            <Link to="/cart" className="p-2 relative">
+            <Link to="/cart" className="ec-header__cart-icon p-2 relative">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <circle cx="9" cy="21" r="1"></circle>
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
               </svg>
               {itemCount > 0 && (
-                <span className="absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">{itemCount}</span>
+                <span className="ec-header__badge absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">{itemCount}</span>
               )}
             </Link>
           </div>
-          <form onSubmit={handleSearch} className="relative">
+          <form onSubmit={handleSearch} className="ec-header__search-form relative">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.35-4.35"></path>
@@ -180,7 +180,7 @@ function Header() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="商品を検索"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg"
+              className="ec-header__search-input w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg"
             />
           </form>
         </div>

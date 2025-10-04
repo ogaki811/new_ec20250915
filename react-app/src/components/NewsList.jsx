@@ -8,9 +8,9 @@ function NewsList({ news = [], maxItems, className = '' }) {
 
   if (displayNews.length === 0) {
     return (
-      <div className={`text-center py-12 ${className}`}>
+      <div className={`ec-news-list ec-news-list--empty text-center py-12 ${className}`}>
         <svg
-          className="mx-auto h-12 w-12 text-gray-400 mb-4"
+          className="ec-news-list__empty-icon mx-auto h-12 w-12 text-gray-400 mb-4"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -22,13 +22,13 @@ function NewsList({ news = [], maxItems, className = '' }) {
             d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
           />
         </svg>
-        <p className="text-gray-500">新着情報はありません</p>
+        <p className="ec-news-list__empty-text text-gray-500">新着情報はありません</p>
       </div>
     );
   }
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`ec-news-list space-y-4 ${className}`}>
       {displayNews.map((item, index) => (
         <NewsItem
           key={item.id || index}

@@ -31,7 +31,7 @@ function LiveRegion() {
       role="status"
       aria-live={politeness}
       aria-atomic="true"
-      className="sr-only"
+      className="ec-live-region sr-only"
     >
       {message}
     </div>

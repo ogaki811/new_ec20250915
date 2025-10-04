@@ -7,20 +7,20 @@ function CategoryCard({ category, image, productCount, className = '' }) {
   return (
     <Link
       to={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
-      className={`group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 ${className}`}
+      className={`ec-category-card group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 ${className}`}
     >
       {/* カテゴリー画像 */}
-      <div className="relative h-48 overflow-hidden bg-gray-100">
+      <div className="ec-category-card__image-wrapper relative h-48 overflow-hidden bg-gray-100">
         {image ? (
           <img
             src={image}
             alt={category}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+            className="ec-category-card__image w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
+          <div className="ec-category-card__placeholder w-full h-full flex items-center justify-center">
             <svg
-              className="w-20 h-20 text-gray-300"
+              className="ec-category-card__placeholder-icon w-20 h-20 text-gray-300"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -36,25 +36,25 @@ function CategoryCard({ category, image, productCount, className = '' }) {
         )}
 
         {/* オーバーレイ */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="ec-category-card__overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* カテゴリー情報 */}
-      <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+      <div className="ec-category-card__content p-4">
+        <h3 className="ec-category-card__title text-lg font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
           {category}
         </h3>
         {productCount !== undefined && (
-          <p className="text-sm text-gray-500">
+          <p className="ec-category-card__count text-sm text-gray-500">
             {productCount}商品
           </p>
         )}
       </div>
 
       {/* 矢印アイコン */}
-      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="ec-category-card__arrow absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <svg
-          className="w-6 h-6 text-blue-600"
+          className="ec-category-card__arrow-icon w-6 h-6 text-blue-600"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

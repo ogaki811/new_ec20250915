@@ -12,7 +12,7 @@ function CategoryGrid({ categories = [], columns = 4, className = '' }) {
   };
 
   return (
-    <div className={`grid ${gridClasses[columns] || gridClasses[4]} gap-6 ${className}`}>
+    <div className={`ec-category-grid grid ${gridClasses[columns] || gridClasses[4]} gap-6 ${className}`}>
       {categories.map((category, index) => (
         <CategoryCard
           key={category.id || index}

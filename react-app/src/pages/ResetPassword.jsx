@@ -91,9 +91,9 @@ function ResetPassword() {
     return (
       <>
         <SimpleHeader />
-        <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
-        <div className="w-full max-w-lg mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+        <main className="ec-reset-password ec-reset-password--error min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
+        <div className="ec-reset-password__container w-full max-w-lg mx-auto px-4">
+          <div className="ec-reset-password__error-card bg-white rounded-2xl shadow-xl p-8 text-center">
             <svg
               width="64"
               height="64"
@@ -101,14 +101,14 @@ function ResetPassword() {
               fill="none"
               stroke="#dc2626"
               strokeWidth="2"
-              className="mx-auto mb-6"
+              className="ec-reset-password__error-icon mx-auto mb-6"
             >
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="15" y1="9" x2="9" y2="15"></line>
               <line x1="9" y1="9" x2="15" y2="15"></line>
             </svg>
-            <h1 className="text-2xl font-semibold text-gray-900 mb-2">無効なリンクです</h1>
-            <p className="text-gray-600 mb-6">
+            <h1 className="ec-reset-password__error-title text-2xl font-semibold text-gray-900 mb-2">無効なリンクです</h1>
+            <p className="ec-reset-password__error-message text-gray-600 mb-6">
               パスワードリセットリンクが無効または期限切れです
             </p>
             <Button variant="primary" fullWidth to="/forgot-password">
@@ -125,38 +125,38 @@ function ResetPassword() {
   return (
     <>
       <SimpleHeader />
-      <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
-      <div className="w-full max-w-lg mx-auto px-4">
-        <div className="bg-white rounded-2xl shadow-xl p-8 w-full relative">
+      <main className="ec-reset-password min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
+      <div className="ec-reset-password__container w-full max-w-lg mx-auto px-4">
+        <div className="ec-reset-password__card bg-white rounded-2xl shadow-xl p-8 w-full relative">
           {/* トップボーダー */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-t-2xl"></div>
+          <div className="ec-reset-password__decoration absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-t-2xl"></div>
 
           {/* ヘッダー */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-semibold text-gray-900 mb-2">
+          <div className="ec-reset-password__header text-center mb-8">
+            <h1 className="ec-reset-password__title text-3xl font-semibold text-gray-900 mb-2">
               新しいパスワード設定
             </h1>
-            <p className="text-gray-600 text-sm leading-6">
+            <p className="ec-reset-password__description text-gray-600 text-sm leading-6">
               新しいパスワードを設定してください
             </p>
           </div>
 
           {/* トークン確認ステータス */}
-          <div className="mb-8">
-            <div className="flex items-center gap-2 py-3 px-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm font-medium">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <div className="ec-reset-password__token-status mb-8">
+            <div className="ec-reset-password__token-verified flex items-center gap-2 py-3 px-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm font-medium">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ec-reset-password__verified-icon">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22,4 12,14.01 9,11.01"></polyline>
               </svg>
-              <span>リンクが確認されました</span>
+              <span className="ec-reset-password__verified-text">リンクが確認されました</span>
             </div>
           </div>
 
           {/* フォーム */}
-          <form onSubmit={handleSubmit} className="mb-8">
-            <div className="space-y-6">
+          <form onSubmit={handleSubmit} className="ec-reset-password__form mb-8">
+            <div className="ec-reset-password__fields space-y-6">
               {/* 新しいパスワード */}
-              <div>
+              <div className="ec-reset-password__password-field">
                 <Input
                   type="password"
                   name="password"
@@ -169,10 +169,10 @@ function ResetPassword() {
 
                 {/* パスワード強度インジケーター */}
                 {formData.password && (
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs text-gray-600">パスワード強度</span>
-                      <span className={`text-xs font-medium ${
+                  <div className="ec-reset-password__strength-indicator mt-3">
+                    <div className="ec-reset-password__strength-header flex items-center justify-between mb-2">
+                      <span className="ec-reset-password__strength-label text-xs text-gray-600">パスワード強度</span>
+                      <span className={`ec-reset-password__strength-value text-xs font-medium ${
                         passwordStrength <= 1 ? 'text-red-600' :
                         passwordStrength === 2 ? 'text-orange-600' :
                         passwordStrength === 3 ? 'text-yellow-600' :
@@ -182,23 +182,23 @@ function ResetPassword() {
                         {getStrengthText()}
                       </span>
                     </div>
-                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="ec-reset-password__strength-bar h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
-                        className={`h-full transition-all duration-300 ${getStrengthColor()}`}
+                        className={`ec-reset-password__strength-fill h-full transition-all duration-300 ${getStrengthColor()}`}
                         style={{ width: `${(passwordStrength / 5) * 100}%` }}
                       ></div>
                     </div>
-                    <ul className="mt-3 text-xs text-gray-600 space-y-1">
-                      <li className={formData.password.length >= 8 ? 'text-green-600' : ''}>
+                    <ul className="ec-reset-password__requirements mt-3 text-xs text-gray-600 space-y-1">
+                      <li className={`ec-reset-password__requirement ${formData.password.length >= 8 ? 'ec-reset-password__requirement--met text-green-600' : ''}`}>
                         {formData.password.length >= 8 ? '✓' : '○'} 8文字以上
                       </li>
-                      <li className={/[a-z]/.test(formData.password) ? 'text-green-600' : ''}>
+                      <li className={`ec-reset-password__requirement ${/[a-z]/.test(formData.password) ? 'ec-reset-password__requirement--met text-green-600' : ''}`}>
                         {/[a-z]/.test(formData.password) ? '✓' : '○'} 小文字を含む
                       </li>
-                      <li className={/[A-Z]/.test(formData.password) ? 'text-green-600' : ''}>
+                      <li className={`ec-reset-password__requirement ${/[A-Z]/.test(formData.password) ? 'ec-reset-password__requirement--met text-green-600' : ''}`}>
                         {/[A-Z]/.test(formData.password) ? '✓' : '○'} 大文字を含む
                       </li>
-                      <li className={/[0-9]/.test(formData.password) ? 'text-green-600' : ''}>
+                      <li className={`ec-reset-password__requirement ${/[0-9]/.test(formData.password) ? 'ec-reset-password__requirement--met text-green-600' : ''}`}>
                         {/[0-9]/.test(formData.password) ? '✓' : '○'} 数字を含む
                       </li>
                     </ul>
@@ -207,7 +207,7 @@ function ResetPassword() {
               </div>
 
               {/* 確認用パスワード */}
-              <div>
+              <div className="ec-reset-password__confirm-field">
                 <Input
                   type="password"
                   name="confirmPassword"
@@ -221,7 +221,7 @@ function ResetPassword() {
             </div>
 
             {/* 送信ボタン */}
-            <div className="mt-8">
+            <div className="ec-reset-password__submit mt-8">
               <Button type="submit" variant="primary" fullWidth>
                 パスワードを変更
               </Button>
@@ -229,10 +229,10 @@ function ResetPassword() {
           </form>
 
           {/* ログインリンク */}
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
+          <div className="ec-reset-password__footer text-center">
+            <p className="ec-reset-password__footer-text text-sm text-gray-600">
               パスワードを思い出しましたか？
-              <Button variant="link" to="/login" className="ml-1">
+              <Button variant="link" to="/login" className="ec-reset-password__login-link ml-1">
                 ログイン
               </Button>
             </p>

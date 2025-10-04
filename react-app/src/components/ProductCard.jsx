@@ -54,28 +54,30 @@ function ProductCard({ product, size = 'default' }) {
   const classes = sizeClasses[size] || sizeClasses.default;
 
   return (
-    <div className={`bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow ${classes.card}`}>
-      <Link to={`/product/${product.id}`} className="block">
-        <div className={`relative bg-gray-100 ${classes.image} group`}>
+    <div className={`ec-product-card ec-product-card--${size} bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow ${classes.card}`}>
+      <Link to={`/product/${product.id}`} className="ec-product-card__link block">
+        <div className={`ec-product-card__image-container relative bg-gray-100 ${classes.image} group`}>
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className="ec-product-card__image w-full h-full object-cover"
             loading="lazy"
           />
-          {product.badge && (
-            <span className="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
-              {product.badge}
-            </span>
-          )}
-          {product.discount && (
-            <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
-              {product.discount}%OFF
-            </span>
-          )}
+          <div className="ec-product-card__badges">
+            {product.badge && (
+              <span className="ec-product-card__badge absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                {product.badge}
+              </span>
+            )}
+            {product.discount && (
+              <span className="ec-product-card__discount absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
+                {product.discount}%OFF
+              </span>
+            )}
+          </div>
           <button
             onClick={handleToggleFavorite}
-            className={`absolute bottom-2 right-2 p-2 rounded-full transition-all ${
+            className={`ec-product-card__favorite-btn ${isFav ? 'ec-product-card__favorite-btn--active' : ''} absolute bottom-2 right-2 p-2 rounded-full transition-all ${
               isFav ? 'bg-red-500 text-white' : 'bg-white text-gray-400 hover:text-red-500'
             }`}
             aria-label="お気に入り"
@@ -86,20 +88,20 @@ function ProductCard({ product, size = 'default' }) {
           </button>
         </div>
       </Link>
-      <div className="p-4">
+      <div className="ec-product-card__content p-4">
         <Link to={`/product/${product.id}`}>
-          <h3 className={`font-medium text-gray-900 mb-2 hover:text-blue-600 line-clamp-2 ${classes.title}`}>
+          <h3 className={`ec-product-card__title font-medium text-gray-900 mb-2 hover:text-blue-600 line-clamp-2 ${classes.title}`}>
             {product.name}
           </h3>
         </Link>
         {product.code && (
           <p className="text-sm text-gray-500 mb-2">商品コード: {product.code}</p>
         )}
-        <div className="mb-3">
+        <div className="ec-product-card__price-container mb-3">
           {product.originalPrice && (
-            <p className="text-sm text-gray-500 line-through">¥{product.originalPrice.toLocaleString()}</p>
+            <p className="ec-product-card__original-price text-sm text-gray-500 line-through">¥{product.originalPrice.toLocaleString()}</p>
           )}
-          <p className={`font-bold text-gray-900 ${classes.price}`}>
+          <p className={`ec-product-card__price font-bold text-gray-900 ${classes.price}`}>
             ¥{product.price.toLocaleString()}
           </p>
         </div>
@@ -108,6 +110,7 @@ function ProductCard({ product, size = 'default' }) {
           fullWidth
           size={size === 'compact' ? 'sm' : 'md'}
           onClick={handleAddToCart}
+          className="ec-product-card__cart-btn"
         >
           カートに追加
         </Button>

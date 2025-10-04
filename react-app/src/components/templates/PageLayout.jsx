@@ -4,7 +4,7 @@
  */
 function PageLayout({ children, title, breadcrumb, maxWidth = '7xl', className = '' }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`ec-page-layout min-h-screen flex flex-col ${className}`}>
       {children}
     </div>
   );

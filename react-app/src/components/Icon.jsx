@@ -131,6 +131,8 @@ function Icon({
     ),
   };
 
+  const sizeClass = size <= 16 ? 'ec-icon--sm' : size >= 32 ? 'ec-icon--lg' : 'ec-icon--md';
+
   return (
     <svg
       width={size}
@@ -141,7 +143,7 @@ function Icon({
       strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      className={`ec-icon ec-icon--${name} ${sizeClass} ${className}`}
       {...props}
     >
       {icons[name] || icons.info}

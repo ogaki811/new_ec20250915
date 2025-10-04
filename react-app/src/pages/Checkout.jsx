@@ -217,19 +217,19 @@ function Checkout() {
   const total = subtotal + shippingFee - pointsToUse;
 
   return (
-    <main>
+    <main className="ec-checkout">
       <Breadcrumb items={breadcrumbItems} />
       <StepIndicator currentStep={2} />
 
-      <section className="py-12 bg-gray-50">
+      <section className="ec-checkout__content py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* フォームエリア */}
-            <div className="lg:col-span-2">
-              <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="ec-checkout__form-area lg:col-span-2">
+              <form onSubmit={handleSubmit} className="ec-checkout__form space-y-8">
                 {/* お客様情報 */}
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">お客様情報</h2>
+                <div className="ec-checkout__customer-info bg-white rounded-lg border border-gray-200 p-6">
+                  <h2 className="ec-checkout__section-title text-xl font-semibold text-gray-900 mb-6">お客様情報</h2>
                   <div className="grid grid-cols-2 gap-4">
                     <Input
                       type="text"
@@ -275,11 +275,11 @@ function Checkout() {
                 </div>
 
                 {/* 配送先情報 */}
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">配送先情報</h2>
+                <div className="ec-checkout__shipping-info bg-white rounded-lg border border-gray-200 p-6">
+                  <h2 className="ec-checkout__section-title text-xl font-semibold text-gray-900 mb-6">配送先情報</h2>
 
                   {/* 郵便番号検索 */}
-                  <div className="mb-6">
+                  <div className="ec-checkout__postal-search mb-6">
                     <Input
                       type="text"
                       name="postalCode"
@@ -354,13 +354,13 @@ function Checkout() {
                 </div>
 
                 {/* 配送日時指定 */}
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                <div className="ec-checkout__delivery bg-white rounded-lg border border-gray-200 p-6">
+                  <h2 className="ec-checkout__section-title text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
                     <Icon name="truck" size={20} />
                     配送日時指定
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="mb-6">
+                    <div className="ec-checkout__delivery-date mb-6">
                       <label htmlFor="deliveryDate" className="block mb-2 font-medium text-gray-700 text-sm">
                         配送希望日
                       </label>
@@ -371,7 +371,7 @@ function Checkout() {
                         value={formData.deliveryDate}
                         onChange={handleChange}
                         min={new Date(Date.now() + 86400000 * 3).toISOString().split('T')[0]}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-base transition-all duration-300 bg-white focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-100"
+                        className="ec-checkout__date-input w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-base transition-all duration-300 bg-white focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-100"
                       />
                     </div>
                     <Select
@@ -385,10 +385,10 @@ function Checkout() {
                 </div>
 
                 {/* お支払い方法 */}
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">お支払い方法</h2>
-                  <div className="space-y-3">
-                    <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'credit' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
+                <div className="ec-checkout__payment bg-white rounded-lg border border-gray-200 p-6">
+                  <h2 className="ec-checkout__section-title text-xl font-semibold text-gray-900 mb-6">お支払い方法</h2>
+                  <div className="ec-checkout__payment-methods space-y-3">
+                    <label className={`ec-checkout__payment-option ${formData.paymentMethod === 'credit' ? 'ec-checkout__payment-option--selected' : ''} flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'credit' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
                       <input
                         type="radio"
                         name="paymentMethod"
@@ -402,7 +402,7 @@ function Checkout() {
                         クレジットカード
                       </span>
                     </label>
-                    <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'bank' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
+                    <label className={`ec-checkout__payment-option ${formData.paymentMethod === 'bank' ? 'ec-checkout__payment-option--selected' : ''} flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'bank' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
                       <input
                         type="radio"
                         name="paymentMethod"
@@ -416,7 +416,7 @@ function Checkout() {
                         銀行振込
                       </span>
                     </label>
-                    <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'cod' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
+                    <label className={`ec-checkout__payment-option ${formData.paymentMethod === 'cod' ? 'ec-checkout__payment-option--selected' : ''} flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'cod' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
                       <input
                         type="radio"
                         name="paymentMethod"
@@ -430,7 +430,7 @@ function Checkout() {
                         代金引換
                       </span>
                     </label>
-                    <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'paypay' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
+                    <label className={`ec-checkout__payment-option ${formData.paymentMethod === 'paypay' ? 'ec-checkout__payment-option--selected' : ''} flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'paypay' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
                       <input
                         type="radio"
                         name="paymentMethod"
@@ -449,7 +449,7 @@ function Checkout() {
 
                 {/* ポイント使用 */}
                 {isAuthenticated && availablePoints > 0 && (
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                  <div className="ec-checkout__points bg-white rounded-lg border border-gray-200 p-6">
                     <Checkbox
                       id="usePoints"
                       name="usePoints"
@@ -463,60 +463,60 @@ function Checkout() {
             </div>
 
             {/* 注文サマリー */}
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg border border-gray-200 p-6 sticky top-4">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">注文内容</h2>
+            <div className="ec-checkout__summary lg:col-span-1">
+              <div className="ec-checkout__summary-container bg-white rounded-lg border border-gray-200 p-6 sticky top-4">
+                <h2 className="ec-checkout__summary-title text-xl font-semibold text-gray-900 mb-6">注文内容</h2>
 
                 {/* 商品リスト */}
-                <div className="space-y-4 mb-6 pb-6 border-b border-gray-200">
+                <div className="ec-checkout__items-list space-y-4 mb-6 pb-6 border-b border-gray-200">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="flex items-center gap-3">
+                    <div key={item.id} className="ec-checkout__item flex items-center gap-3">
                       <OptimizedImage
                         src={item.image}
                         alt={item.name}
-                        className="w-16 h-16 object-cover rounded"
+                        className="ec-checkout__item-image w-16 h-16 object-cover rounded"
                       />
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-900">{item.name}</p>
-                        <p className="text-xs text-gray-500">数量: {item.quantity}</p>
+                      <div className="ec-checkout__item-info flex-1">
+                        <p className="ec-checkout__item-name text-sm font-medium text-gray-900">{item.name}</p>
+                        <p className="ec-checkout__item-quantity text-xs text-gray-500">数量: {item.quantity}</p>
                       </div>
-                      <p className="text-sm font-bold text-gray-900">¥{(item.price * item.quantity).toLocaleString()}</p>
+                      <p className="ec-checkout__item-price text-sm font-bold text-gray-900">¥{(item.price * item.quantity).toLocaleString()}</p>
                     </div>
                   ))}
                 </div>
 
                 {/* 金額サマリー */}
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between text-gray-700">
+                <div className="ec-checkout__price-breakdown space-y-3 mb-6">
+                  <div className="ec-checkout__subtotal flex justify-between text-gray-700">
                     <span>小計</span>
                     <span className="font-semibold">¥{subtotal.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between text-gray-700">
+                  <div className="ec-checkout__shipping flex justify-between text-gray-700">
                     <span>配送料</span>
                     <span className="font-semibold">
                       {shippingFee === 0 ? '無料' : `¥${shippingFee.toLocaleString()}`}
                     </span>
                   </div>
                   {formData.usePoints && (
-                    <div className="flex justify-between text-green-600">
+                    <div className="ec-checkout__points-discount flex justify-between text-green-600">
                       <span>ポイント利用</span>
                       <span className="font-semibold">-¥{pointsToUse.toLocaleString()}</span>
                     </div>
                   )}
-                  <div className="border-t border-gray-200 pt-3">
+                  <div className="ec-checkout__total border-t border-gray-200 pt-3">
                     <div className="flex justify-between text-lg font-bold text-gray-900">
                       <span>合計</span>
-                      <span className="text-2xl text-blue-600">¥{total.toLocaleString()}</span>
+                      <span className="ec-checkout__total-amount text-2xl text-blue-600">¥{total.toLocaleString()}</span>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">（税込）</p>
+                    <p className="ec-checkout__tax-note text-xs text-gray-500 mt-1">（税込）</p>
                   </div>
                 </div>
 
-                <Button type="submit" variant="primary" fullWidth onClick={handleSubmit}>
+                <Button type="submit" variant="primary" fullWidth onClick={handleSubmit} className="ec-checkout__submit-btn">
                   注文を確定する
                 </Button>
 
-                <p className="text-xs text-gray-500 mt-4 text-center">
+                <p className="ec-checkout__note text-xs text-gray-500 mt-4 text-center">
                   ※注文確定後、確認メールをお送りします
                 </p>
               </div>

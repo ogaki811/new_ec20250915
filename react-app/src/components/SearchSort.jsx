@@ -10,12 +10,12 @@ function SearchSort({ sortBy, onSortChange, resultCount }) {
   ];
 
   return (
-    <div className="flex items-center justify-between mb-6">
-      <p className="text-gray-600">
-        <span className="font-semibold text-gray-900">{resultCount}</span> 件の商品
+    <div className="ec-search-sort flex items-center justify-between mb-6">
+      <p className="ec-search-sort__count text-gray-600">
+        <span className="ec-search-sort__count-value font-semibold text-gray-900">{resultCount}</span> 件の商品
       </p>
-      <div className="flex items-center gap-3">
-        <label htmlFor="sort" className="text-sm text-gray-700">
+      <div className="ec-search-sort__controls flex items-center gap-3">
+        <label htmlFor="sort" className="ec-search-sort__label text-sm text-gray-700">
           並び替え:
         </label>
         <Select
@@ -24,7 +24,7 @@ function SearchSort({ sortBy, onSortChange, resultCount }) {
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
           options={sortOptions}
-          className="w-48"
+          className="ec-search-sort__select w-48"
         />
       </div>
     </div>

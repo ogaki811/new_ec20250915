@@ -18,11 +18,11 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-          <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
-            <div className="mb-6">
+        <div className="ec-error-boundary min-h-screen bg-gray-50 flex items-center justify-center p-4">
+          <div className="ec-error-boundary__container max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
+            <div className="ec-error-boundary__icon-wrapper mb-6">
               <svg
-                className="mx-auto h-16 w-16 text-red-500"
+                className="ec-error-boundary__icon mx-auto h-16 w-16 text-red-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -35,13 +35,13 @@ class ErrorBoundary extends Component {
                 />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="ec-error-boundary__title text-2xl font-bold text-gray-900 mb-2">
               エラーが発生しました
             </h1>
-            <p className="text-gray-600 mb-6">
+            <p className="ec-error-boundary__message text-gray-600 mb-6">
               申し訳ございません。予期しないエラーが発生しました。
             </p>
-            <div className="space-y-3">
+            <div className="ec-error-boundary__actions space-y-3">
               <Button
                 variant="primary"
                 fullWidth

@@ -98,16 +98,16 @@ function ProductDetail() {
   };
 
   return (
-    <main>
+    <main className="ec-product-detail">
       <Breadcrumb items={breadcrumbItems} />
 
       {/* 商品詳細セクション */}
-      <section className="py-12 bg-white">
+      <section className="ec-product-detail__main py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* 商品画像 */}
-            <div>
-              <div className="bg-gray-100 rounded-lg overflow-hidden mb-4">
+            <div className="ec-product-detail__images">
+              <div className="ec-product-detail__main-image bg-gray-100 rounded-lg overflow-hidden mb-4">
                 <img
                   src={product.images[selectedImage]}
                   alt={product.name}
@@ -116,20 +116,16 @@ function ProductDetail() {
               </div>
               {/* 画像が2枚以上ある場合のみサムネイル表示 */}
               {product.images.length > 1 && (
-                <div className={`grid gap-2 ${
-                  product.images.length === 2 ? 'grid-cols-2' :
-                  product.images.length === 3 ? 'grid-cols-3' :
-                  'grid-cols-4'
-                }`}>
+                <div className="ec-product-detail__thumbnails flex gap-2 flex-wrap">
                   {product.images.map((image, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
-                      className={`border-2 rounded-lg overflow-hidden ${
+                      className={`ec-product-detail__thumbnail ${selectedImage === index ? 'ec-product-detail__thumbnail--active' : ''} w-24 h-24 border-2 rounded-lg overflow-hidden flex-shrink-0 ${
                         selectedImage === index ? 'border-blue-600' : 'border-gray-200'
                       }`}
                     >
-                      <img src={image} alt={`${product.name} ${index + 1}`} className="w-full h-auto object-cover" />
+                      <img src={image} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>
@@ -137,49 +133,49 @@ function ProductDetail() {
             </div>
 
             {/* 商品情報 */}
-            <div>
-              <div className="mb-4">
-                <p className="text-sm text-gray-600 mb-2">{product.brand}</p>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-                <p className="text-sm text-gray-500">商品コード: {product.code}</p>
+            <div className="ec-product-detail__info">
+              <div className="ec-product-detail__header mb-4">
+                <p className="ec-product-detail__brand text-sm text-gray-600 mb-2">{product.brand}</p>
+                <h1 className="ec-product-detail__title text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
+                <p className="ec-product-detail__code text-sm text-gray-500">商品コード: {product.code}</p>
               </div>
 
-              <div className="mb-6">
+              <div className="ec-product-detail__pricing mb-6">
                 {product.originalPrice && (
-                  <p className="text-lg text-gray-500 line-through">¥{product.originalPrice.toLocaleString()}</p>
+                  <p className="ec-product-detail__original-price text-lg text-gray-500 line-through">¥{product.originalPrice.toLocaleString()}</p>
                 )}
                 <div className="flex items-baseline gap-3">
-                  <p className="text-4xl font-bold text-blue-600">¥{product.price.toLocaleString()}</p>
+                  <p className="ec-product-detail__price text-4xl font-bold text-blue-600">¥{product.price.toLocaleString()}</p>
                   {product.originalPrice && (
-                    <span className="bg-red-500 text-white text-sm px-2 py-1 rounded">
+                    <span className="ec-product-detail__discount bg-red-500 text-white text-sm px-2 py-1 rounded">
                       {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%OFF
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-gray-500 mt-1">（税込）</p>
+                <p className="ec-product-detail__tax-note text-sm text-gray-500 mt-1">（税込）</p>
               </div>
 
-              <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center justify-between mb-3">
+              <div className="ec-product-detail__stock-info mb-6 p-4 bg-gray-50 rounded-lg">
+                <div className="ec-product-detail__stock-status flex items-center justify-between mb-3">
                   <span className="text-sm font-medium text-gray-700">在庫状況:</span>
                   {product.stock > 0 ? (
-                    <span className="text-sm font-semibold text-green-600">
+                    <span className="ec-product-detail__stock-label ec-product-detail__stock-label--in-stock text-sm font-semibold text-green-600">
                       在庫あり ({product.stock}個)
                     </span>
                   ) : (
-                    <span className="text-sm font-semibold text-red-600">
+                    <span className="ec-product-detail__stock-label ec-product-detail__stock-label--out-of-stock text-sm font-semibold text-red-600">
                       在庫切れ
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+                <div className="ec-product-detail__shipping-info flex items-center gap-2 text-sm text-gray-600">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <rect x="1" y="3" width="15" height="13"></rect>
                     <path d="M16 8l4-4v16l-4-4"></path>
                   </svg>
                   <span>翌日配送対応</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
+                <div className="ec-product-detail__free-shipping flex items-center gap-2 text-sm text-gray-600 mt-1">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                     <circle cx="12" cy="12" r="3"></circle>
@@ -189,13 +185,13 @@ function ProductDetail() {
               </div>
 
               {product.stock > 0 && (
-                <div className="mb-6">
+                <div className="ec-product-detail__quantity mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">数量</label>
                   <div className="flex items-center gap-4">
-                    <div className="flex border-2 border-gray-300 rounded-lg">
+                    <div className="ec-product-detail__quantity-controls flex border-2 border-gray-300 rounded-lg">
                       <button
                         onClick={() => handleQuantityChange(quantity - 1)}
-                        className="w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
+                        className="ec-product-detail__quantity-decrease w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
                       >
                         -
                       </button>
@@ -203,35 +199,36 @@ function ProductDetail() {
                         type="number"
                         value={quantity}
                         onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                        className="w-20 h-12 text-center border-0 text-lg font-semibold focus:ring-0"
+                        className="ec-product-detail__quantity-input w-20 h-12 text-center border-0 text-lg font-semibold focus:ring-0"
                         min="1"
                         max={product.stock}
                       />
                       <button
                         onClick={() => handleQuantityChange(quantity + 1)}
-                        className="w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
+                        className="ec-product-detail__quantity-increase w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
                       >
                         +
                       </button>
                     </div>
-                    <span className="text-sm text-gray-600">在庫: {product.stock}個</span>
+                    <span className="ec-product-detail__stock-count text-sm text-gray-600">在庫: {product.stock}個</span>
                   </div>
                 </div>
               )}
 
-              <div className="flex gap-4 mb-6">
+              <div className="ec-product-detail__actions flex gap-4 mb-6">
                 <Button
                   variant="primary"
                   size="lg"
                   fullWidth
                   onClick={handleAddToCart}
                   disabled={product.stock === 0}
+                  className="ec-product-detail__add-to-cart"
                 >
                   {product.stock > 0 ? 'カートに追加' : '在庫切れ'}
                 </Button>
                 <button
                   onClick={handleToggleFavorite}
-                  className={`w-14 h-14 flex items-center justify-center border-2 rounded-lg transition-colors ${
+                  className={`ec-product-detail__favorite-btn ${isFavorite(product.id) ? 'ec-product-detail__favorite-btn--active' : ''} w-14 h-14 flex items-center justify-center border-2 rounded-lg transition-colors ${
                     isFavorite(product.id)
                       ? 'bg-red-50 border-red-500 text-red-500'
                       : 'border-gray-300 hover:bg-red-50 hover:border-red-500 hover:text-red-500'
@@ -250,11 +247,11 @@ function ProductDetail() {
                 </button>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">商品の特徴</h3>
-                <ul className="space-y-2">
+              <div className="ec-product-detail__features border-t border-gray-200 pt-6">
+                <h3 className="ec-product-detail__features-title text-lg font-semibold text-gray-900 mb-3">商品の特徴</h3>
+                <ul className="ec-product-detail__features-list space-y-2">
                   {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2 text-gray-700">
+                    <li key={index} className="ec-product-detail__feature-item flex items-start gap-2 text-gray-700">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-green-500 flex-shrink-0 mt-0.5">
                         <path d="M20 6L9 17l-5-5"></path>
                       </svg>
@@ -267,21 +264,21 @@ function ProductDetail() {
           </div>
 
           {/* 商品説明 */}
-          <div className="mt-12 border-t border-gray-200 pt-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">商品説明</h2>
-            <p className="text-gray-700 leading-relaxed">{product.description}</p>
+          <div className="ec-product-detail__description mt-12 border-t border-gray-200 pt-8">
+            <h2 className="ec-product-detail__section-title text-2xl font-bold text-gray-900 mb-4">商品説明</h2>
+            <p className="ec-product-detail__description-text text-gray-700 leading-relaxed">{product.description}</p>
           </div>
 
           {/* 商品仕様 */}
-          <div className="mt-12 border-t border-gray-200 pt-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">商品仕様</h2>
-            <div className="bg-gray-50 rounded-lg p-6">
+          <div className="ec-product-detail__specs mt-12 border-t border-gray-200 pt-8">
+            <h2 className="ec-product-detail__section-title text-2xl font-bold text-gray-900 mb-4">商品仕様</h2>
+            <div className="ec-product-detail__specs-table bg-gray-50 rounded-lg p-6">
               <table className="w-full">
                 <tbody className="divide-y divide-gray-200">
                   {product.specs.map((spec, index) => (
-                    <tr key={index}>
-                      <td className="py-3 pr-6 text-sm font-medium text-gray-700 w-1/4">{spec.label}</td>
-                      <td className="py-3 text-sm text-gray-900">{spec.value}</td>
+                    <tr key={index} className="ec-product-detail__spec-row">
+                      <td className="ec-product-detail__spec-label py-3 pr-6 text-sm font-medium text-gray-700 w-1/4">{spec.label}</td>
+                      <td className="ec-product-detail__spec-value py-3 text-sm text-gray-900">{spec.value}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -293,9 +290,9 @@ function ProductDetail() {
 
       {/* 関連商品 */}
       {relatedProducts.length > 0 && (
-        <section className="py-12 bg-gray-50">
+        <section className="ec-product-detail__related py-12 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">関連商品</h2>
+            <h2 className="ec-product-detail__section-title text-2xl font-bold text-gray-900 mb-8">関連商品</h2>
             <ProductSlider products={relatedProducts} />
           </div>
         </section>

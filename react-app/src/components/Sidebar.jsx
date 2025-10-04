@@ -15,22 +15,22 @@ function Sidebar() {
   ];
 
   return (
-    <aside className="bg-white rounded-lg shadow-sm p-6 lg:sticky lg:top-8">
-      <nav className="space-y-2">
+    <aside className="ec-sidebar bg-white rounded-lg shadow-sm p-6 lg:sticky lg:top-8">
+      <nav className="ec-sidebar__nav space-y-2">
         {menuItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
-            className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+            className={`ec-sidebar__link ${isActive(item.path) ? 'ec-sidebar__link--active' : ''} flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
               isActive(item.path)
                 ? 'bg-blue-600 text-white'
                 : 'text-gray-700 hover:bg-gray-100'
             }`}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="ec-sidebar__icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
             </svg>
-            <span className="font-medium">{item.label}</span>
+            <span className="ec-sidebar__label font-medium">{item.label}</span>
           </Link>
         ))}
       </nav>

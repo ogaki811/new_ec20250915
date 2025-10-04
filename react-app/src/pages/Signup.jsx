@@ -57,18 +57,18 @@ function Signup() {
   return (
     <>
       <SimpleHeader />
-      <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
-      <div className="w-full max-w-2xl mx-auto px-4">
-        <div className="bg-white rounded-2xl shadow-xl p-8 w-full relative">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-t-2xl"></div>
+      <main className="ec-signup min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
+      <div className="ec-signup__container w-full max-w-2xl mx-auto px-4">
+        <div className="ec-signup__card bg-white rounded-2xl shadow-xl p-8 w-full relative">
+          <div className="ec-signup__decoration absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-t-2xl"></div>
 
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-semibold text-gray-900 mb-2">新規会員登録</h1>
-            <p className="text-gray-600 text-sm leading-6">お客様情報を入力して会員登録を行ってください</p>
+          <div className="ec-signup__header text-center mb-8">
+            <h1 className="ec-signup__title text-3xl font-semibold text-gray-900 mb-2">新規会員登録</h1>
+            <p className="ec-signup__subtitle text-gray-600 text-sm leading-6">お客様情報を入力して会員登録を行ってください</p>
           </div>
 
-          <form className="mb-8" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-4 mb-6">
+          <form className="ec-signup__form mb-8" onSubmit={handleSubmit}>
+            <div className="ec-signup__name-fields grid grid-cols-2 gap-4 mb-6">
               <Input
                 type="text"
                 id="lastName"
@@ -96,7 +96,7 @@ function Signup() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="ec-signup__kana-fields grid grid-cols-2 gap-4 mb-6">
               <Input
                 type="text"
                 id="lastNameKana"
@@ -163,34 +163,34 @@ function Signup() {
               error={errors.confirmPassword}
             />
 
-            <div className="mb-6">
+            <div className="ec-signup__terms mb-6">
               <Checkbox
                 id="agreeTerms"
                 name="agreeTerms"
                 checked={formData.agreeTerms}
                 onChange={handleChange}
                 label={
-                  <span>
-                    <Link to="/terms" className="text-blue-600 hover:underline">利用規約</Link>
+                  <span className="ec-signup__terms-text">
+                    <Link to="/terms" className="ec-signup__terms-link text-blue-600 hover:underline">利用規約</Link>
                     と
-                    <Link to="/privacy" className="text-blue-600 hover:underline">プライバシーポリシー</Link>
+                    <Link to="/privacy" className="ec-signup__terms-link text-blue-600 hover:underline">プライバシーポリシー</Link>
                     に同意する
                   </span>
                 }
               />
               {errors.agreeTerms && (
-                <div className="text-red-500 text-sm mt-2">{errors.agreeTerms}</div>
+                <div className="ec-signup__terms-error text-red-500 text-sm mt-2">{errors.agreeTerms}</div>
               )}
             </div>
 
-            <Button type="submit" variant="primary" fullWidth>
+            <Button type="submit" variant="primary" fullWidth className="ec-signup__submit-btn">
               会員登録
             </Button>
           </form>
 
-          <div className="text-center pt-8 border-t border-gray-200">
-            <p className="text-gray-600 mb-2 text-sm">すでにアカウントをお持ちの方は</p>
-            <Link to="/login" className="text-blue-600 no-underline font-medium text-base transition-colors hover:text-blue-800 hover:underline">
+          <div className="ec-signup__footer text-center pt-8 border-t border-gray-200">
+            <p className="ec-signup__footer-text text-gray-600 mb-2 text-sm">すでにアカウントをお持ちの方は</p>
+            <Link to="/login" className="ec-signup__login-link text-blue-600 no-underline font-medium text-base transition-colors hover:text-blue-800 hover:underline">
               ログイン
             </Link>
           </div>

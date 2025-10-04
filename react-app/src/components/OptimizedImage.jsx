@@ -25,9 +25,9 @@ function OptimizedImage({
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`ec-optimized-image relative ${className}`}>
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse rounded" />
+        <div className="ec-optimized-image__placeholder absolute inset-0 bg-gray-200 animate-pulse rounded" />
       )}
       <img
         src={hasError ? placeholder : src}
@@ -38,7 +38,7 @@ function OptimizedImage({
         decoding="async"
         onLoad={handleLoad}
         onError={handleError}
-        className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+        className={`ec-optimized-image__img ${className} ${isLoading ? 'ec-optimized-image__img--loading opacity-0' : 'opacity-100'} transition-opacity duration-300`}
       />
     </div>
   );

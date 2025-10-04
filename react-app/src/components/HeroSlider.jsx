@@ -18,7 +18,7 @@ function HeroSlider({ slides }) {
   const displaySlides = slides || defaultSlides;
 
   return (
-    <section className="main-banner-section relative w-full bg-gray-100 py-8">
+    <section className="ec-hero-slider main-banner-section relative w-full bg-gray-100 py-8">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={20}
@@ -51,21 +51,21 @@ function HeroSlider({ slides }) {
             spaceBetween: 30,
           },
         }}
-        className="hero-slider"
+        className="ec-hero-slider__container hero-slider"
       >
         {displaySlides.map((slide) => (
-          <SwiperSlide key={slide.id}>
+          <SwiperSlide key={slide.id} className="ec-hero-slider__slide">
             {({ isActive }) => (
               <a
                 href={slide.link}
-                className={`block h-full transition-all duration-300 ${
+                className={`ec-hero-slider__link ${isActive ? 'ec-hero-slider__link--active' : ''} block h-full transition-all duration-300 ${
                   isActive ? 'scale-105 opacity-100' : 'scale-95 opacity-80'
                 }`}
               >
                 <img
                   src={slide.image}
                   alt={slide.alt}
-                  className="rounded-lg"
+                  className="ec-hero-slider__image rounded-lg"
                   style={{ width: '900px', height: '280px', objectFit: 'contain' }}
                 />
               </a>

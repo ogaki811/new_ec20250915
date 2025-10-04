@@ -2,44 +2,44 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="ec-footer bg-gray-900 text-white">
       <div className="py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* デスクトップレイアウト */}
           <div className="hidden lg:grid lg:grid-cols-4 lg:gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">会社情報</h3>
-              <ul className="space-y-3">
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">会社概要</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">採用情報</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">IR情報</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">プレスリリース</Link></li>
+            <div className="ec-footer__section">
+              <h3 className="ec-footer__section-title text-lg font-semibold mb-4">会社情報</h3>
+              <ul className="ec-footer__link-list space-y-3">
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">会社概要</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">採用情報</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">IR情報</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">プレスリリース</Link></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="text-lg font-semibold mb-4">カスタマーサポート</h3>
-              <ul className="space-y-3">
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">お問い合わせ</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">よくある質問</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">返品・交換について</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">サイズガイド</Link></li>
+            <div className="ec-footer__section">
+              <h3 className="ec-footer__section-title text-lg font-semibold mb-4">カスタマーサポート</h3>
+              <ul className="ec-footer__link-list space-y-3">
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">お問い合わせ</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">よくある質問</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">返品・交換について</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">サイズガイド</Link></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="text-lg font-semibold mb-4">サービス</h3>
-              <ul className="space-y-3">
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">配送について</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">支払い方法</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">ポイントプログラム</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">ギフトカード</Link></li>
+            <div className="ec-footer__section">
+              <h3 className="ec-footer__section-title text-lg font-semibold mb-4">サービス</h3>
+              <ul className="ec-footer__link-list space-y-3">
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">配送について</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">支払い方法</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">ポイントプログラム</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white transition-colors duration-200">ギフトカード</Link></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="text-lg font-semibold mb-4">フォローする</h3>
-              <div className="flex space-x-4 mb-6">
+            <div className="ec-footer__section">
+              <h3 className="ec-footer__section-title text-lg font-semibold mb-4">フォローする</h3>
+              <div className="ec-footer__social-links flex space-x-4 mb-6">
                 <a href="#" aria-label="Facebook" className="text-gray-300 hover:text-blue-500 transition-colors duration-200">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -74,18 +74,18 @@ function Footer() {
 
           {/* モバイルレイアウト */}
           <div className="lg:hidden space-y-6">
-            <div className="border-b border-gray-700 pb-4">
-              <h3 className="text-lg font-semibold mb-3">会社情報</h3>
-              <ul className="space-y-2">
-                <li><Link to="#" className="text-gray-300 hover:text-white">会社概要</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white">採用情報</Link></li>
+            <div className="ec-footer__section border-b border-gray-700 pb-4">
+              <h3 className="ec-footer__section-title text-lg font-semibold mb-3">会社情報</h3>
+              <ul className="ec-footer__link-list space-y-2">
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white">会社概要</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white">採用情報</Link></li>
               </ul>
             </div>
-            <div className="border-b border-gray-700 pb-4">
-              <h3 className="text-lg font-semibold mb-3">カスタマーサポート</h3>
-              <ul className="space-y-2">
-                <li><Link to="#" className="text-gray-300 hover:text-white">お問い合わせ</Link></li>
-                <li><Link to="#" className="text-gray-300 hover:text-white">よくある質問</Link></li>
+            <div className="ec-footer__section border-b border-gray-700 pb-4">
+              <h3 className="ec-footer__section-title text-lg font-semibold mb-3">カスタマーサポート</h3>
+              <ul className="ec-footer__link-list space-y-2">
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white">お問い合わせ</Link></li>
+                <li className="ec-footer__link-item"><Link to="#" className="text-gray-300 hover:text-white">よくある質問</Link></li>
               </ul>
             </div>
           </div>
@@ -93,7 +93,7 @@ function Footer() {
       </div>
 
       {/* コピーライト */}
-      <div className="border-t border-gray-800 py-6">
+      <div className="ec-footer__copyright border-t border-gray-800 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
             <p>&copy; 2024 smartsample. All rights reserved.</p>
