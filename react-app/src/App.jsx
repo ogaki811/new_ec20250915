@@ -22,6 +22,8 @@ const ProductList = lazy(() => import('./pages/ProductList'));
 const Checkout = lazy(() => import('./pages/Checkout'));
 const OrderComplete = lazy(() => import('./pages/OrderComplete'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const PasswordResetSent = lazy(() => import('./pages/PasswordResetSent'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 const Search = lazy(() => import('./pages/Search'));
 const ComingSoon = lazy(() => import('./pages/ComingSoon'));
 
@@ -64,6 +66,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/password-reset-sent" element={<PasswordResetSent />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/search" element={<Search />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/products" element={<ProductList />} />
