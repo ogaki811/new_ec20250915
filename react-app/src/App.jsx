@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -27,51 +27,53 @@ const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 const Search = lazy(() => import('./pages/Search'));
 const ComingSoon = lazy(() => import('./pages/ComingSoon'));
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+
+  // 認証関連のページでは通常のヘッダー・フッターを非表示
+  const authPages = ['/login', '/signup', '/forgot-password', '/password-reset-sent', '/reset-password'];
+  const isAuthPage = authPages.includes(location.pathname);
+
   return (
-    <ErrorBoundary>
-      <Router>
-        <SkipToContent />
-        <LiveRegion />
-        <div className="flex flex-col min-h-screen">
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
+    <div className="flex flex-col min-h-screen">
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+          success: {
             duration: 3000,
-            style: {
-              background: '#363636',
-              color: '#fff',
+            iconTheme: {
+              primary: '#4ade80',
+              secondary: '#fff',
             },
-            success: {
-              duration: 3000,
-              iconTheme: {
-                primary: '#4ade80',
-                secondary: '#fff',
-              },
+          },
+          error: {
+            duration: 4000,
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
             },
-            error: {
-              duration: 4000,
-              iconTheme: {
-                primary: '#ef4444',
-                secondary: '#fff',
-              },
-            },
-            // 横からスライドインするアニメーション
-            className: '',
-            style: {
-              background: '#363636',
-              color: '#fff',
-              animation: 'slideIn 0.3s ease-out',
-            },
-          }}
-          containerStyle={{
-            bottom: 20,
-            right: 20,
-          }}
-          toastClassName="toast-slide-in"
-        />
-        <Header />
-        <main id="main-content" tabIndex="-1" className="flex-grow outline-none">
+          },
+          // 横からスライドインするアニメーション
+          className: '',
+          style: {
+            background: '#363636',
+            color: '#fff',
+            animation: 'slideIn 0.3s ease-out',
+          },
+        }}
+        containerStyle={{
+          bottom: 20,
+          right: 20,
+        }}
+        toastClassName="toast-slide-in"
+      />
+      {!isAuthPage && <Header />}
+      <main id="main-content" tabIndex="-1" className="flex-grow outline-none">
           <Suspense fallback={<Loading fullScreen />}>
             <Routes>
             <Route path="/" element={<Home />} />
@@ -101,9 +103,19 @@ function App() {
             </Routes>
           </Suspense>
         </main>
-        <Footer />
+        {!isAuthPage && <Footer />}
       </div>
-    </Router>
+  );
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <Router>
+        <SkipToContent />
+        <LiveRegion />
+        <AppContent />
+      </Router>
     </ErrorBoundary>
   );
 }

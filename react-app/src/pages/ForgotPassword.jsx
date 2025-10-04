@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import SimpleHeader from '../components/SimpleHeader';
+import SimpleFooter from '../components/SimpleFooter';
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -25,7 +27,9 @@ function ForgotPassword() {
   };
 
   return (
-    <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
+    <>
+      <SimpleHeader />
+      <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
       <div className="w-full max-w-md mx-auto px-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 w-full relative">
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-t-2xl"></div>
@@ -65,6 +69,8 @@ function ForgotPassword() {
         </div>
       </div>
     </main>
+    <SimpleFooter />
+    </>
   );
 }
 

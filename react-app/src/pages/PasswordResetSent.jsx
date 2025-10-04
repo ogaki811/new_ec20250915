@@ -1,12 +1,16 @@
 import { useSearchParams, Link } from 'react-router-dom';
 import Button from '../components/Button';
+import SimpleHeader from '../components/SimpleHeader';
+import SimpleFooter from '../components/SimpleFooter';
 
 function PasswordResetSent() {
   const [searchParams] = useSearchParams();
   const email = searchParams.get('email') || 'example@email.com';
 
   return (
-    <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
+    <>
+      <SimpleHeader />
+      <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
       <div className="w-full max-w-lg mx-auto px-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 w-full relative">
           {/* トップボーダー */}
@@ -98,6 +102,8 @@ function PasswordResetSent() {
         </div>
       </div>
     </main>
+    <SimpleFooter />
+    </>
   );
 }
 
