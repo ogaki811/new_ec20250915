@@ -442,29 +442,94 @@
         </div>
     </header>
 
-    <main class="bg-gray-50 min-h-screen pt-6">
+    <main class="bg-gray-50 min-h-screen py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Breadcrumb -->
-            <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-6">
-                <a href="index.html" class="text-blue-600 hover:text-blue-800 transition-colors">ホーム</a>
-                <span class="text-gray-400">></span>
-                <span class="text-gray-900 font-medium">お気に入り商品</span>
+            <nav class="mb-6">
+                <div class="flex items-center space-x-2 text-sm">
+                    <a href="index.html" class="text-blue-600 hover:text-blue-800 hover:underline transition-colors">ホーム</a>
+                    <span class="text-gray-500">></span>
+                    <a href="mypage.html" class="text-blue-600 hover:text-blue-800 hover:underline transition-colors">マイページ</a>
+                    <span class="text-gray-500">></span>
+                    <span class="text-gray-600">お気に入り</span>
+                </div>
             </nav>
 
-            <div class="bg-white rounded-lg shadow-sm">
-                <!-- Page Header -->
-                <div class="flex items-center justify-between p-6 border-b border-gray-200">
-                    <h1 class="flex items-center space-x-2 text-2xl font-bold text-gray-900">
-                        <i class="fas fa-heart text-red-500"></i>
-                        <span>お気に入り商品</span>
-                    </h1>
-                    <div class="text-gray-600">
-                        <span>全 <span id="totalFavorites" class="font-semibold text-gray-900">0</span> 商品</span>
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 max-w-screen-2xl mx-auto">
+                <!-- Sidebar Navigation -->
+                <aside class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow-sm h-fit lg:sticky lg:top-8">
+                        <nav>
+                            <ul class="divide-y divide-gray-100">
+                                <li>
+                                    <a href="mypage.html"
+                                       class="flex items-center px-8 py-4 text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all">
+                                        <i class="fas fa-tachometer-alt w-5 text-center mr-3"></i>
+                                        ダッシュボード
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="order-history.html"
+                                       class="flex items-center px-8 py-4 text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all">
+                                        <i class="fas fa-clipboard-list w-5 text-center mr-3"></i>
+                                        注文履歴
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="favorites.html"
+                                       class="flex items-center px-8 py-4 text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all border-r-3 border-blue-600 bg-blue-50 text-blue-600">
+                                        <i class="fas fa-heart w-5 text-center mr-3"></i>
+                                        お気に入り
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="coming-soon.html"
+                                       class="flex items-center px-8 py-4 text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all">
+                                        <i class="fas fa-map-marker-alt w-5 text-center mr-3"></i>
+                                        配送先管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="coming-soon.html"
+                                       class="flex items-center px-8 py-4 text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all">
+                                        <i class="fas fa-credit-card w-5 text-center mr-3"></i>
+                                        支払い方法
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="coming-soon.html"
+                                       class="flex items-center px-8 py-4 text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all">
+                                        <i class="fas fa-user-edit w-5 text-center mr-3"></i>
+                                        アカウント設定
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="coming-soon.html"
+                                       class="flex items-center px-8 py-4 text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all">
+                                        <i class="fas fa-bell w-5 text-center mr-3"></i>
+                                        通知設定
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="coming-soon.html"
+                                       class="flex items-center px-8 py-4 text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all">
+                                        <i class="fas fa-shield-alt w-5 text-center mr-3"></i>
+                                        セキュリティ
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                </div>
+                </aside>
+
+                <!-- Main Content -->
+                <div class="lg:col-span-3">
+            <div class="bg-white rounded-lg shadow-sm p-8">
+                <!-- Page Header -->
+                <h1 class="text-3xl font-medium text-gray-900 mb-8 pb-2 border-b-2 border-blue-600">お気に入り</h1>
 
                 <!-- Favorites Controls -->
-                <div class="flex flex-col lg:flex-row items-center justify-between p-6 bg-gray-50 border-b border-gray-200 space-y-4 lg:space-y-0">
+                <div class="flex flex-col lg:flex-row items-center justify-between px-6 py-4 bg-gray-50 rounded-lg mb-6 space-y-4 lg:space-y-0">
                     <div class="flex space-x-2">
                         <button class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors active" data-view="grid">
                             <i class="fas fa-th"></i>
@@ -506,7 +571,7 @@
                 </div>
 
                 <!-- Favorites Categories -->
-                <div class="favorites-categories">
+                <div class="favorites-categories mb-6">
                     <button class="category-tab active" data-category="all">
                         すべて
                         <span class="badge">0</span>
@@ -530,7 +595,7 @@
                 </div>
 
                 <!-- Favorites Grid -->
-                <div class="p-6" id="favoritesGrid">
+                <div id="favoritesGrid">
                     <!-- Empty State -->
                     <div class="text-center py-16 bg-gray-50 rounded-lg" id="emptyState">
                         <div class="text-6xl text-gray-300 mb-6">
@@ -690,6 +755,10 @@
             </div>
         </div>
     </footer>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <!-- Favorite Item Template -->
     <template id="favoriteItemTemplate">
