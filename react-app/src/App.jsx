@@ -16,6 +16,7 @@ import ProductList from './pages/ProductList';
 import Checkout from './pages/Checkout';
 import OrderComplete from './pages/OrderComplete';
 import ForgotPassword from './pages/ForgotPassword';
+import Search from './pages/Search';
 import ComingSoon from './pages/ComingSoon';
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/product-detail" element={<ProductDetail />} />

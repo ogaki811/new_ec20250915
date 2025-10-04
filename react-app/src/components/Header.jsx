@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import useCartStore from '../store/useCartStore';
@@ -6,6 +7,7 @@ import useAuthStore from '../store/useAuthStore';
 
 function Header() {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
   const itemCount = useCartStore((state) => state.getItemCount());
   const favoriteCount = useFavoritesStore((state) => state.getFavoriteCount());
   const { isAuthenticated, logout } = useAuthStore();
@@ -14,6 +16,14 @@ function Header() {
     logout();
     toast.success('ログアウトしました');
     navigate('/');
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+    }
   };
 
   return (
@@ -34,13 +44,19 @@ function Header() {
 
               {/* 検索エリア */}
               <div className="flex-1 max-w-2xl mx-8 relative">
-                <form className="relative">
+                <form onSubmit={handleSearch} className="relative">
                   <div className="relative">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                       <circle cx="11" cy="11" r="8"></circle>
                       <path d="m21 21-4.35-4.35"></path>
                     </svg>
-                    <input type="text" placeholder="商品名やメーカー、品番から探す" className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="商品名やメーカー、品番から探す"
+                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
                   </div>
                   <button type="submit" className="absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors">
                     <span>検索</span>
@@ -162,13 +178,19 @@ function Header() {
               )}
             </Link>
           </div>
-          <div className="relative">
+          <form onSubmit={handleSearch} className="relative">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.35-4.35"></path>
             </svg>
-            <input type="text" placeholder="商品を検索" className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg" />
-          </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="商品を検索"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg"
+            />
+          </form>
         </div>
       </div>
     </header>
