@@ -1,10 +1,14 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Checkbox from '../components/Checkbox';
+import useAuthStore from '../store/useAuthStore';
 
 function Login() {
+  const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -23,8 +27,25 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // バリデーションとログイン処理
-    console.log('Login attempt:', formData);
+
+    // 簡易バリデーション
+    const newErrors = {};
+    if (!formData.email) newErrors.email = 'メールアドレスを入力してください';
+    if (!formData.password) newErrors.password = 'パスワードを入力してください';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    // デモログイン処理
+    login({
+      email: formData.email,
+      name: '山田 太郎',
+    });
+
+    // マイページへリダイレクト
+    navigate('/mypage');
   };
 
   return (

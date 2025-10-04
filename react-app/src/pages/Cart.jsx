@@ -1,55 +1,14 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumb';
 import StepIndicator from '../components/StepIndicator';
 import CartItem from '../components/CartItem';
 import Button from '../components/Button';
+import useCartStore from '../store/useCartStore';
+import useFavoritesStore from '../store/useFavoritesStore';
 
 function Cart() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 'item001',
-      name: 'コクヨ ファイルボックス-FS ピース B4 グレー',
-      code: 'フボ-FSB4M',
-      brand: 'コクヨ',
-      image: '/img/product/A-74769_l1.jpg',
-      price: 342,
-      originalPrice: 380,
-      quantity: 2,
-      stock: 98,
-      badges: [
-        { label: '翌日配送', className: 'bg-blue-100 text-blue-800' },
-        { label: '送料無料対象', className: 'bg-green-100 text-green-800' }
-      ]
-    },
-    {
-      id: 'item002',
-      name: 'プラス デスクトレー A4横 ブラック',
-      code: 'DM-110BK',
-      brand: 'プラス',
-      image: '/img/product/8027341_l1.jpg',
-      price: 580,
-      originalPrice: 650,
-      quantity: 1,
-      stock: 45,
-      badges: [
-        { label: '翌日配送', className: 'bg-blue-100 text-blue-800' }
-      ]
-    },
-    {
-      id: 'item003',
-      name: 'コクヨ キャンパスノート B5 5冊パック',
-      code: 'ノ-3CBNX5',
-      brand: 'コクヨ',
-      image: '/img/product/AH85168_l1.jpg',
-      price: 450,
-      quantity: 3,
-      stock: 120,
-      badges: [
-        { label: '送料無料対象', className: 'bg-green-100 text-green-800' }
-      ]
-    }
-  ]);
+  const { items: cartItems, updateQuantity, removeItem, getTotal, getShippingFee, getGrandTotal, getItemCount } = useCartStore();
+  const { toggleFavorite } = useFavoritesStore();
 
   const breadcrumbItems = [
     { label: 'ホーム', href: '/' },
@@ -57,22 +16,20 @@ function Cart() {
   ];
 
   const handleQuantityChange = (itemId, newQuantity) => {
-    setCartItems(prev => prev.map(item =>
-      item.id === itemId ? { ...item, quantity: newQuantity } : item
-    ));
+    updateQuantity(itemId, newQuantity);
   };
 
   const handleRemove = (itemId) => {
-    setCartItems(prev => prev.filter(item => item.id !== itemId));
+    removeItem(itemId);
   };
 
-  const handleToggleFavorite = (itemId) => {
-    console.log('Toggle favorite for:', itemId);
+  const handleToggleFavorite = (item) => {
+    toggleFavorite(item);
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shippingFee = subtotal >= 3000 ? 0 : 500;
-  const total = subtotal + shippingFee;
+  const subtotal = getTotal();
+  const shippingFee = getShippingFee();
+  const total = getGrandTotal();
 
   return (
     <main>
@@ -114,7 +71,7 @@ function Cart() {
                     item={item}
                     onQuantityChange={handleQuantityChange}
                     onRemove={handleRemove}
-                    onToggleFavorite={handleToggleFavorite}
+                    onToggleFavorite={() => handleToggleFavorite(item)}
                   />
                 ))}
               </div>

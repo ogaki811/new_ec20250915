@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
+import useCartStore from '../store/useCartStore';
+import useFavoritesStore from '../store/useFavoritesStore';
 
 function Header() {
+  const itemCount = useCartStore((state) => state.getItemCount());
+  const favoriteCount = useFavoritesStore((state) => state.getFavoriteCount());
   return (
     <header className="w-full">
       {/* デスクトップヘッダー */}
@@ -42,7 +46,9 @@ function Header() {
                       <circle cx="20" cy="21" r="1"></circle>
                       <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
-                    <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    {itemCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{itemCount}</span>
+                    )}
                   </div>
                   <span className="text-xs mt-1">カート</span>
                 </Link>
@@ -123,7 +129,9 @@ function Header() {
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
               </svg>
-              <span className="absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
+              {itemCount > 0 && (
+                <span className="absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">{itemCount}</span>
+              )}
             </Link>
           </div>
           <div className="relative">

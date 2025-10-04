@@ -1,7 +1,22 @@
 import { Link } from 'react-router-dom';
 import Button from './Button';
+import useCartStore from '../store/useCartStore';
+import useFavoritesStore from '../store/useFavoritesStore';
 
 function ProductCard({ product, size = 'default' }) {
+  const addItem = useCartStore((state) => state.addItem);
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
+  const isFav = isFavorite(product.id);
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    addItem(product);
+  };
+
+  const handleToggleFavorite = (e) => {
+    e.preventDefault();
+    toggleFavorite(product);
+  };
   const sizeClasses = {
     compact: {
       card: 'text-sm',
@@ -28,7 +43,7 @@ function ProductCard({ product, size = 'default' }) {
   return (
     <div className={`bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow ${classes.card}`}>
       <Link to={`/product/${product.id}`} className="block">
-        <div className={`relative bg-gray-100 ${classes.image}`}>
+        <div className={`relative bg-gray-100 ${classes.image} group`}>
           <img
             src={product.image}
             alt={product.name}
@@ -45,6 +60,17 @@ function ProductCard({ product, size = 'default' }) {
               {product.discount}%OFF
             </span>
           )}
+          <button
+            onClick={handleToggleFavorite}
+            className={`absolute bottom-2 right-2 p-2 rounded-full transition-all ${
+              isFav ? 'bg-red-500 text-white' : 'bg-white text-gray-400 hover:text-red-500'
+            }`}
+            aria-label="お気に入り"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill={isFav ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
         </div>
       </Link>
       <div className="p-4">
@@ -68,7 +94,7 @@ function ProductCard({ product, size = 'default' }) {
           variant="primary"
           fullWidth
           size={size === 'compact' ? 'sm' : 'md'}
-          onClick={() => console.log('Add to cart:', product.id)}
+          onClick={handleAddToCart}
         >
           カートに追加
         </Button>
