@@ -1,39 +1,26 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
+import OptimizedImage from '../components/OptimizedImage';
 
 function OrderComplete() {
-  // サンプル注文データ
-  const order = {
-    id: '20240104-001',
-    date: '2024年1月4日',
-    total: 1264,
-    items: [
-      {
-        id: 'item001',
-        name: 'コクヨ ファイルボックス-FS ピース B4 グレー',
-        code: 'フボ-FSB4M',
-        image: '/img/product/A-74769_l1.jpg',
-        price: 342,
-        quantity: 2,
-      },
-      {
-        id: 'item002',
-        name: 'プラス デスクトレー A4横 ブラック',
-        code: 'DM-110BK',
-        image: '/img/product/8027341_l1.jpg',
-        price: 580,
-        quantity: 1,
-      },
-    ],
-    shippingAddress: {
-      name: '山田 太郎',
-      postalCode: '150-0001',
-      address: '東京都渋谷区神南1-2-3 〇〇ビル 4F',
-      phone: '090-1234-5678',
-    },
-    paymentMethod: 'クレジットカード',
-    deliveryDate: '2024年1月6日',
-  };
+  const location = useLocation();
+  const navigate = useNavigate();
+  const orderData = location.state?.orderData;
+
+  // 注文データがない場合はトップページへリダイレクト
+  useEffect(() => {
+    if (!orderData) {
+      navigate('/');
+    }
+  }, [orderData, navigate]);
+
+  // データがない場合は何も表示しない
+  if (!orderData) {
+    return null;
+  }
+
+  const order = orderData;
 
   return (
     <main className="min-h-screen bg-gray-50 py-12">
@@ -70,14 +57,14 @@ function OrderComplete() {
           <div className="space-y-4 mb-6 pb-6 border-b border-gray-200">
             {order.items.map((item) => (
               <div key={item.id} className="flex items-center gap-4">
-                <img
+                <OptimizedImage
                   src={item.image}
                   alt={item.name}
                   className="w-20 h-20 object-cover rounded border border-gray-200"
                 />
                 <div className="flex-1">
                   <p className="font-medium text-gray-900">{item.name}</p>
-                  <p className="text-sm text-gray-600">商品コード: {item.code}</p>
+                  {item.code && <p className="text-sm text-gray-600">商品コード: {item.code}</p>}
                   <p className="text-sm text-gray-600">数量: {item.quantity}</p>
                 </div>
                 <div className="text-right">
@@ -91,12 +78,18 @@ function OrderComplete() {
           <div className="space-y-2 mb-6">
             <div className="flex justify-between text-gray-700">
               <span>小計</span>
-              <span>¥{order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}</span>
+              <span>¥{order.subtotal.toLocaleString()}</span>
             </div>
             <div className="flex justify-between text-gray-700">
               <span>配送料</span>
-              <span>¥500</span>
+              <span>{order.shippingFee === 0 ? '無料' : `¥${order.shippingFee.toLocaleString()}`}</span>
             </div>
+            {order.pointsUsed > 0 && (
+              <div className="flex justify-between text-green-600">
+                <span>ポイント利用</span>
+                <span>-¥{order.pointsUsed.toLocaleString()}</span>
+              </div>
+            )}
             <div className="flex justify-between text-xl font-bold text-gray-900 pt-3 border-t border-gray-200">
               <span>合計</span>
               <span className="text-blue-600">¥{order.total.toLocaleString()}</span>
@@ -120,10 +113,13 @@ function OrderComplete() {
             <p className="text-gray-700">{order.paymentMethod}</p>
           </div>
 
-          {/* 配送予定日 */}
+          {/* 配送日時 */}
           <div className="pt-6 border-t border-gray-200 mt-6">
-            <h3 className="font-semibold text-gray-900 mb-3">配送予定日</h3>
-            <p className="text-gray-700">{order.deliveryDate}</p>
+            <h3 className="font-semibold text-gray-900 mb-3">配送日時</h3>
+            <div className="text-gray-700 space-y-1">
+              <p>配送予定日: {order.deliveryDate}</p>
+              <p>配送時間帯: {order.deliveryTime}</p>
+            </div>
           </div>
         </div>
 

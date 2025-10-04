@@ -98,6 +98,37 @@ function Icon({
         <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
       </>
     ),
+    // 支払・配送
+    creditCard: (
+      <>
+        <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+        <line x1="1" y1="10" x2="23" y2="10" />
+      </>
+    ),
+    bank: (
+      <>
+        <line x1="3" y1="22" x2="21" y2="22" />
+        <path d="M12 2L2 7v6l10 5 10-5V7L12 2z" />
+        <polyline points="7,13 7,22" />
+        <polyline points="12,13 12,22" />
+        <polyline points="17,13 17,22" />
+      </>
+    ),
+    truck: (
+      <>
+        <rect x="1" y="3" width="15" height="13" />
+        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+        <circle cx="5.5" cy="18.5" r="2.5" />
+        <circle cx="18.5" cy="18.5" r="2.5" />
+      </>
+    ),
+    package: (
+      <>
+        <path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+        <line x1="12" y1="22.08" x2="12" y2="12" />
+      </>
+    ),
   };
 
   return (
