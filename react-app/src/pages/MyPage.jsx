@@ -1,9 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import ProductCard from '../components/ProductCard';
 import Badge from '../components/Badge';
+import useAuthStore from '../store/useAuthStore';
 
 function MyPage() {
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuthStore();
+
+  // 未ログインの場合はログインページへリダイレクト
+  if (!isAuthenticated) {
+    navigate('/login');
+    return null;
+  }
+
   // おすすめ商品データ
   const recommendedProducts = [
     { id: '1', name: 'ボールペン 10本セット', code: '802734', price: 1200, image: '/img/product/8027341_l1.jpg' },
@@ -33,11 +43,11 @@ function MyPage() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <p className="text-sm text-gray-600 mb-1">お名前</p>
-                      <p className="text-lg font-medium text-gray-900">山田 太郎</p>
+                      <p className="text-lg font-medium text-gray-900">{user?.name || '未設定'}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-600 mb-1">メールアドレス</p>
-                      <p className="text-lg font-medium text-gray-900">yamada@example.com</p>
+                      <p className="text-lg font-medium text-gray-900">{user?.email || '未設定'}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-600 mb-1">電話番号</p>

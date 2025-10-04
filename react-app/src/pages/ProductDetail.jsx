@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import Breadcrumb from '../components/Breadcrumb';
 import Button from '../components/Button';
 import ProductCard from '../components/ProductCard';
+import useCartStore from '../store/useCartStore';
+import useFavoritesStore from '../store/useFavoritesStore';
 
 function ProductDetail() {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  const addItem = useCartStore((state) => state.addItem);
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
 
   // サンプル商品データ（実際にはAPIから取得）
   const product = {
@@ -59,7 +65,28 @@ function ProductDetail() {
   };
 
   const handleAddToCart = () => {
-    console.log('Add to cart:', { productId: product.id, quantity });
+    const productWithQuantity = {
+      ...product,
+      image: product.images[0],
+      quantity: quantity
+    };
+    addItem(productWithQuantity);
+    toast.success(`${product.name}を${quantity}個カートに追加しました`);
+  };
+
+  const handleToggleFavorite = () => {
+    const productForFavorite = {
+      ...product,
+      image: product.images[0]
+    };
+    const wasFavorite = isFavorite(product.id);
+    toggleFavorite(productForFavorite);
+
+    if (wasFavorite) {
+      toast(`${product.name}をお気に入りから削除しました`, { icon: '💔' });
+    } else {
+      toast.success(`${product.name}をお気に入りに追加しました`, { icon: '❤️' });
+    }
   };
 
   return (
@@ -173,8 +200,22 @@ function ProductDetail() {
                 <Button variant="primary" size="lg" fullWidth onClick={handleAddToCart}>
                   カートに追加
                 </Button>
-                <button className="w-14 h-14 flex items-center justify-center border-2 border-gray-300 rounded-lg hover:bg-red-50 hover:border-red-500 hover:text-red-500 transition-colors">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <button
+                  onClick={handleToggleFavorite}
+                  className={`w-14 h-14 flex items-center justify-center border-2 rounded-lg transition-colors ${
+                    isFavorite(product.id)
+                      ? 'bg-red-50 border-red-500 text-red-500'
+                      : 'border-gray-300 hover:bg-red-50 hover:border-red-500 hover:text-red-500'
+                  }`}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill={isFavorite(product.id) ? 'currentColor' : 'none'}
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                   </svg>
                 </button>

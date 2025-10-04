@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Checkbox from '../components/Checkbox';
@@ -44,8 +45,12 @@ function Login() {
       name: '山田 太郎',
     });
 
+    toast.success('ログインしました');
+
     // マイページへリダイレクト
-    navigate('/mypage');
+    setTimeout(() => {
+      navigate('/mypage');
+    }, 500);
   };
 
   return (

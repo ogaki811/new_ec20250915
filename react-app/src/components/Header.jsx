@@ -1,10 +1,21 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import useCartStore from '../store/useCartStore';
 import useFavoritesStore from '../store/useFavoritesStore';
+import useAuthStore from '../store/useAuthStore';
 
 function Header() {
+  const navigate = useNavigate();
   const itemCount = useCartStore((state) => state.getItemCount());
   const favoriteCount = useFavoritesStore((state) => state.getFavoriteCount());
+  const { isAuthenticated, logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+    toast.success('ログアウトしました');
+    navigate('/');
+  };
+
   return (
     <header className="w-full">
       {/* デスクトップヘッダー */}
@@ -58,37 +69,54 @@ function Header() {
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                     </svg>
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    {favoriteCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{favoriteCount}</span>
+                    )}
                   </div>
                   <span className="text-xs mt-1">お気に入り</span>
                 </Link>
 
-                <Link to="/mypage" className="flex flex-col items-center p-2 text-gray-600 hover:text-green-500 transition-colors">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  <span className="text-xs mt-1">マイページ</span>
-                </Link>
+                {isAuthenticated ? (
+                  <>
+                    <Link to="/mypage" className="flex flex-col items-center p-2 text-gray-600 hover:text-green-500 transition-colors">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                      <span className="text-xs mt-1">マイページ</span>
+                    </Link>
 
-                <Link to="/signup" className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="8.5" cy="7" r="4"></circle>
-                    <line x1="20" y1="8" x2="20" y2="14"></line>
-                    <line x1="23" y1="11" x2="17" y2="11"></line>
-                  </svg>
-                  <span className="text-xs mt-1">新規登録</span>
-                </Link>
+                    <button onClick={handleLogout} className="flex flex-col items-center p-2 text-gray-600 hover:text-red-500 transition-colors">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                      </svg>
+                      <span className="text-xs mt-1">ログアウト</span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login" className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10 17 15 12 10 7"></polyline>
+                        <line x1="15" y1="12" x2="3" y2="12"></line>
+                      </svg>
+                      <span className="text-xs mt-1">ログイン</span>
+                    </Link>
 
-                <Link to="/login" className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                    <polyline points="10 17 15 12 10 7"></polyline>
-                    <line x1="15" y1="12" x2="3" y2="12"></line>
-                  </svg>
-                  <span className="text-xs mt-1">ログイン</span>
-                </Link>
+                    <Link to="/signup" className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-500 transition-colors">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                      </svg>
+                      <span className="text-xs mt-1">新規登録</span>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

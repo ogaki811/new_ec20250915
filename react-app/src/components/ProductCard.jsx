@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import Button from './Button';
 import useCartStore from '../store/useCartStore';
 import useFavoritesStore from '../store/useFavoritesStore';
@@ -11,11 +12,23 @@ function ProductCard({ product, size = 'default' }) {
   const handleAddToCart = (e) => {
     e.preventDefault();
     addItem(product);
+    toast.success(`${product.name}をカートに追加しました`);
   };
 
   const handleToggleFavorite = (e) => {
     e.preventDefault();
+    const wasFavorite = isFav;
     toggleFavorite(product);
+
+    if (wasFavorite) {
+      toast(`${product.name}をお気に入りから削除しました`, {
+        icon: '💔',
+      });
+    } else {
+      toast.success(`${product.name}をお気に入りに追加しました`, {
+        icon: '❤️',
+      });
+    }
   };
   const sizeClasses = {
     compact: {
