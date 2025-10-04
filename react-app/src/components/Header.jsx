@@ -4,10 +4,12 @@ import toast from 'react-hot-toast';
 import useCartStore from '../store/useCartStore';
 import useFavoritesStore from '../store/useFavoritesStore';
 import useAuthStore from '../store/useAuthStore';
+import MobileMenu from './MobileMenu';
 
 function Header() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const itemCount = useCartStore((state) => state.getItemCount());
   const favoriteCount = useFavoritesStore((state) => state.getFavoriteCount());
   const { isAuthenticated, logout } = useAuthStore();
@@ -155,11 +157,14 @@ function Header() {
         </nav>
       </div>
 
+      {/* モバイルメニュー */}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+
       {/* モバイルヘッダー */}
       <div className="lg:hidden bg-white shadow-md">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between mb-3">
-            <button className="p-2">
+            <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-gray-700 hover:text-blue-600 transition-colors">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <line x1="3" y1="12" x2="21" y2="12"></line>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
