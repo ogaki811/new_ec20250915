@@ -1,25 +1,29 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from './components/ErrorBoundary';
 import SkipToContent from './components/SkipToContent';
 import LiveRegion from './components/LiveRegion';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Loading from './components/Loading';
 import ProtectedRoute from './components/ProtectedRoute';
-import Home from './pages/Home';
-import MyPage from './pages/MyPage';
-import OrderHistory from './pages/OrderHistory';
-import Favorites from './pages/Favorites';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Cart from './pages/Cart';
-import ProductDetail from './pages/ProductDetail';
-import ProductList from './pages/ProductList';
-import Checkout from './pages/Checkout';
-import OrderComplete from './pages/OrderComplete';
-import ForgotPassword from './pages/ForgotPassword';
-import Search from './pages/Search';
-import ComingSoon from './pages/ComingSoon';
+
+// ページコンポーネントのLazy Loading
+const Home = lazy(() => import('./pages/Home'));
+const MyPage = lazy(() => import('./pages/MyPage'));
+const OrderHistory = lazy(() => import('./pages/OrderHistory'));
+const Favorites = lazy(() => import('./pages/Favorites'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
+const Cart = lazy(() => import('./pages/Cart'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const ProductList = lazy(() => import('./pages/ProductList'));
+const Checkout = lazy(() => import('./pages/Checkout'));
+const OrderComplete = lazy(() => import('./pages/OrderComplete'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const Search = lazy(() => import('./pages/Search'));
+const ComingSoon = lazy(() => import('./pages/ComingSoon'));
 
 function App() {
   return (
@@ -54,7 +58,8 @@ function App() {
         />
         <Header />
         <main id="main-content" tabIndex="-1" className="flex-grow outline-none">
-          <Routes>
+          <Suspense fallback={<Loading fullScreen />}>
+            <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
@@ -75,7 +80,8 @@ function App() {
             <Route path="/order-history" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
             <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
             <Route path="/order-complete" element={<ProtectedRoute><OrderComplete /></ProtectedRoute>} />
-          </Routes>
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>
