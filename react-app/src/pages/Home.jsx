@@ -1,16 +1,22 @@
 import { Link } from 'react-router-dom';
+import HeroSlider from '../components/HeroSlider';
+import ProductCard from '../components/ProductCard';
 
 function Home() {
+  // サンプル商品データ
+  const recommendedProducts = [
+    { id: '1', name: 'プレミアム商品 1', code: '8027341', image: '/img/product/8027341_l1.jpg', price: 2990, badge: 'NEW' },
+    { id: '2', name: 'プレミアム商品 2', code: 'AH85168', image: '/img/product/AH85168_l1.jpg', price: 2990, badge: 'NEW' },
+    { id: '3', name: 'プレミアム商品 3', code: 'AWA4132', image: '/img/product/AWA4132_l1.jpg', price: 2990, badge: 'NEW' },
+    { id: '4', name: 'プレミアム商品 4', code: 'AW75238', image: '/img/product/AW75238_l1.jpg', price: 2990, badge: 'NEW' },
+    { id: '5', name: 'プレミアム商品 5', code: 'A-74769', image: '/img/product/A-74769_l1.jpg', price: 2990, badge: 'NEW' },
+    { id: '6', name: 'プレミアム商品 6', code: 'A-74770', image: '/img/product/8027341_l1.jpg', price: 2990, badge: 'NEW' },
+  ];
+
   return (
     <main>
       {/* メインバナースライダー */}
-      <section className="main-banner-section relative w-full bg-gray-100">
-        <div className="banner-container relative w-full overflow-hidden" style={{ height: '500px' }}>
-          <div className="banner-slide active">
-            <img src="/img/mainbanner/mainbanner_01.jpg" alt="バナー1" className="w-full h-full object-cover" />
-          </div>
-        </div>
-      </section>
+      <HeroSlider />
 
       {/* 人気カテゴリー */}
       <section className="py-12 bg-gray-50">
@@ -66,30 +72,9 @@ function Home() {
             <h2 className="text-3xl font-bold text-gray-900">おすすめ商品</h2>
             <Link to="/products" className="text-blue-600 hover:text-blue-800">すべて見る →</Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
-                <Link to="/product-detail" className="block">
-                  <div className="relative aspect-square bg-gray-100">
-                    <img
-                      src={`/img/product/${item === 1 ? '8027341_l1' : item === 2 ? 'AH85168_l1' : item === 3 ? 'AWA4132_l1' : 'AW75238_l1'}.jpg`}
-                      alt={`商品${item}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <span className="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">NEW</span>
-                  </div>
-                </Link>
-                <div className="p-4">
-                  <Link to="/product-detail">
-                    <h3 className="font-medium text-gray-900 mb-2 hover:text-blue-600">プレミアム商品 {item}</h3>
-                  </Link>
-                  <p className="text-sm text-gray-500 mb-2">商品コード: 80273{item}</p>
-                  <p className="text-lg font-bold text-gray-900 mb-3">¥2,990</p>
-                  <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors">
-                    カートに追加
-                  </button>
-                </div>
-              </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {recommendedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} size="compact" />
             ))}
           </div>
         </div>

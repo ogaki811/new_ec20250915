@@ -1,4 +1,6 @@
 import Sidebar from '../components/Sidebar';
+import Badge from '../components/Badge';
+import Button from '../components/Button';
 
 function OrderHistory() {
   const orders = [
@@ -85,12 +87,12 @@ function OrderHistory() {
                         <p className="text-sm text-gray-600 mt-1">{order.date}</p>
                       </div>
                       <div className="flex items-center space-x-4">
-                        <span className={`px-4 py-2 rounded-full text-sm font-medium ${order.statusColor}`}>
+                        <Badge variant={order.status === '配送中' ? 'primary' : 'success'}>
                           {order.status}
-                        </span>
-                        <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        </Badge>
+                        <Button variant="secondary" size="sm">
                           詳細を見る
-                        </button>
+                        </Button>
                       </div>
                     </div>
 

@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
+import ProductCard from '../components/ProductCard';
+import Badge from '../components/Badge';
 
 function MyPage() {
+  // おすすめ商品データ
+  const recommendedProducts = [
+    { id: '1', name: 'ボールペン 10本セット', code: '802734', price: 1200, image: '/img/product/8027341_l1.jpg' },
+    { id: '2', name: 'クリアファイル 20枚', code: 'AH8516', price: 980, image: '/img/product/AH85168_l1.jpg' },
+    { id: '3', name: 'マウスパッド', code: 'XU1482', price: 1500, image: '/img/product/AWA4132_l1.jpg' }
+  ];
+
   return (
     <main className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,9 +96,9 @@ function MyPage() {
                           <p className="font-semibold text-gray-900">注文番号: {order.id}</p>
                           <p className="text-sm text-gray-600">{order.date}</p>
                         </div>
-                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${order.statusColor}`}>
+                        <Badge variant={order.status === '配送中' ? 'primary' : 'success'}>
                           {order.status}
-                        </span>
+                        </Badge>
                       </div>
                       <div className="flex items-center space-x-4">
                         <img
@@ -114,29 +123,8 @@ function MyPage() {
               <section>
                 <h3 className="text-xl font-semibold text-gray-900 mb-6">おすすめ商品</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { name: 'ボールペン 10本セット', code: '802734', price: '1,200', image: '8027341_l1.jpg' },
-                    { name: 'クリアファイル 20枚', code: 'AH8516', price: '980', image: 'AH85168_l1.jpg' },
-                    { name: 'マウスパッド', code: 'XU1482', price: '1,500', image: 'XU14820_l1.jpg' }
-                  ].map((product, index) => (
-                    <div key={index} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                      <Link to="/product-detail">
-                        <div className="aspect-square bg-gray-100">
-                          <img
-                            src={`/img/product/${product.image}`}
-                            alt={product.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </Link>
-                      <div className="p-4">
-                        <Link to="/product-detail">
-                          <h4 className="font-medium text-gray-900 mb-2 hover:text-blue-600">{product.name}</h4>
-                        </Link>
-                        <p className="text-sm text-gray-500 mb-2">商品コード: {product.code}</p>
-                        <p className="text-lg font-bold text-gray-900">¥{product.price}</p>
-                      </div>
-                    </div>
+                  {recommendedProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
               </section>
