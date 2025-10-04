@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb';
 import ProductCard from '../components/ProductCard';
 import Pagination from '../components/Pagination';
@@ -49,9 +50,83 @@ function ProductList() {
     { label: '商品一覧' }
   ];
 
+  // SEO設定
+  const pageTitle = category
+    ? `${category} - 商品一覧 | smartsample`
+    : '商品一覧 | smartsample';
+  const pageDescription = category
+    ? `${category}の商品一覧ページ。${sortedProducts.length}件の商品からお選びいただけます。`
+    : `全商品一覧ページ。${sortedProducts.length}件の商品からお選びいただけます。オフィス用品から文具まで豊富な品揃え。`;
+  const pageUrl = category
+    ? `https://smartsample.example.com/products?category=${encodeURIComponent(category)}`
+    : 'https://smartsample.example.com/products';
+
   return (
-    <main className="ec-product-list">
-      <Breadcrumb items={breadcrumbItems} />
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+
+        {/* Structured Data - ItemList */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "numberOfItems": sortedProducts.length,
+            "itemListElement": paginatedItems.map((product, index) => ({
+              "@type": "ListItem",
+              "position": (currentPage - 1) * 12 + index + 1,
+              "item": {
+                "@type": "Product",
+                "name": product.name,
+                "url": `https://smartsample.example.com/product/${product.id}`,
+                "image": product.image,
+                "description": product.description,
+                "offers": {
+                  "@type": "Offer",
+                  "price": product.price,
+                  "priceCurrency": "JPY"
+                }
+              }
+            }))
+          })}
+        </script>
+
+        {/* Structured Data - BreadcrumbList */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "ホーム",
+                "item": "https://smartsample.example.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "商品一覧"
+              }
+            ]
+          })}
+        </script>
+      </Helmet>
+
+      <main className="ec-product-list">
+        <Breadcrumb items={breadcrumbItems} />
 
       {/* ページヘッダー */}
       <section className="ec-product-list__header bg-white border-b border-gray-200">
@@ -259,7 +334,8 @@ function ProductList() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
 

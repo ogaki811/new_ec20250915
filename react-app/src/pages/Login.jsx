@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -57,6 +58,13 @@ function Login() {
 
   return (
     <>
+      <Helmet>
+        <title>ログイン | smartsample</title>
+        <meta name="description" content="smartsampleにログインして、お買い物をお楽しみください。新規会員登録も受付中。" />
+        <link rel="canonical" href="https://smartsample.example.com/login" />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+
       <SimpleHeader />
       <main className="ec-login min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
       <div className="ec-login__container w-full max-w-md mx-auto px-4">

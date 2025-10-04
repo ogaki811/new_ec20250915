@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Sidebar from '../components/Sidebar';
 import ProductCard from '../components/ProductCard';
 import Button from '../components/Button';
@@ -8,8 +9,16 @@ function Favorites() {
   const favorites = useFavoritesStore((state) => state.favorites);
 
   return (
-    <main className="ec-favorites min-h-screen bg-gray-50 py-8">
-      <div className="ec-favorites__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <Helmet>
+        <title>お気に入り ({favorites.length}件) | smartsample</title>
+        <meta name="description" content="お気に入り登録した商品の一覧ページです。気になる商品をチェックして後でまとめてご購入いただけます。" />
+        <link rel="canonical" href="https://smartsample.example.com/favorites" />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+
+      <main className="ec-favorites min-h-screen bg-gray-50 py-8">
+        <div className="ec-favorites__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="ec-favorites__layout lg:grid lg:grid-cols-4 lg:gap-8">
           {/* サイドバー */}
           <Sidebar />
@@ -46,7 +55,8 @@ function Favorites() {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 }
 

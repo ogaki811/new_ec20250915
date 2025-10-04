@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import Breadcrumb from '../components/Breadcrumb';
 import StepIndicator from '../components/StepIndicator';
@@ -142,9 +143,53 @@ function Cart() {
     return relatedProducts.slice(0, 12);
   }, [cartItems]);
 
+  // SEO設定
+  const itemCount = getItemCount();
+  const pageTitle = cartItems.length > 0
+    ? `ショッピングカート (${itemCount}点) | smartsample`
+    : `ショッピングカート | smartsample`;
+  const pageDescription = cartItems.length > 0
+    ? `現在カートに${itemCount}点の商品があります。合計金額: ¥${total.toLocaleString()}`
+    : 'ショッピングカート。お気に入りの商品を選んでお買い物をお楽しみください。';
+
   return (
-    <main className="ec-cart">
-      <Breadcrumb items={breadcrumbItems} />
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href="https://smartsample.example.com/cart" />
+        <meta name="robots" content="noindex, nofollow" />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content="https://smartsample.example.com/cart" />
+        <meta property="og:type" content="website" />
+
+        {/* Structured Data - BreadcrumbList */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "ホーム",
+                "item": "https://smartsample.example.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "ショッピングカート"
+              }
+            ]
+          })}
+        </script>
+      </Helmet>
+
+      <main className="ec-cart">
+        <Breadcrumb items={breadcrumbItems} />
 
       <StepIndicator currentStep={1} />
 
@@ -461,7 +506,8 @@ function Cart() {
           </p>
         )}
       </Modal>
-    </main>
+      </main>
+    </>
   );
 }
 

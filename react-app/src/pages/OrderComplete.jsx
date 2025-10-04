@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Button from '../components/Button';
 import OptimizedImage from '../components/OptimizedImage';
 
@@ -23,8 +24,37 @@ function OrderComplete() {
   const order = orderData;
 
   return (
-    <main className="ec-order-complete min-h-screen bg-gray-50 py-12">
-      <div className="ec-order-complete__container max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <Helmet>
+        <title>ご注文完了 | smartsample</title>
+        <meta name="description" content="ご注文ありがとうございます。注文内容の確認と配送状況の確認ができます。" />
+        <link rel="canonical" href="https://smartsample.example.com/order-complete" />
+        <meta name="robots" content="noindex, nofollow" />
+
+        {/* Structured Data - Order */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Order",
+            "orderNumber": order.id,
+            "orderDate": order.date,
+            "orderStatus": "https://schema.org/OrderProcessing",
+            "customer": {
+              "@type": "Person",
+              "name": order.customerInfo.name,
+              "email": order.customerInfo.email
+            },
+            "acceptedOffer": {
+              "@type": "Offer",
+              "price": order.total,
+              "priceCurrency": "JPY"
+            }
+          })}
+        </script>
+      </Helmet>
+
+      <main className="ec-order-complete min-h-screen bg-gray-50 py-12">
+        <div className="ec-order-complete__container max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 完了メッセージ */}
         <div className="ec-order-complete__success-card bg-white rounded-lg shadow-sm p-8 mb-8 text-center">
           <div className="ec-order-complete__success-message mb-6">
@@ -146,7 +176,8 @@ function OrderComplete() {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 }
 

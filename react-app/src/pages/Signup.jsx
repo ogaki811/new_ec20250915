@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Checkbox from '../components/Checkbox';
@@ -56,6 +57,13 @@ function Signup() {
 
   return (
     <>
+      <Helmet>
+        <title>新規会員登録 | smartsample</title>
+        <meta name="description" content="smartsampleの新規会員登録ページ。会員登録してお得なポイントや限定セールをお楽しみください。" />
+        <link rel="canonical" href="https://smartsample.example.com/signup" />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+
       <SimpleHeader />
       <main className="ec-signup min-h-[calc(100vh-80px)] flex items-center justify-center py-12 bg-gradient-to-br from-gray-50 to-blue-100">
       <div className="ec-signup__container w-full max-w-2xl mx-auto px-4">

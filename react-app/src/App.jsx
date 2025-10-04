@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { HelmetProvider } from 'react-helmet-async';
 import ErrorBoundary from './components/ErrorBoundary';
 import SkipToContent from './components/SkipToContent';
 import LiveRegion from './components/LiveRegion';
+import ScrollToTop from './components/ScrollToTop';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
@@ -43,6 +45,7 @@ function AppContent() {
           style: {
             background: '#363636',
             color: '#fff',
+            animation: 'slideIn 0.3s ease-out',
           },
           success: {
             duration: 3000,
@@ -58,13 +61,7 @@ function AppContent() {
               secondary: '#fff',
             },
           },
-          // 横からスライドインするアニメーション
           className: '',
-          style: {
-            background: '#363636',
-            color: '#fff',
-            animation: 'slideIn 0.3s ease-out',
-          },
         }}
         containerStyle={{
           bottom: 20,
@@ -110,13 +107,16 @@ function AppContent() {
 
 function App() {
   return (
-    <ErrorBoundary>
-      <Router>
-        <SkipToContent />
-        <LiveRegion />
-        <AppContent />
-      </Router>
-    </ErrorBoundary>
+    <HelmetProvider>
+      <ErrorBoundary>
+        <Router>
+          <ScrollToTop />
+          <SkipToContent />
+          <LiveRegion />
+          <AppContent />
+        </Router>
+      </ErrorBoundary>
+    </HelmetProvider>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import Breadcrumb from '../components/Breadcrumb';
 import StepIndicator from '../components/StepIndicator';
@@ -217,9 +218,44 @@ function Checkout() {
   const total = subtotal + shippingFee - pointsToUse;
 
   return (
-    <main className="ec-checkout">
-      <Breadcrumb items={breadcrumbItems} />
-      <StepIndicator currentStep={2} />
+    <>
+      <Helmet>
+        <title>ご注文手続き | smartsample</title>
+        <meta name="description" content="ご注文内容の確認と配送先情報の入力ページです。安心・安全なお買い物をサポートします。" />
+        <link rel="canonical" href="https://smartsample.example.com/checkout" />
+        <meta name="robots" content="noindex, nofollow" />
+
+        {/* Structured Data - BreadcrumbList */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "ホーム",
+                "item": "https://smartsample.example.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "カート",
+                "item": "https://smartsample.example.com/cart"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "ご注文手続き"
+              }
+            ]
+          })}
+        </script>
+      </Helmet>
+
+      <main className="ec-checkout">
+        <Breadcrumb items={breadcrumbItems} />
+        <StepIndicator currentStep={2} />
 
       <section className="ec-checkout__content py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -524,7 +560,8 @@ function Checkout() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
 

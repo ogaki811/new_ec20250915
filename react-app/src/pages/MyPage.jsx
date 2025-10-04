@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Sidebar from '../components/Sidebar';
 import ProductCard from '../components/ProductCard';
 import Badge from '../components/Badge';
@@ -15,8 +16,16 @@ function MyPage() {
   ];
 
   return (
-    <main className="ec-mypage min-h-screen bg-gray-50 py-8">
-      <div className="ec-mypage__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <Helmet>
+        <title>マイページ | smartsample</title>
+        <meta name="description" content="会員情報の確認・編集、注文履歴の確認、お気に入り商品の管理ができるマイページです。" />
+        <link rel="canonical" href="https://smartsample.example.com/mypage" />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+
+      <main className="ec-mypage min-h-screen bg-gray-50 py-8">
+        <div className="ec-mypage__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="ec-mypage__layout lg:grid lg:grid-cols-4 lg:gap-8">
           {/* サイドバー */}
           <Sidebar />
@@ -135,7 +144,8 @@ function MyPage() {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 }
 

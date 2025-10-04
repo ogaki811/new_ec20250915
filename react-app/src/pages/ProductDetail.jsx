@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import Breadcrumb from '../components/Breadcrumb';
 import Button from '../components/Button';
@@ -13,6 +14,12 @@ function ProductDetail() {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  // 商品IDが変更されたら状態をリセット
+  useEffect(() => {
+    setQuantity(1);
+    setSelectedImage(0);
+  }, [id]);
 
   const addItem = useCartStore((state) => state.addItem);
   const { toggleFavorite, isFavorite } = useFavoritesStore();
@@ -97,9 +104,82 @@ function ProductDetail() {
     }
   };
 
+  const pageTitle = `${product.name} - ${product.brand} | smartsample`;
+  const pageDescription = `${product.name}の商品詳細ページ。${product.description.substring(0, 100)}...`;
+  const productUrl = `https://smartsample.example.com/product/${product.id}`;
+  const productImageUrl = product.images[0];
+
   return (
-    <main className="ec-product-detail">
-      <Breadcrumb items={breadcrumbItems} />
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={productUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={productUrl} />
+        <meta property="og:type" content="product" />
+        <meta property="og:image" content={productImageUrl} />
+        <meta property="product:price:amount" content={product.price} />
+        <meta property="product:price:currency" content="JPY" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={productImageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+
+        {/* Structured Data - Product */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "image": product.images,
+            "description": product.description,
+            "sku": product.code,
+            "brand": {
+              "@type": "Brand",
+              "name": product.brand
+            },
+            "offers": {
+              "@type": "Offer",
+              "url": productUrl,
+              "priceCurrency": "JPY",
+              "price": product.price,
+              "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "smartsample"
+              }
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": product.rating,
+              "reviewCount": product.reviewCount || 89
+            }
+          })}
+        </script>
+
+        {/* Structured Data - BreadcrumbList */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": breadcrumbItems.map((item, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "name": item.label,
+              "item": item.href ? `https://smartsample.example.com${item.href}` : undefined
+            }))
+          })}
+        </script>
+      </Helmet>
+
+      <main className="ec-product-detail">
+        <Breadcrumb items={breadcrumbItems} />
 
       {/* 商品詳細セクション */}
       <section className="ec-product-detail__main py-12 bg-white">
@@ -297,7 +377,8 @@ function ProductDetail() {
           </div>
         </section>
       )}
-    </main>
+      </main>
+    </>
   );
 }
 

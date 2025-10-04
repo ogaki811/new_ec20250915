@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb';
 import ProductCard from '../components/ProductCard';
 import Loading from '../components/Loading';
@@ -135,9 +136,87 @@ function Search() {
                            filters.inStock ||
                            filters.minRating > 0;
 
+  // SEO設定
+  const pageTitle = query
+    ? `「${query}」の検索結果 - ${sortedProducts.length}件 | smartsample`
+    : `商品検索 | smartsample`;
+  const pageDescription = query
+    ? `「${query}」の検索結果 ${sortedProducts.length}件。オフィス用品・文具の通販サイトsmartsampleで商品を探す。`
+    : 'オフィス用品・文具の商品検索ページ。カテゴリー、ブランド、価格帯から絞り込んで商品を探せます。';
+  const pageUrl = query
+    ? `https://smartsample.example.com/search?q=${encodeURIComponent(query)}`
+    : 'https://smartsample.example.com/search';
+
   return (
-    <main className="ec-search">
-      <Breadcrumb items={breadcrumbItems} />
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+
+        {sortedProducts.length > 0 && (
+          <>
+            {/* Structured Data - ItemList */}
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                "numberOfItems": sortedProducts.length,
+                "itemListElement": paginatedItems.map((product, index) => ({
+                  "@type": "ListItem",
+                  "position": (currentPage - 1) * 18 + index + 1,
+                  "item": {
+                    "@type": "Product",
+                    "name": product.name,
+                    "url": `https://smartsample.example.com/product/${product.id}`,
+                    "image": product.image,
+                    "description": product.description,
+                    "offers": {
+                      "@type": "Offer",
+                      "price": product.price,
+                      "priceCurrency": "JPY"
+                    }
+                  }
+                }))
+              })}
+            </script>
+          </>
+        )}
+
+        {/* Structured Data - BreadcrumbList */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "ホーム",
+                "item": "https://smartsample.example.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "検索結果"
+              }
+            ]
+          })}
+        </script>
+      </Helmet>
+
+      <main className="ec-search">
+        <Breadcrumb items={breadcrumbItems} />
 
       <section className="ec-search__section py-12 bg-gray-50">
         <div className="ec-search__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -256,7 +335,8 @@ function Search() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
 

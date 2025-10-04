@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import HeroSlider from '../components/HeroSlider';
 import ProductCard from '../components/ProductCard';
 import ProductSlider from '../components/ProductSlider';
@@ -22,9 +23,52 @@ function Home() {
     .slice(0, 6);
 
   return (
-    <main className="ec-home">
-      {/* メインバナースライダー */}
-      <HeroSlider />
+    <>
+      <Helmet>
+        <title>smartsample - オフィス用品・文具のECサイト</title>
+        <meta name="description" content="オフィス用品から文具まで、豊富な品揃えのECサイト。高品質な商品をお手頃価格で提供します。送料無料キャンペーン実施中。" />
+        <link rel="canonical" href="https://smartsample.example.com/" />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="smartsample - オフィス用品・文具のECサイト" />
+        <meta property="og:description" content="オフィス用品から文具まで、豊富な品揃えのECサイト。高品質な商品をお手頃価格で提供します。" />
+        <meta property="og:url" content="https://smartsample.example.com/" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:title" content="smartsample - オフィス用品・文具のECサイト" />
+        <meta name="twitter:description" content="オフィス用品から文具まで、豊富な品揃えのECサイト。高品質な商品をお手頃価格で提供します。" />
+
+        {/* Structured Data - WebSite */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "smartsample",
+            "url": "https://smartsample.example.com",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://smartsample.example.com/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </script>
+
+        {/* Structured Data - Organization */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "smartsample",
+            "url": "https://smartsample.example.com",
+            "logo": "https://smartsample.example.com/logo.png"
+          })}
+        </script>
+      </Helmet>
+
+      <main className="ec-home">
+        {/* メインバナースライダー */}
+        <HeroSlider />
 
       {/* 人気カテゴリー */}
       <section className="ec-home__categories py-12 bg-gray-50">
@@ -155,7 +199,8 @@ function Home() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
 
