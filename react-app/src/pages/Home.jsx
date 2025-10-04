@@ -1,17 +1,25 @@
 import { Link } from 'react-router-dom';
 import HeroSlider from '../components/HeroSlider';
 import ProductCard from '../components/ProductCard';
+import ProductSlider from '../components/ProductSlider';
+import { sampleProducts } from '../data/sampleProducts';
 
 function Home() {
-  // サンプル商品データ
-  const recommendedProducts = [
-    { id: '1', name: 'プレミアム商品 1', code: '8027341', image: '/img/product/8027341_l1.jpg', price: 2990, badge: 'NEW' },
-    { id: '2', name: 'プレミアム商品 2', code: 'AH85168', image: '/img/product/AH85168_l1.jpg', price: 2990, badge: 'NEW' },
-    { id: '3', name: 'プレミアム商品 3', code: 'AWA4132', image: '/img/product/AWA4132_l1.jpg', price: 2990, badge: 'NEW' },
-    { id: '4', name: 'プレミアム商品 4', code: 'AW75238', image: '/img/product/AW75238_l1.jpg', price: 2990, badge: 'NEW' },
-    { id: '5', name: 'プレミアム商品 5', code: 'A-74769', image: '/img/product/A-74769_l1.jpg', price: 2990, badge: 'NEW' },
-    { id: '6', name: 'プレミアム商品 6', code: 'A-74770', image: '/img/product/8027341_l1.jpg', price: 2990, badge: 'NEW' },
-  ];
+  // おすすめ商品: 人気タグがある商品、または評価が高い商品
+  const recommendedProducts = sampleProducts
+    .filter(p => p.tags.includes('人気') || p.rating >= 4.5)
+    .sort((a, b) => b.rating - a.rating)
+    .slice(0, 12);
+
+  // 新着商品: 新商品タグがある商品
+  const newProducts = sampleProducts
+    .filter(p => p.tags.includes('新商品'))
+    .slice(0, 6);
+
+  // セール商品: セールタグがある商品
+  const saleProducts = sampleProducts
+    .filter(p => p.tags.includes('セール'))
+    .slice(0, 6);
 
   return (
     <main>
@@ -72,13 +80,46 @@ function Home() {
             <h2 className="text-3xl font-bold text-gray-900">おすすめ商品</h2>
             <Link to="/products" className="text-blue-600 hover:text-blue-800">すべて見る →</Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {recommendedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} size="compact" />
-            ))}
-          </div>
+          <ProductSlider products={recommendedProducts} />
         </div>
       </section>
+
+      {/* 新着商品 */}
+      {newProducts.length > 0 && (
+        <section className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900">新着商品</h2>
+              <Link to="/search" className="text-blue-600 hover:text-blue-800">すべて見る →</Link>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {newProducts.map((product) => (
+                <ProductCard key={product.id} product={product} size="compact" />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* セール商品 */}
+      {saleProducts.length > 0 && (
+        <section className="py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center mb-8">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900">セール商品</h2>
+                <p className="text-red-600 font-semibold mt-2">期間限定！お得なプライス</p>
+              </div>
+              <Link to="/search" className="text-blue-600 hover:text-blue-800">すべて見る →</Link>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {saleProducts.map((product) => (
+                <ProductCard key={product.id} product={product} size="compact" />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 新着情報 */}
       <section className="py-12 bg-gray-50">

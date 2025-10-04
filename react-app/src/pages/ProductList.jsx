@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard';
 import Pagination from '../components/Pagination';
 import usePagination from '../hooks/usePagination';
 import useFilters from '../hooks/useFilters';
+import { sampleProducts } from '../data/sampleProducts';
 
 function ProductList() {
   const [searchParams] = useSearchParams();
@@ -13,28 +14,8 @@ function ProductList() {
   const [sortBy, setSortBy] = useState('popular');
   const [showFilters, setShowFilters] = useState(false);
 
-  // サンプル商品データ
-  const allProducts = [
-    { id: '1', name: 'コクヨ ファイルボックス-FS ピース B4 グレー', code: 'フボ-FSB4M', image: '/img/product/A-74769_l1.jpg', price: 342, originalPrice: 380, badge: 'NEW', category: '文房具', brand: 'コクヨ', inStock: true, freeShipping: false },
-    { id: '2', name: 'プラス デスクトレー A4横 ブラック', code: 'DM-110BK', image: '/img/product/8027341_l1.jpg', price: 580, originalPrice: 650, category: 'オフィス用品', brand: 'プラス', inStock: true, freeShipping: false },
-    { id: '3', name: 'コクヨ キャンパスノート B5 5冊パック', code: 'ノ-3CBNX5', image: '/img/product/AH85168_l1.jpg', price: 450, category: '文房具', brand: 'コクヨ', inStock: true, freeShipping: false },
-    { id: '4', name: 'キングジム テプラPRO', code: 'AW75238', image: '/img/product/AW75238_l1.jpg', price: 2990, badge: 'SALE', discount: 20, category: '電化製品', brand: 'キングジム', inStock: true, freeShipping: false },
-    { id: '5', name: 'プラス オフィスチェア', code: 'AWA4132', image: '/img/product/AWA4132_l1.jpg', price: 12990, category: '家具', brand: 'プラス', inStock: true, freeShipping: true },
-    { id: '6', name: 'その他ブランド 電卓', code: 'A-74770', image: '/img/product/8027341_l1.jpg', price: 1990, category: '電化製品', brand: 'その他', inStock: false, freeShipping: false },
-    { id: '7', name: 'コクヨ デスクマット', code: 'A-74771', image: '/img/product/AH85168_l1.jpg', price: 3990, category: 'オフィス用品', brand: 'コクヨ', inStock: true, freeShipping: true },
-    { id: '8', name: 'プラス ホワイトボード', code: 'A-74772', image: '/img/product/AWA4132_l1.jpg', price: 8990, badge: 'SALE', category: 'オフィス用品', brand: 'プラス', inStock: true, freeShipping: true },
-    { id: '9', name: 'キングジム ラベルライター', code: 'A-74773', image: '/img/product/AW75238_l1.jpg', price: 4500, category: '電化製品', brand: 'キングジム', inStock: true, freeShipping: false },
-    { id: '10', name: 'コクヨ パンチ', code: 'A-74774', image: '/img/product/A-74769_l1.jpg', price: 850, category: '文房具', brand: 'コクヨ', inStock: true, freeShipping: false },
-    { id: '11', name: 'プラス ハサミ', code: 'A-74775', image: '/img/product/8027341_l1.jpg', price: 650, category: '文房具', brand: 'プラス', inStock: true, freeShipping: false },
-    { id: '12', name: 'その他ブランド ノート', code: 'A-74776', image: '/img/product/AH85168_l1.jpg', price: 320, category: '文房具', brand: 'その他', inStock: true, freeShipping: false },
-    { id: '13', name: 'コクヨ クリアファイル', code: 'A-74777', image: '/img/product/AWA4132_l1.jpg', price: 180, category: '文房具', brand: 'コクヨ', inStock: true, freeShipping: false },
-    { id: '14', name: 'キングジム ファイル', code: 'A-74778', image: '/img/product/AW75238_l1.jpg', price: 550, category: '文房具', brand: 'キングジム', inStock: false, freeShipping: false },
-    { id: '15', name: 'プラス デスクライト', code: 'A-74779', image: '/img/product/A-74769_l1.jpg', price: 5800, category: '電化製品', brand: 'プラス', inStock: true, freeShipping: true },
-    { id: '16', name: 'コクヨ 机上台', code: 'A-74780', image: '/img/product/8027341_l1.jpg', price: 3200, category: 'オフィス用品', brand: 'コクヨ', inStock: true, freeShipping: false },
-  ];
-
   // フィルター
-  const { filters, filteredItems, updateFilter, toggleBrand, resetFilters, activeFilterCount } = useFilters(allProducts);
+  const { filters, filteredItems, updateFilter, toggleBrand, resetFilters, activeFilterCount } = useFilters(sampleProducts);
 
   // ソート
   const sortedProducts = [...filteredItems].sort((a, b) => {

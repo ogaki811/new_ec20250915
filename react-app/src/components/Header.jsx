@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import useCartStore from '../store/useCartStore';
 import useFavoritesStore from '../store/useFavoritesStore';
@@ -8,11 +8,22 @@ import MobileMenu from './MobileMenu';
 
 function Header() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const itemCount = useCartStore((state) => state.getItemCount());
   const favoriteCount = useFavoritesStore((state) => state.getFavoriteCount());
   const { isAuthenticated, logout } = useAuthStore();
+
+  // URLのクエリパラメータから検索キーワードを取得して検索窓に反映
+  useEffect(() => {
+    const query = searchParams.get('q');
+    if (query) {
+      setSearchQuery(query);
+    } else {
+      setSearchQuery('');
+    }
+  }, [searchParams]);
 
   const handleLogout = () => {
     logout();
@@ -24,7 +35,6 @@ function Header() {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery('');
     }
   };
 
@@ -33,19 +43,18 @@ function Header() {
       {/* デスクトップヘッダー */}
       <div className="hidden lg:block">
         {/* メインヘッダー */}
-        <div className="bg-white shadow-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between py-4">
+        <div className="bg-white">
+          <div className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between py-4 gap-4">
               {/* ロゴエリア */}
               <div className="flex-shrink-0">
                 <Link to="/" className="flex items-center space-x-3">
-                  <img src="/img/header_logo.png" alt="ECサイト" className="h-8 w-auto hidden" />
-                  <span className="text-2xl font-bold text-black">smartsample</span>
+                  <img src="/img/header_logo.png" alt="smartsample" className="h-6 w-auto" />
                 </Link>
               </div>
 
               {/* 検索エリア */}
-              <div className="flex-1 max-w-2xl mx-8 relative">
+              <div className="flex-1 relative">
                 <form onSubmit={handleSearch} className="relative">
                   <div className="relative">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -118,7 +127,7 @@ function Header() {
 
         {/* ナビゲーションメニュー */}
         <nav className="bg-gray-800 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-12">
               <div className="flex items-center space-x-8">
                 <Link to="/" className="hover:text-blue-400 transition-colors">ホーム</Link>
@@ -137,7 +146,7 @@ function Header() {
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
       {/* モバイルヘッダー */}
-      <div className="lg:hidden bg-white shadow-md">
+      <div className="lg:hidden bg-white">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between mb-3">
             <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-gray-700 hover:text-blue-600 transition-colors">
@@ -147,7 +156,9 @@ function Header() {
                 <line x1="3" y1="18" x2="21" y2="18"></line>
               </svg>
             </button>
-            <Link to="/" className="text-xl font-bold text-black">smartsample</Link>
+            <Link to="/" className="flex items-center">
+              <img src="/img/header_logo.png" alt="smartsample" className="h-5 w-auto" />
+            </Link>
             <Link to="/cart" className="p-2 relative">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <circle cx="9" cy="21" r="1"></circle>

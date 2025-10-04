@@ -1,56 +1,64 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Breadcrumb from '../components/Breadcrumb';
 import Button from '../components/Button';
-import ProductCard from '../components/ProductCard';
+import ProductSlider from '../components/ProductSlider';
 import useCartStore from '../store/useCartStore';
 import useFavoritesStore from '../store/useFavoritesStore';
+import { sampleProducts } from '../data/sampleProducts';
 
 function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
   const addItem = useCartStore((state) => state.addItem);
   const { toggleFavorite, isFavorite } = useFavoritesStore();
 
-  // サンプル商品データ（実際にはAPIから取得）
+  // 商品データを取得
+  const productData = sampleProducts.find(p => p.id === id);
+
+  // 商品が見つからない場合
+  if (!productData) {
+    return (
+      <main className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">商品が見つかりません</h1>
+          <p className="text-gray-600 mb-6">指定された商品は存在しないか、削除された可能性があります。</p>
+          <Button onClick={() => navigate('/products')}>商品一覧に戻る</Button>
+        </div>
+      </main>
+    );
+  }
+
+  // 商品詳細用データを拡張
   const product = {
-    id: id || '1',
-    name: 'コクヨ ファイルボックス-FS ピース B4 グレー',
-    code: 'フボ-FSB4M',
-    brand: 'コクヨ',
-    price: 342,
-    originalPrice: 380,
-    stock: 98,
-    description: 'スタンダードなデザインで、オフィスや家庭でお使いいただける定番のファイルボックスです。書類の整理に最適で、丈夫な作りで長くお使いいただけます。',
-    images: [
-      '/img/product/A-74769_l1.jpg',
-      '/img/product/8027341_l1.jpg',
-      '/img/product/AH85168_l1.jpg',
-    ],
+    ...productData,
+    stock: productData.stock ? 98 : 0,
+    originalPrice: productData.tags.includes('セール') ? Math.round(productData.price * 1.2) : null,
+    description: `${productData.name}は、${productData.brand}が提供する高品質な商品です。オフィスや家庭でお使いいただける定番商品で、丈夫な作りで長くお使いいただけます。`,
+    // 商品データのimages配列をそのまま使用（1-4枚の可変枚数）
+    images: productData.images || [productData.image],
     features: [
-      '丈夫な素材で長期間使用可能',
-      'スタッキング可能でスペース効率アップ',
-      '環境に優しい再生材料使用',
-      '日本製',
+      '高品質な素材で長期間使用可能',
+      '使いやすいデザイン',
+      '信頼のブランド品質',
+      '日本国内配送対応',
     ],
     specs: [
-      { label: 'サイズ', value: 'W330×D255×H305mm' },
-      { label: '材質', value: '再生PP' },
-      { label: 'カラー', value: 'グレー' },
-      { label: '重量', value: '約450g' },
+      { label: 'ブランド', value: productData.brand },
+      { label: 'カテゴリ', value: productData.category },
+      { label: '商品コード', value: productData.code },
+      { label: '評価', value: `${productData.rating} / 5.0` },
     ],
   };
 
-  // 関連商品
-  const relatedProducts = [
-    { id: '2', name: 'プラス デスクトレー A4横', code: 'DM-110BK', image: '/img/product/8027341_l1.jpg', price: 580, originalPrice: 650 },
-    { id: '3', name: 'コクヨ キャンパスノート B5', code: 'ノ-3CBNX5', image: '/img/product/AH85168_l1.jpg', price: 450 },
-    { id: '4', name: 'プレミアム商品 4', code: 'AW75238', image: '/img/product/AW75238_l1.jpg', price: 2990 },
-    { id: '5', name: 'プレミアム商品 5', code: 'AWA4132', image: '/img/product/AWA4132_l1.jpg', price: 2990 },
-  ];
+  // 関連商品（同じカテゴリまたは同じブランド）
+  const relatedProducts = sampleProducts
+    .filter(p => p.id !== id && (p.category === productData.category || p.brand === productData.brand))
+    .slice(0, 12); // スライダー用に多めに取得
 
   const breadcrumbItems = [
     { label: 'ホーム', href: '/' },
@@ -106,19 +114,26 @@ function ProductDetail() {
                   className="w-full h-auto object-cover"
                 />
               </div>
-              <div className="grid grid-cols-4 gap-2">
-                {product.images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`border-2 rounded-lg overflow-hidden ${
-                      selectedImage === index ? 'border-blue-600' : 'border-gray-200'
-                    }`}
-                  >
-                    <img src={image} alt={`${product.name} ${index + 1}`} className="w-full h-auto object-cover" />
-                  </button>
-                ))}
-              </div>
+              {/* 画像が2枚以上ある場合のみサムネイル表示 */}
+              {product.images.length > 1 && (
+                <div className={`grid gap-2 ${
+                  product.images.length === 2 ? 'grid-cols-2' :
+                  product.images.length === 3 ? 'grid-cols-3' :
+                  'grid-cols-4'
+                }`}>
+                  {product.images.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImage(index)}
+                      className={`border-2 rounded-lg overflow-hidden ${
+                        selectedImage === index ? 'border-blue-600' : 'border-gray-200'
+                      }`}
+                    >
+                      <img src={image} alt={`${product.name} ${index + 1}`} className="w-full h-auto object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* 商品情報 */}
@@ -147,9 +162,15 @@ function ProductDetail() {
               <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-medium text-gray-700">在庫状況:</span>
-                  <span className="text-sm font-semibold text-green-600">
-                    在庫あり ({product.stock}個)
-                  </span>
+                  {product.stock > 0 ? (
+                    <span className="text-sm font-semibold text-green-600">
+                      在庫あり ({product.stock}個)
+                    </span>
+                  ) : (
+                    <span className="text-sm font-semibold text-red-600">
+                      在庫切れ
+                    </span>
+                  )}
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -167,38 +188,46 @@ function ProductDetail() {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">数量</label>
-                <div className="flex items-center gap-4">
-                  <div className="flex border-2 border-gray-300 rounded-lg">
-                    <button
-                      onClick={() => handleQuantityChange(quantity - 1)}
-                      className="w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
-                    >
-                      -
-                    </button>
-                    <input
-                      type="number"
-                      value={quantity}
-                      onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                      className="w-20 h-12 text-center border-0 text-lg font-semibold focus:ring-0"
-                      min="1"
-                      max={product.stock}
-                    />
-                    <button
-                      onClick={() => handleQuantityChange(quantity + 1)}
-                      className="w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
-                    >
-                      +
-                    </button>
+              {product.stock > 0 && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">数量</label>
+                  <div className="flex items-center gap-4">
+                    <div className="flex border-2 border-gray-300 rounded-lg">
+                      <button
+                        onClick={() => handleQuantityChange(quantity - 1)}
+                        className="w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
+                      >
+                        -
+                      </button>
+                      <input
+                        type="number"
+                        value={quantity}
+                        onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
+                        className="w-20 h-12 text-center border-0 text-lg font-semibold focus:ring-0"
+                        min="1"
+                        max={product.stock}
+                      />
+                      <button
+                        onClick={() => handleQuantityChange(quantity + 1)}
+                        className="w-12 h-12 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <span className="text-sm text-gray-600">在庫: {product.stock}個</span>
                   </div>
-                  <span className="text-sm text-gray-600">在庫: {product.stock}個</span>
                 </div>
-              </div>
+              )}
 
               <div className="flex gap-4 mb-6">
-                <Button variant="primary" size="lg" fullWidth onClick={handleAddToCart}>
-                  カートに追加
+                <Button
+                  variant="primary"
+                  size="lg"
+                  fullWidth
+                  onClick={handleAddToCart}
+                  disabled={product.stock === 0}
+                >
+                  {product.stock > 0 ? 'カートに追加' : '在庫切れ'}
                 </Button>
                 <button
                   onClick={handleToggleFavorite}
@@ -263,16 +292,14 @@ function ProductDetail() {
       </section>
 
       {/* 関連商品 */}
-      <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">関連商品</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {relatedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+      {relatedProducts.length > 0 && (
+        <section className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">関連商品</h2>
+            <ProductSlider products={relatedProducts} />
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
   );
 }
