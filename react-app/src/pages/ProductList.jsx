@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumb';
 import ProductCard from '../components/ProductCard';
+import Pagination from '../components/Pagination';
+import usePagination from '../hooks/usePagination';
 
 function ProductList() {
   const [searchParams] = useSearchParams();
@@ -44,6 +46,15 @@ function ProductList() {
   const filteredProducts = sortedProducts.filter(
     product => product.price >= priceRange[0] && product.price <= priceRange[1]
   );
+
+  // ページネーション
+  const { currentPage, totalPages, paginatedItems, handlePageChange, resetPage } = usePagination(filteredProducts, 12);
+
+  // フィルター変更時にページをリセット
+  const handleSortChange = (value) => {
+    setSortBy(value);
+    resetPage();
+  };
 
   return (
     <main>
@@ -176,7 +187,7 @@ function ProductList() {
                   <select
                     id="sort"
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
+                    onChange={(e) => handleSortChange(e.target.value)}
                     className="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="popular">人気順</option>
@@ -187,40 +198,23 @@ function ProductList() {
                 </div>
 
                 <div className="text-sm text-gray-600">
-                  {filteredProducts.length}件中 1-{Math.min(filteredProducts.length, 12)}件を表示
+                  {filteredProducts.length}件中 {(currentPage - 1) * 12 + 1}-{Math.min(currentPage * 12, filteredProducts.length)}件を表示
                 </div>
               </div>
 
               {/* 商品グリッド */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                {filteredProducts.map((product) => (
+                {paginatedItems.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
 
               {/* ページネーション */}
-              <div className="mt-12 flex justify-center">
-                <nav className="flex items-center gap-2">
-                  <button className="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 disabled:opacity-50" disabled>
-                    前へ
-                  </button>
-                  {[1, 2, 3, 4, 5].map((page) => (
-                    <button
-                      key={page}
-                      className={`px-4 py-2 border rounded ${
-                        page === 1
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
-                  <button className="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50">
-                    次へ
-                  </button>
-                </nav>
-              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
             </div>
           </div>
         </div>

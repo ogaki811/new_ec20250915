@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import ProductCard from '../components/ProductCard';
 import Loading from '../components/Loading';
+import Pagination from '../components/Pagination';
+import usePagination from '../hooks/usePagination';
 
 function Search() {
   const [searchParams] = useSearchParams();
@@ -39,6 +41,9 @@ function Search() {
     }, 300);
   }, [query]);
 
+  // ページネーション
+  const { currentPage, totalPages, paginatedItems, handlePageChange } = usePagination(products, 18);
+
   const breadcrumbItems = [
     { label: 'ホーム', href: '/' },
     { label: '検索結果' }
@@ -68,15 +73,24 @@ function Search() {
 
           {/* 検索結果 */}
           {products.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  size="compact"
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {paginatedItems.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    size="compact"
+                  />
+                ))}
+              </div>
+
+              {/* ページネーション */}
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </>
           ) : (
             <div className="text-center py-16">
               <svg
