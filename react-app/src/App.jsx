@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from './components/ErrorBoundary';
+import SkipToContent from './components/SkipToContent';
+import LiveRegion from './components/LiveRegion';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -23,6 +25,8 @@ function App() {
   return (
     <ErrorBoundary>
       <Router>
+        <SkipToContent />
+        <LiveRegion />
         <div className="flex flex-col min-h-screen">
         <Toaster
           position="top-right"
@@ -49,7 +53,7 @@ function App() {
           }}
         />
         <Header />
-        <div className="flex-grow">
+        <main id="main-content" tabIndex="-1" className="flex-grow outline-none">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -72,7 +76,7 @@ function App() {
             <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
             <Route path="/order-complete" element={<ProtectedRoute><OrderComplete /></ProtectedRoute>} />
           </Routes>
-        </div>
+        </main>
         <Footer />
       </div>
     </Router>

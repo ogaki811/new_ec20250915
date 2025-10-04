@@ -1,10 +1,31 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import useAuthStore from '../store/useAuthStore';
 import useFavoritesStore from '../store/useFavoritesStore';
+import useKeyboardNavigation from '../hooks/useKeyboardNavigation';
 
 function MobileMenu({ isOpen, onClose }) {
   const { isAuthenticated, user, logout } = useAuthStore();
   const favoriteCount = useFavoritesStore((state) => state.getFavoriteCount());
+
+  // Escapeキーでメニューを閉じる
+  useKeyboardNavigation({
+    enabled: isOpen,
+    onEscape: onClose,
+  });
+
+  // メニューが開いたときにbodyのスクロールを無効化
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
