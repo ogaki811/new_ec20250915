@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import OrderHistory from './pages/OrderHistory';
@@ -18,8 +20,9 @@ import ComingSoon from './pages/ComingSoon';
 
 function App() {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
+    <ErrorBoundary>
+      <Router>
+        <div className="flex flex-col min-h-screen">
         <Toaster
           position="top-right"
           toastOptions={{
@@ -48,28 +51,30 @@ function App() {
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/order-history" element={<OrderHistory />} />
-            <Route path="/favorites" element={<Favorites />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/order-complete" element={<OrderComplete />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/products" element={<ProductList />} />
-            <Route path="/coming-soon" element={<ComingSoon />} />
-            {/* その他のルートは今後追加予定 */}
             <Route path="/product-detail" element={<ProductDetail />} />
             <Route path="/category/:categoryId" element={<ComingSoon />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/favorites" element={<Favorites />} />
             <Route path="/terms" element={<ComingSoon />} />
             <Route path="/privacy" element={<ComingSoon />} />
+            <Route path="/coming-soon" element={<ComingSoon />} />
+
+            {/* 保護されたルート（ログイン必須） */}
+            <Route path="/mypage" element={<ProtectedRoute><MyPage /></ProtectedRoute>} />
+            <Route path="/order-history" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
+            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+            <Route path="/order-complete" element={<ProtectedRoute><OrderComplete /></ProtectedRoute>} />
           </Routes>
         </div>
         <Footer />
       </div>
     </Router>
+    </ErrorBoundary>
   );
 }
 

@@ -1,18 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import ProductCard from '../components/ProductCard';
 import Badge from '../components/Badge';
 import useAuthStore from '../store/useAuthStore';
 
 function MyPage() {
-  const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuthStore();
-
-  // 未ログインの場合はログインページへリダイレクト
-  if (!isAuthenticated) {
-    navigate('/login');
-    return null;
-  }
+  const { user } = useAuthStore();
 
   // おすすめ商品データ
   const recommendedProducts = [
