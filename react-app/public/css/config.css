@@ -1,0 +1,220 @@
+/* ==============================================
+   Color Configuration
+   ==============================================
+   すべての色定義を一元管理
+   変更時はここを編集することで全体に反映
+   ============================================== */
+
+:root {
+    /* Primary Colors - Deep Blue */
+    --color-primary: #1e3a8a;
+    --color-primary-hover: #1e40af;
+    --color-primary-light: #dbeafe;
+    --color-primary-dark: #1e1b4b;
+    
+    /* Secondary Colors - Dark Gray */
+    --color-secondary: #374151;
+    --color-secondary-hover: #4b5563;
+    --color-secondary-light: #f3f4f6;
+    
+    /* Success Colors */
+    --color-success: #059669;
+    --color-success-hover: #047857;
+    --color-success-light: #d1fae5;
+    --color-success-text: #064e3b;
+    
+    /* Danger/Error Colors */
+    --color-danger: #dc2626;
+    --color-danger-hover: #b91c1c;
+    --color-danger-light: #fecaca;
+    --color-danger-text: #7f1d1d;
+    
+    /* Warning Colors */
+    --color-warning: #d97706;
+    --color-warning-hover: #b45309;
+    --color-warning-light: #fed7aa;
+    --color-warning-text: #92400e;
+    
+    /* Info Colors - Slate Blue */
+    --color-info: #0f766e;
+    --color-info-hover: #0d9488;
+    --color-info-light: #ccfbf1;
+    --color-info-text: #134e4a;
+    
+    /* Text Colors - Darker Grays */
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #374151;
+    --color-text-muted: #6b7280;
+    --color-text-light: #9ca3af;
+    --color-text-white: #ffffff;
+    
+    /* Background Colors */
+    --color-bg-white: #ffffff;
+    --color-bg-light: #f9fafb;
+    --color-bg-lighter: #f3f4f6;
+    --color-bg-dark: #374151;
+    --color-bg-darker: #1f2937;
+    
+    /* Border Colors */
+    --color-border-light: #e5e7eb;
+    --color-border-medium: #d1d5db;
+    --color-border-dark: #374151;
+    
+    /* Social Brand Colors */
+    --color-google: #4285f4;
+    --color-facebook: #1877f2;
+    --color-line: #00b900;
+    
+    /* Sale/Special Colors */
+    --color-sale: #dc2626;
+    --color-new: #1e3a8a;
+    --color-hot: #d97706;
+    
+    /* Gradient Colors */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    --gradient-auth-bg: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(30,58,138,0.8), rgba(30,27,75,0.9));
+    
+    /* Shadow Colors - Darker for better contrast */
+    --shadow-light: rgba(31, 41, 55, 0.1);
+    --shadow-medium: rgba(31, 41, 55, 0.15);
+    --shadow-dark: rgba(31, 41, 55, 0.25);
+    --shadow-auth: rgba(31, 41, 55, 0.1);
+    
+    /* Overlay Colors */
+    --overlay-dark: rgba(31, 41, 55, 0.6);
+    --overlay-light: rgba(249, 250, 251, 0.8);
+    
+    /* Form Colors */
+    --color-form-focus: var(--color-primary);
+    --color-form-error: var(--color-danger);
+    --color-form-success: var(--color-success);
+    --color-form-border: var(--color-border-light);
+    
+    /* Password Strength Colors */
+    --color-strength-weak: var(--color-danger);
+    --color-strength-medium: var(--color-warning);
+    --color-strength-strong: var(--color-hot);
+    --color-strength-very-strong: var(--color-success);
+}
+
+/* Dark Theme Variables (Future Use) */
+[data-theme="dark"] {
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #e9ecef;
+    --color-text-muted: #adb5bd;
+    --color-bg-white: #1a1a1a;
+    --color-bg-light: #2d2d2d;
+    --color-bg-lighter: #404040;
+    --color-border-light: #404040;
+    --color-border-medium: #555555;
+}
+
+/* Theme Helper Classes */
+.text-primary { color: var(--color-primary) !important; }
+.text-secondary { color: var(--color-secondary) !important; }
+.text-success { color: var(--color-success) !important; }
+.text-danger { color: var(--color-danger) !important; }
+.text-warning { color: var(--color-warning) !important; }
+.text-info { color: var(--color-info) !important; }
+.text-muted { color: var(--color-text-muted) !important; }
+
+.bg-primary { background-color: var(--color-primary) !important; }
+.bg-secondary { background-color: var(--color-secondary) !important; }
+.bg-success { background-color: var(--color-success) !important; }
+.bg-danger { background-color: var(--color-danger) !important; }
+.bg-warning { background-color: var(--color-warning) !important; }
+.bg-info { background-color: var(--color-info) !important; }
+.bg-light { background-color: var(--color-bg-light) !important; }
+.bg-white { background-color: var(--color-bg-white) !important; }
+
+.border-primary { border-color: var(--color-primary) !important; }
+.border-secondary { border-color: var(--color-secondary) !important; }
+.border-light { border-color: var(--color-border-light) !important; }
+
+/* Spacing Configuration */
+:root {
+    --spacing-xs: 0.25rem;    /* 4px */
+    --spacing-sm: 0.5rem;     /* 8px */
+    --spacing-md: 1rem;       /* 16px */
+    --spacing-lg: 1.5rem;     /* 24px */
+    --spacing-xl: 2rem;       /* 32px */
+    --spacing-xxl: 3rem;      /* 48px */
+    --spacing-xxxl: 4rem;     /* 64px */
+}
+
+/* Border Radius Configuration */
+:root {
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --border-radius-full: 50%;
+    --border-radius-pill: 25px;
+}
+
+/* Font Configuration */
+:root {
+    --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-heading: var(--font-family-primary);
+    
+    --font-size-xs: 0.75rem;   /* 12px */
+    --font-size-sm: 0.875rem;  /* 14px */
+    --font-size-md: 1rem;      /* 16px */
+    --font-size-lg: 1.125rem;  /* 18px */
+    --font-size-xl: 1.25rem;   /* 20px */
+    --font-size-xxl: 1.5rem;   /* 24px */
+    --font-size-xxxl: 2rem;    /* 32px */
+    
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+}
+
+/* Transition Configuration */
+:root {
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    --transition-all: all var(--transition-normal);
+    --transition-color: color var(--transition-normal);
+    --transition-background: background-color var(--transition-normal);
+    --transition-border: border-color var(--transition-normal);
+    --transition-transform: transform var(--transition-normal);
+    --transition-opacity: opacity var(--transition-normal);
+}
+
+/* Z-Index Configuration */
+:root {
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1020;
+    --z-index-fixed: 1030;
+    --z-index-modal-backdrop: 1040;
+    --z-index-modal: 1050;
+    --z-index-popover: 1060;
+    --z-index-tooltip: 1070;
+    --z-index-toast: 10000;
+}
+
+/* Breakpoint Configuration */
+:root {
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1400px;
+}
+
+/* Container Widths */
+:root {
+    --container-sm: 540px;
+    --container-md: 720px;
+    --container-lg: 960px;
+    --container-xl: 1140px;
+    --container-xxl: 1320px;
+    --container-max: 1200px;
+}
