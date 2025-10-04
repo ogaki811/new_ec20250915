@@ -35,7 +35,7 @@ function App() {
         <LiveRegion />
         <div className="flex flex-col min-h-screen">
         <Toaster
-          position="top-right"
+          position="bottom-right"
           toastOptions={{
             duration: 3000,
             style: {
@@ -56,7 +56,19 @@ function App() {
                 secondary: '#fff',
               },
             },
+            // 横からスライドインするアニメーション
+            className: '',
+            style: {
+              background: '#363636',
+              color: '#fff',
+              animation: 'slideIn 0.3s ease-out',
+            },
           }}
+          containerStyle={{
+            bottom: 20,
+            right: 20,
+          }}
+          toastClassName="toast-slide-in"
         />
         <Header />
         <main id="main-content" tabIndex="-1" className="flex-grow outline-none">
@@ -79,11 +91,13 @@ function App() {
             <Route path="/privacy" element={<ComingSoon />} />
             <Route path="/coming-soon" element={<ComingSoon />} />
 
+            {/* チェックアウトフロー（ログイン不要） */}
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-complete" element={<OrderComplete />} />
+
             {/* 保護されたルート（ログイン必須） */}
             <Route path="/mypage" element={<ProtectedRoute><MyPage /></ProtectedRoute>} />
             <Route path="/order-history" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
-            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-            <Route path="/order-complete" element={<ProtectedRoute><OrderComplete /></ProtectedRoute>} />
             </Routes>
           </Suspense>
         </main>

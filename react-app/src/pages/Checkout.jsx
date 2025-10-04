@@ -194,7 +194,7 @@ function Checkout() {
         address: `${formData.prefecture}${formData.city}${formData.address}${formData.building ? ' ' + formData.building : ''}`,
         phone: formData.phone,
       },
-      paymentMethod: formData.paymentMethod === 'credit' ? 'クレジットカード' : formData.paymentMethod === 'bank' ? '銀行振込' : '代金引換',
+      paymentMethod: formData.paymentMethod === 'credit' ? 'クレジットカード' : formData.paymentMethod === 'bank' ? '銀行振込' : formData.paymentMethod === 'paypay' ? 'PayPay' : '代金引換',
       deliveryDate: formData.deliveryDate || '指定なし',
       deliveryTime: deliveryTimeOptions.find(opt => opt.value === formData.deliveryTime)?.label || '指定なし',
     };
@@ -428,6 +428,20 @@ function Checkout() {
                       <span className="ml-3 flex items-center gap-2">
                         <Icon name="package" size={24} />
                         代金引換
+                      </span>
+                    </label>
+                    <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === 'paypay' ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-blue-600'}`}>
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="paypay"
+                        checked={formData.paymentMethod === 'paypay'}
+                        onChange={handleChange}
+                        className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                      />
+                      <span className="ml-3 flex items-center gap-2">
+                        <Icon name="creditCard" size={24} />
+                        PayPay
                       </span>
                     </label>
                   </div>
