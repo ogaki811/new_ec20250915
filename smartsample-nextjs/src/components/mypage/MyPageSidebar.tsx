@@ -34,7 +34,7 @@ export default function MyPageSidebar() {
   ];
 
   return (
-    <aside className="ec-sidebar bg-white rounded-lg shadow-sm p-6 lg:sticky lg:top-8">
+    <aside className="ec-sidebar bg-white rounded-lg shadow-sm p-6 lg:sticky lg:top-8 lg:self-start">
       <nav className="ec-sidebar__nav space-y-2">
         {menuItems.map((item) => {
           const active = isActive(item.path);

@@ -49,9 +49,14 @@ export default function RootLayout({
           toastOptions={{
             duration: 3000,
             style: {
-              background: '#363636',
-              color: '#fff',
-              borderRadius: '4px',
+              background: '#fff',
+              color: '#1f2937',
+              borderRadius: '8px',
+              border: '1px solid #e5e7eb',
+              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+              padding: '16px',
+              fontSize: '14px',
+              fontWeight: '500',
             },
             success: {
               iconTheme: {
