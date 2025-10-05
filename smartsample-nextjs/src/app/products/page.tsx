@@ -1,14 +1,14 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Breadcrumb from '@/components/common/Breadcrumb';
-import Pagination from '@/components/common/Pagination';
-import ProductListItem from '@/components/product/ProductListItem';
-import SearchFilters from '@/components/search/SearchFilters';
-import SearchSort from '@/components/search/SearchSort';
-import FilterTag from '@/components/search/FilterTag';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Breadcrumb from '@/components/molecules/Breadcrumb';
+import Pagination from '@/components/molecules/Pagination';
+import ProductListItem from '@/components/organisms/ProductListItem';
+import SearchFilters from '@/components/organisms/SearchFilters';
+import SearchSort from '@/components/organisms/SearchSort';
+import FilterTag from '@/components/atoms/Tag';
 import { sampleProducts } from '@/data/sampleProducts';
 import usePagination from '@/hooks/usePagination';
 import type { ProductSortOption } from '@/types';

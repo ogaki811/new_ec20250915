@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
 
 export default function OrderCompletePage() {
   // 実際の実装では、注文情報をクエリパラメータやstateから取得

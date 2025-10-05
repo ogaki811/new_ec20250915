@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Button from '@/components/ui/Button';
+import Button from '@/components/atoms/Button';
 import QuantitySelector from './QuantitySelector';
 import useCartStore from '@/store/useCartStore';
 import toast from 'react-hot-toast';

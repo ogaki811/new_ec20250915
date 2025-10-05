@@ -4,10 +4,10 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Input from '@/components/ui/Input';
-import Button from '@/components/ui/Button';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Input from '@/components/atoms/Input';
+import Button from '@/components/atoms/Button';
 
 function ResetPasswordContent() {
   const router = useRouter();

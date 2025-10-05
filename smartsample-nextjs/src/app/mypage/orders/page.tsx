@@ -2,13 +2,13 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Breadcrumb from '@/components/common/Breadcrumb';
-import MyPageSidebar from '@/components/mypage/MyPageSidebar';
-import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import OrderDetailModal from '@/components/order/OrderDetailModal';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Breadcrumb from '@/components/molecules/Breadcrumb';
+import MyPageSidebar from '@/components/organisms/MyPageSidebar';
+import Badge from '@/components/atoms/Badge';
+import Button from '@/components/atoms/Button';
+import OrderDetailModal from '@/components/organisms/OrderDetailModal';
 import useAuthStore from '@/store/useAuthStore';
 
 interface OrderItem {

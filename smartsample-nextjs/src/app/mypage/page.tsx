@@ -4,12 +4,12 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Breadcrumb from '@/components/common/Breadcrumb';
-import MyPageSidebar from '@/components/mypage/MyPageSidebar';
-import RecommendedItem from '@/components/product/RecommendedItem';
-import Badge from '@/components/ui/Badge';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Breadcrumb from '@/components/molecules/Breadcrumb';
+import MyPageSidebar from '@/components/organisms/MyPageSidebar';
+import RecommendedItem from '@/components/organisms/RecommendedItem';
+import Badge from '@/components/atoms/Badge';
 import useAuthStore from '@/store/useAuthStore';
 import { sampleProducts } from '@/data/sampleProducts';
 

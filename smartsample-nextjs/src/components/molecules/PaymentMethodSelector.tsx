@@ -1,6 +1,6 @@
 'use client';
 
-import Icon from '@/components/ui/Icon';
+import Icon from '@/components/atoms/Icon';
 
 type PaymentMethod = 'credit' | 'bank' | 'cod' | 'paypay';
 

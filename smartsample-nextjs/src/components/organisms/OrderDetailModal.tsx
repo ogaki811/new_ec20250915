@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
-import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
+import Badge from '@/components/atoms/Badge';
+import Button from '@/components/atoms/Button';
 
 interface OrderItem {
   name: string;

@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Button from '@/components/ui/Button';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Button from '@/components/atoms/Button';
 
 export default function NotFound() {
   return (

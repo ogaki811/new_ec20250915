@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import type { CartItem } from '@/types';
 import useCartStore from '@/store/useCartStore';
 import useFavoritesStore from '@/store/useFavoritesStore';
-import HorizontalProductCard from '@/components/product/HorizontalProductCard';
+import HorizontalProductCard from '@/components/organisms/HorizontalProductCard';
 
 interface FavoriteItemProps {
   item: CartItem;

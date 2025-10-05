@@ -2,15 +2,15 @@
 
 import { useState, useMemo } from 'react';
 import toast from 'react-hot-toast';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Breadcrumb from '@/components/common/Breadcrumb';
-import StepIndicator from '@/components/common/StepIndicator';
-import Modal from '@/components/common/Modal';
-import CartItem from '@/components/cart/CartItem';
-import CartSummary from '@/components/cart/CartSummary';
-import EmptyCart from '@/components/cart/EmptyCart';
-import ProductSlider from '@/components/home/ProductSlider';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Breadcrumb from '@/components/molecules/Breadcrumb';
+import StepIndicator from '@/components/molecules/StepIndicator';
+import Modal from '@/components/organisms/Modal';
+import CartItem from '@/components/organisms/CartItem';
+import CartSummary from '@/components/organisms/CartSummary';
+import EmptyCart from '@/components/organisms/EmptyCart';
+import ProductSlider from '@/components/templates/HomeProductSlider';
 import useCartStore from '@/store/useCartStore';
 import { sampleProducts } from '@/data/sampleProducts';
 import { calculateShippingFee } from '@/utils';

@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import ProductCard from '@/components/product/ProductCard';
+import ProductCard from '@/components/organisms/ProductCard';
 import type { Product } from '@/types';
 
 import 'swiper/css';

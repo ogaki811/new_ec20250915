@@ -1,6 +1,6 @@
 'use client';
 
-import Select from '@/components/ui/Select';
+import Select from '@/components/atoms/Select';
 import type { ProductSortOption } from '@/types';
 
 interface SortDropdownProps {

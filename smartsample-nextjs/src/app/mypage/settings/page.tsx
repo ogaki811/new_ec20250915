@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Breadcrumb from '@/components/common/Breadcrumb';
-import MyPageSidebar from '@/components/mypage/MyPageSidebar';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Breadcrumb from '@/components/molecules/Breadcrumb';
+import MyPageSidebar from '@/components/organisms/MyPageSidebar';
 import useAuthStore from '@/store/useAuthStore';
 
 export default function SettingsPage() {

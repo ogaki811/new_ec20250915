@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import SimpleHeader from '@/components/layout/SimpleHeader';
-import SimpleFooter from '@/components/layout/SimpleFooter';
-import Input from '@/components/ui/Input';
-import Button from '@/components/ui/Button';
+import SimpleHeader from '@/components/organisms/SimpleHeader';
+import SimpleFooter from '@/components/organisms/SimpleFooter';
+import Input from '@/components/atoms/Input';
+import Button from '@/components/atoms/Button';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');

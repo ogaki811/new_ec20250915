@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import type { CartItem as CartItemType } from '@/types';
-import QuantitySelector from '@/components/product/QuantitySelector';
+import QuantitySelector from '@/components/molecules/QuantitySelector';
 
 interface CartItemProps {
   item: CartItemType;

@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Breadcrumb from '@/components/common/Breadcrumb';
-import ProductDetailClient from '@/components/product/ProductDetailClient';
-import ProductSlider from '@/components/home/ProductSlider';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import Breadcrumb from '@/components/molecules/Breadcrumb';
+import ProductDetailClient from '@/components/organisms/ProductDetail';
+import ProductSlider from '@/components/templates/HomeProductSlider';
 import { sampleProducts } from '@/data/sampleProducts';
 
 interface ProductPageProps {

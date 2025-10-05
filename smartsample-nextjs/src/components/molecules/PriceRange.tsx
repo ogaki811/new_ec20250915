@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Input from '@/components/ui/Input';
+import Input from '@/components/atoms/Input';
 
 interface PriceRangeProps {
   minPrice?: number;

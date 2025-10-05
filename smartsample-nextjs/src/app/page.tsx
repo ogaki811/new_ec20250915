@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import HeroSlider from '@/components/home/HeroSlider';
-import ProductCard from '@/components/product/ProductCard';
-import ProductSlider from '@/components/home/ProductSlider';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
+import HeroSlider from '@/components/templates/HeroSlider';
+import ProductCard from '@/components/organisms/ProductCard';
+import ProductSlider from '@/components/templates/HomeProductSlider';
 import { sampleProducts } from '@/data/sampleProducts';
 
 export const metadata: Metadata = {
