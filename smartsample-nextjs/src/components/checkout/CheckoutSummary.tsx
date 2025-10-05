@@ -34,15 +34,19 @@ export default function CheckoutSummary({
         <div className="ec-checkout-summary__items space-y-4 mb-6 pb-6 border-b border-gray-200">
           {items.map((item) => (
             <div key={item.id} className="ec-checkout-summary__item flex items-center gap-3">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="ec-checkout-summary__item-image w-16 h-16 object-cover rounded"
-              />
+              <Link href={`/products/${item.id}`} className="ec-checkout-summary__item-image-link flex-shrink-0">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="ec-checkout-summary__item-image w-16 h-16 object-cover rounded hover:opacity-80 transition-opacity"
+                />
+              </Link>
               <div className="ec-checkout-summary__item-info flex-1">
-                <p className="ec-checkout-summary__item-name text-sm font-medium text-gray-900">
-                  {item.name}
-                </p>
+                <Link href={`/products/${item.id}`} className="ec-checkout-summary__item-name-link hover:text-blue-600 transition-colors">
+                  <p className="ec-checkout-summary__item-name text-sm font-medium text-gray-900">
+                    {item.name}
+                  </p>
+                </Link>
                 <p className="ec-checkout-summary__item-quantity text-xs text-gray-500">
                   数量: {item.quantity}
                 </p>
