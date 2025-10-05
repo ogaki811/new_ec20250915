@@ -1,4 +1,8 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { sampleProducts } from '@/data/sampleProducts';
 
 interface BreadcrumbItem {
   label: string;
@@ -6,66 +10,79 @@ interface BreadcrumbItem {
 }
 
 interface BreadcrumbProps {
-  items: BreadcrumbItem[];
+  items?: BreadcrumbItem[];
 }
 
+// パスに対応するラベルのマッピング
+const pathLabels: Record<string, string> = {
+  '/': 'ホーム',
+  '/cart': 'カート',
+  '/checkout': 'ご注文手続き',
+  '/order-complete': 'ご注文完了',
+  '/products': '商品一覧',
+  '/mypage': 'マイページ',
+  '/favorites': 'お気に入り',
+};
+
+// パスから自動的にBreadcrumbアイテムを生成
+const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
+  const paths = pathname.split('/').filter(Boolean);
+  const items: BreadcrumbItem[] = [{ label: 'ホーム', href: '/' }];
+
+  // チェックアウトページの場合は、カートを中間に入れる
+  if (pathname === '/checkout') {
+    items.push({ label: 'カート', href: '/cart' });
+    items.push({ label: 'ご注文手続き' });
+    return items;
+  }
+
+  // 商品詳細ページの場合 (/products/[id])
+  if (pathname.startsWith('/products/') && paths.length === 2) {
+    const productId = paths[1];
+    const product = sampleProducts.find(p => p.id === productId);
+
+    items.push({ label: '商品一覧', href: '/products' });
+    items.push({ label: product?.name || productId });
+    return items;
+  }
+
+  let currentPath = '';
+  paths.forEach((path, index) => {
+    currentPath += `/${path}`;
+    const isLast = index === paths.length - 1;
+    const label = pathLabels[currentPath] || path;
+
+    items.push({
+      label,
+      href: isLast ? undefined : currentPath,
+    });
+  });
+
+  return items;
+};
+
 export default function Breadcrumb({ items }: BreadcrumbProps) {
-  // JSON-LD 構造化データ（BreadcrumbList）
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'ホーム',
-        item: 'https://smartsample.example.com',
-      },
-      ...items.map((item, index) => ({
-        '@type': 'ListItem',
-        position: index + 2,
-        name: item.label,
-        ...(item.href && { item: `https://smartsample.example.com${item.href}` }),
-      })),
-    ],
-  };
+  const pathname = usePathname();
+  const breadcrumbItems = items || generateBreadcrumbItems(pathname);
 
   return (
-    <>
-      {/* JSON-LD 構造化データ */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-
-      <nav aria-label="パンくずリスト" className="py-3">
-        <ol className="flex items-center space-x-2 text-sm">
-        <li>
-          <Link href="/" className="text-blue-600 hover:underline">
-            ホーム
-          </Link>
-        </li>
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center space-x-2">
-            <svg
-              className="w-4 h-4 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            {item.href && index < items.length - 1 ? (
-              <Link href={item.href} className="text-blue-600 hover:underline">
-                {item.label}
-              </Link>
-            ) : (
-              <span className="text-gray-600">{item.label}</span>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
-    </>
+    <section className="ec-breadcrumb">
+      <div className="ec-breadcrumb__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <nav className="ec-breadcrumb__nav flex items-center space-x-2 text-sm text-gray-600">
+          {breadcrumbItems.map((item, index) => (
+            <div key={index} className="ec-breadcrumb__item flex items-center space-x-2">
+              {index > 0 && <span className="ec-breadcrumb__separator text-gray-400">{'>'}</span>}
+              {item.href ? (
+                <Link href={item.href} className="ec-breadcrumb__link text-blue-600 hover:text-blue-800 transition-colors">
+                  {item.label}
+                </Link>
+              ) : (
+                <span className="ec-breadcrumb__current text-gray-900 font-medium">{item.label}</span>
+              )}
+            </div>
+          ))}
+        </nav>
+      </div>
+    </section>
   );
 }

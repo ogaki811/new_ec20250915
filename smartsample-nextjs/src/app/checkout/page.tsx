@@ -2,439 +2,339 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import type { Metadata } from 'next';
 import toast from 'react-hot-toast';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Breadcrumb from '@/components/common/Breadcrumb';
-import { Input, Loading } from '@/components/ui';
+import StepIndicator from '@/components/common/StepIndicator';
+import { Checkbox } from '@/components/ui';
+import CustomerInfoForm from '@/components/checkout/CustomerInfoForm';
+import ShippingInfoForm from '@/components/checkout/ShippingInfoForm';
+import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector';
+import DeliveryDateSelector from '@/components/checkout/DeliveryDateSelector';
+import CheckoutSummary from '@/components/checkout/CheckoutSummary';
 import useCartStore from '@/store/useCartStore';
 import useAuthStore from '@/store/useAuthStore';
-import useFormPersist from '@/hooks/useFormPersist';
 import usePostalCode from '@/hooks/usePostalCode';
-import type { ShippingAddress, PaymentMethod, DeliveryMethod } from '@/types';
+import useFormPersist from '@/hooks/useFormPersist';
+
+// 配送時間のラベルを取得
+const getDeliveryTimeLabel = (value: string): string => {
+  const timeMap: Record<string, string> = {
+    'morning': '午前中',
+    '12-14': '12:00-14:00',
+    '14-16': '14:00-16:00',
+    '16-18': '16:00-18:00',
+    '18-20': '18:00-20:00',
+    '19-21': '19:00-21:00',
+  };
+  return timeMap[value] || '指定なし';
+};
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { user } = useAuthStore();
-  const {
-    items,
-    selectedItems,
-    getSelectedTotal,
-    getSelectedItemCount,
-    removeSelectedItems,
-  } = useCartStore();
+  const { items: cartItems, getTotal, getShippingFee, clearCart } = useCartStore();
+  const { user, isAuthenticated } = useAuthStore();
+  const { searchAddress, loading: postalLoading, error: postalError, clearError } = usePostalCode();
 
-  const [email, setEmail] = useState(user?.email || '');
-  const [formData, setFormData] = useState<ShippingAddress>({
-    name: user?.name || '',
-    phoneNumber: '',
+  // フォームデータ初期化
+  const [formData, setFormData] = useState({
+    lastName: '',
+    firstName: '',
+    email: '',
+    phone: '',
     postalCode: '',
     prefecture: '',
     city: '',
     address: '',
     building: '',
+    paymentMethod: 'credit',
+    deliveryDate: '',
+    deliveryTime: '',
+    usePoints: false,
   });
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('credit_card');
-  const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('standard');
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const { searchAddress, loading: postalCodeLoading } = usePostalCode();
+  // フォーム永続化
+  const { getStoredData, clearStoredData } = useFormPersist('checkout-form-storage', formData);
 
-  // フォームデータの永続化
-  useFormPersist('checkout-form', formData);
-
-  const selectedTotal = getSelectedTotal();
-  const selectedItemCount = getSelectedItemCount();
-  const selectedCartItems = items.filter((item) =>
-    selectedItems.includes(item.id)
-  );
-
-  const shippingFee = selectedTotal >= 3000 ? 0 : 500;
-  const deliveryFee = deliveryMethod === 'express' ? 1000 : 0;
-  const totalFee = selectedTotal + shippingFee + deliveryFee;
-
-  // 未ログインまたは選択商品がない場合はリダイレクト
+  // ユーザー情報自動入力と保存データ復元（初回マウント時のみ）
   useEffect(() => {
-    if (selectedItemCount === 0) {
-      router.push('/cart');
-    }
-  }, [selectedItemCount, router]);
-
-  const handlePostalCodeChange = async (value: string) => {
-    const cleaned = value.replace(/[^\d]/g, '');
-    setFormData((prev) => ({ ...prev, postalCode: cleaned }));
-
-    if (cleaned.length === 7) {
-      const addressData = await searchAddress(cleaned);
-      if (addressData) {
-        setFormData((prev) => ({
-          ...prev,
-          prefecture: addressData.prefecture,
-          city: addressData.city,
-          address: addressData.address,
-        }));
-      }
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!agreedToTerms) {
-      toast.error('利用規約に同意してください');
+    // 保存されたフォームデータを復元
+    const storedData = getStoredData();
+    if (storedData) {
+      setFormData(storedData);
       return;
     }
 
-    setIsSubmitting(true);
+    // ログインユーザーの情報を自動入力
+    if (isAuthenticated && user) {
+      setFormData(prev => ({
+        ...prev,
+        lastName: user.lastName || '',
+        firstName: user.firstName || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        postalCode: user.postalCode || '',
+        prefecture: user.prefecture || '',
+        city: user.city || '',
+        address: user.address || '',
+        building: user.building || '',
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    try {
-      // ここで注文処理を行う（API呼び出しなど）
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // シミュレーション
+  // フォーム変更ハンドラー
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
 
-      // 選択商品をカートから削除
-      removeSelectedItems();
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
 
-      // 注文完了ページへ
-      router.push('/order-complete');
-      toast.success('ご注文ありがとうございます');
-    } catch (error) {
-      toast.error('注文処理中にエラーが発生しました');
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
+    // エラークリア
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
-  if (selectedItemCount === 0) {
-    return null; // リダイレクト中
-  }
+  // 郵便番号検索
+  const handlePostalCodeSearch = async () => {
+    if (!formData.postalCode) {
+      toast.error('郵便番号を入力してください');
+      return;
+    }
+
+    clearError();
+    const result = await searchAddress(formData.postalCode);
+
+    if (result) {
+      setFormData(prev => ({
+        ...prev,
+        prefecture: result.prefecture,
+        city: result.city,
+        address: result.address,
+      }));
+      toast.success('住所を自動入力しました');
+    }
+  };
+
+  // バリデーション
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    // 必須項目チェック
+    if (!formData.lastName.trim()) newErrors.lastName = '姓を入力してください';
+    if (!formData.firstName.trim()) newErrors.firstName = '名を入力してください';
+    if (!formData.email.trim()) newErrors.email = 'メールアドレスを入力してください';
+    if (!formData.phone.trim()) newErrors.phone = '電話番号を入力してください';
+    if (!formData.postalCode.trim()) newErrors.postalCode = '郵便番号を入力してください';
+    if (!formData.prefecture) newErrors.prefecture = '都道府県を選択してください';
+    if (!formData.city.trim()) newErrors.city = '市区町村を入力してください';
+    if (!formData.address.trim()) newErrors.address = '番地を入力してください';
+
+    // メールアドレス形式チェック
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (formData.email && !emailRegex.test(formData.email)) {
+      newErrors.email = '有効なメールアドレスを入力してください';
+    }
+
+    // 郵便番号形式チェック（000-0000 または 0000000）
+    const postalRegex = /^(\d{3}-?\d{4})$/;
+    if (formData.postalCode && !postalRegex.test(formData.postalCode)) {
+      newErrors.postalCode = '郵便番号は000-0000の形式で入力してください';
+    }
+
+    // 電話番号形式チェック
+    const phoneRegex = /^[\d-]+$/;
+    if (formData.phone && !phoneRegex.test(formData.phone)) {
+      newErrors.phone = '電話番号は数字とハイフンで入力してください';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // 注文確定処理
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // カート空チェック
+    if (cartItems.length === 0) {
+      toast.error('カートに商品がありません');
+      router.push('/cart');
+      return;
+    }
+
+    if (!validateForm()) {
+      toast.error('入力内容に誤りがあります');
+      return;
+    }
+
+    // 注文データ整形
+    const orderData = {
+      id: `${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}${String(new Date().getDate()).padStart(2, '0')}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`,
+      date: new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' }),
+      items: cartItems,
+      subtotal: getTotal(),
+      shippingFee: getShippingFee(),
+      pointsUsed: formData.usePoints ? (user?.points || 500) : 0,
+      total: getTotal() + getShippingFee() - (formData.usePoints ? (user?.points || 500) : 0),
+      customerInfo: {
+        name: `${formData.lastName} ${formData.firstName}`,
+        email: formData.email,
+        phone: formData.phone,
+      },
+      shippingAddress: {
+        name: `${formData.lastName} ${formData.firstName}`,
+        postalCode: formData.postalCode,
+        address: `${formData.prefecture}${formData.city}${formData.address}${formData.building ? ' ' + formData.building : ''}`,
+        phone: formData.phone,
+      },
+      paymentMethod: formData.paymentMethod === 'credit' ? 'クレジットカード' : formData.paymentMethod === 'bank' ? '銀行振込' : formData.paymentMethod === 'paypay' ? 'PayPay' : '代金引換',
+      deliveryDate: formData.deliveryDate || '指定なし',
+      deliveryTime: formData.deliveryTime ? getDeliveryTimeLabel(formData.deliveryTime) : '指定なし',
+    };
+
+    // 注文データをログに出力（開発用）
+    console.log('注文データ:', orderData);
+
+    // カートをクリア
+    clearCart();
+
+    // フォームデータをクリア
+    clearStoredData();
+
+    // 注文完了ページへ遷移
+    router.push('/order-complete');
+  };
+
+  // 金額計算
+  const subtotal = getTotal();
+  const shippingFee = getShippingFee();
+  const availablePoints = user?.points || 500;
+  const pointsToUse = formData.usePoints ? availablePoints : 0;
+  const total = subtotal + shippingFee - pointsToUse;
+
+  // JSON-LD 構造化データ - BreadcrumbList
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'ホーム',
+        item: 'https://smartsample.example.com/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'カート',
+        item: 'https://smartsample.example.com/cart',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'ご注文手続き',
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-grow bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Breadcrumb
-            items={[
-              { label: 'カート', href: '/cart' },
-              { label: 'ご注文手続き' },
-            ]}
-          />
+      {/* JSON-LD 構造化データ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">
-            ご注文手続き
-          </h1>
+      <main className="ec-checkout">
+        <Breadcrumb />
+        <StepIndicator currentStep={2} />
 
-          <form onSubmit={handleSubmit}>
-            <div className="lg:grid lg:grid-cols-3 lg:gap-8">
-              {/* メインコンテンツ */}
-              <div className="lg:col-span-2 space-y-6">
-                {/* お届け先情報 */}
-                <div className="bg-white rounded-lg shadow-sm p-6">
-                  <h2 className="text-xl font-bold mb-6">お届け先情報</h2>
-                  <div className="space-y-4">
-                    <Input
-                      label="お名前"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      required
-                      placeholder="山田 太郎"
-                    />
+        <section className="ec-checkout__content py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* フォームエリア */}
+              <div className="ec-checkout__form-area lg:col-span-2">
+                <form onSubmit={handleSubmit} className="ec-checkout__form space-y-8">
+                  {/* お客様情報 */}
+                  <CustomerInfoForm
+                    formData={{
+                      lastName: formData.lastName,
+                      firstName: formData.firstName,
+                      email: formData.email,
+                      phone: formData.phone,
+                    }}
+                    errors={errors}
+                    onChange={handleChange}
+                  />
 
-                    <Input
-                      label="メールアドレス"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      placeholder="example@example.com"
-                    />
+                  {/* 配送先情報 */}
+                  <ShippingInfoForm
+                    formData={{
+                      postalCode: formData.postalCode,
+                      prefecture: formData.prefecture,
+                      city: formData.city,
+                      address: formData.address,
+                      building: formData.building,
+                    }}
+                    errors={errors}
+                    postalError={postalError}
+                    postalLoading={postalLoading}
+                    onChange={handleChange}
+                    onPostalCodeSearch={handlePostalCodeSearch}
+                  />
 
-                    <Input
-                      label="電話番号"
-                      type="tel"
-                      value={formData.phoneNumber}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phoneNumber: e.target.value })
-                      }
-                      required
-                      placeholder="090-1234-5678"
-                    />
+                  {/* 配送日時指定 */}
+                  <DeliveryDateSelector
+                    deliveryDate={formData.deliveryDate}
+                    deliveryTime={formData.deliveryTime}
+                    onChange={handleChange}
+                  />
 
-                    <div className="relative">
-                      <Input
-                        label="郵便番号"
-                        value={formData.postalCode}
-                        onChange={(e) => handlePostalCodeChange(e.target.value)}
-                        required
-                        placeholder="1234567"
-                        maxLength={7}
+                  {/* お支払い方法 */}
+                  <PaymentMethodSelector
+                    value={formData.paymentMethod as 'credit' | 'bank' | 'cod' | 'paypay'}
+                    onChange={handleChange}
+                  />
+
+                  {/* ポイント使用 */}
+                  {isAuthenticated && availablePoints > 0 && (
+                    <div className="ec-checkout__points bg-white rounded-lg border border-gray-200 p-6">
+                      <Checkbox
+                        id="usePoints"
+                        name="usePoints"
+                        checked={formData.usePoints}
+                        onChange={handleChange}
+                        label={`保有ポイントを使用する (${availablePoints}ポイント利用可能)`}
                       />
-                      {postalCodeLoading && (
-                        <div className="absolute right-3 top-9">
-                          <Loading size="sm" />
-                        </div>
-                      )}
-                      <p className="text-xs text-gray-500 mt-1">
-                        ハイフンなしで入力してください
-                      </p>
                     </div>
-
-                    <Input
-                      label="都道府県"
-                      value={formData.prefecture}
-                      onChange={(e) =>
-                        setFormData({ ...formData, prefecture: e.target.value })
-                      }
-                      required
-                      placeholder="東京都"
-                    />
-
-                    <Input
-                      label="市区町村"
-                      value={formData.city}
-                      onChange={(e) =>
-                        setFormData({ ...formData, city: e.target.value })
-                      }
-                      required
-                      placeholder="渋谷区"
-                    />
-
-                    <Input
-                      label="番地"
-                      value={formData.address}
-                      onChange={(e) =>
-                        setFormData({ ...formData, address: e.target.value })
-                      }
-                      required
-                      placeholder="道玄坂1-2-3"
-                    />
-
-                    <Input
-                      label="建物名・部屋番号（任意）"
-                      value={formData.building || ''}
-                      onChange={(e) =>
-                        setFormData({ ...formData, building: e.target.value })
-                      }
-                      placeholder="〇〇ビル 101号室"
-                    />
-                  </div>
-                </div>
-
-                {/* お支払い方法 */}
-                <div className="bg-white rounded-lg shadow-sm p-6">
-                  <h2 className="text-xl font-bold mb-6">お支払い方法</h2>
-                  <div className="space-y-3">
-                    <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="credit_card"
-                        checked={paymentMethod === 'credit_card'}
-                        onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                        className="w-4 h-4 text-blue-600"
-                      />
-                      <span className="ml-3 font-medium">クレジットカード</span>
-                    </label>
-                    <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="convenience_store"
-                        checked={paymentMethod === 'convenience_store'}
-                        onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                        className="w-4 h-4 text-blue-600"
-                      />
-                      <span className="ml-3 font-medium">コンビニ払い</span>
-                    </label>
-                    <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="bank_transfer"
-                        checked={paymentMethod === 'bank_transfer'}
-                        onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                        className="w-4 h-4 text-blue-600"
-                      />
-                      <span className="ml-3 font-medium">銀行振込</span>
-                    </label>
-                    <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="cash_on_delivery"
-                        checked={paymentMethod === 'cash_on_delivery'}
-                        onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                        className="w-4 h-4 text-blue-600"
-                      />
-                      <span className="ml-3 font-medium">代金引換</span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* 配送方法 */}
-                <div className="bg-white rounded-lg shadow-sm p-6">
-                  <h2 className="text-xl font-bold mb-6">配送方法</h2>
-                  <div className="space-y-3">
-                    <label className="flex items-center justify-between p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          name="deliveryMethod"
-                          value="standard"
-                          checked={deliveryMethod === 'standard'}
-                          onChange={(e) => setDeliveryMethod(e.target.value as DeliveryMethod)}
-                          className="w-4 h-4 text-blue-600"
-                        />
-                        <div className="ml-3">
-                          <p className="font-medium">通常配送</p>
-                          <p className="text-sm text-gray-600">
-                            3-5営業日でお届け
-                          </p>
-                        </div>
-                      </div>
-                      <span className="font-medium">無料</span>
-                    </label>
-                    <label className="flex items-center justify-between p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          name="deliveryMethod"
-                          value="express"
-                          checked={deliveryMethod === 'express'}
-                          onChange={(e) => setDeliveryMethod(e.target.value as DeliveryMethod)}
-                          className="w-4 h-4 text-blue-600"
-                        />
-                        <div className="ml-3">
-                          <p className="font-medium">お急ぎ便</p>
-                          <p className="text-sm text-gray-600">
-                            翌営業日にお届け
-                          </p>
-                        </div>
-                      </div>
-                      <span className="font-medium">¥1,000</span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* 利用規約 */}
-                <div className="bg-white rounded-lg shadow-sm p-6">
-                  <label className="flex items-start cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={agreedToTerms}
-                      onChange={(e) => setAgreedToTerms(e.target.checked)}
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-0.5"
-                    />
-                    <span className="ml-3 text-sm text-gray-700">
-                      <a href="/terms" target="_blank" className="text-blue-600 hover:underline">
-                        利用規約
-                      </a>
-                      と
-                      <a href="/privacy" target="_blank" className="text-blue-600 hover:underline">
-                        プライバシーポリシー
-                      </a>
-                      に同意します
-                    </span>
-                  </label>
-                </div>
+                  )}
+                </form>
               </div>
 
               {/* 注文サマリー */}
-              <div className="lg:col-span-1 mt-8 lg:mt-0">
-                <div className="bg-white rounded-lg shadow-sm p-6 sticky top-8">
-                  <h2 className="text-xl font-bold mb-6">ご注文内容</h2>
-
-                  {/* 商品リスト */}
-                  <div className="space-y-4 mb-6 pb-6 border-b max-h-64 overflow-y-auto">
-                    {selectedCartItems.map((item) => (
-                      <div key={item.id} className="flex space-x-3">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-16 h-16 object-cover rounded"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = '/img/placeholder.png';
-                          }}
-                        />
-                        <div className="flex-grow">
-                          <p className="text-sm font-medium line-clamp-2">
-                            {item.name}
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            数量: {item.quantity}
-                          </p>
-                          <p className="text-sm font-bold">
-                            ¥{(item.price * item.quantity).toLocaleString()}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* 金額詳細 */}
-                  <div className="space-y-3 mb-6 pb-6 border-b">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">
-                        商品小計（{selectedItemCount}点）
-                      </span>
-                      <span className="font-medium">
-                        ¥{selectedTotal.toLocaleString()}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">配送料</span>
-                      <span className="font-medium">
-                        {shippingFee === 0 ? (
-                          <span className="text-green-600">無料</span>
-                        ) : (
-                          `¥${shippingFee.toLocaleString()}`
-                        )}
-                      </span>
-                    </div>
-                    {deliveryMethod === 'express' && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">お急ぎ便</span>
-                        <span className="font-medium">
-                          ¥{deliveryFee.toLocaleString()}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* 合計 */}
-                  <div className="flex justify-between items-center mb-6">
-                    <span className="text-lg font-bold">合計</span>
-                    <span className="text-2xl font-bold text-blue-600">
-                      ¥{totalFee.toLocaleString()}
-                    </span>
-                  </div>
-
-                  {/* 注文確定ボタン */}
-                  <button
-                    type="submit"
-                    disabled={!agreedToTerms || isSubmitting}
-                    className="w-full py-3 px-6 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loading size="sm" />
-                        <span className="ml-2">処理中...</span>
-                      </>
-                    ) : (
-                      '注文を確定する'
-                    )}
-                  </button>
-                </div>
-              </div>
+              <CheckoutSummary
+                items={cartItems}
+                subtotal={subtotal}
+                shippingFee={shippingFee}
+                pointsUsed={pointsToUse}
+                total={total}
+                onSubmit={handleSubmit}
+                className="lg:col-span-1"
+              />
             </div>
-          </form>
-        </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

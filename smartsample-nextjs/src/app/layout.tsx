@@ -45,12 +45,13 @@ export default function RootLayout({
 
         {children}
         <Toaster
-          position="top-right"
+          position="bottom-right"
           toastOptions={{
             duration: 3000,
             style: {
               background: '#363636',
               color: '#fff',
+              borderRadius: '4px',
             },
             success: {
               iconTheme: {
@@ -64,6 +65,11 @@ export default function RootLayout({
                 secondary: '#fff',
               },
             },
+            className: '',
+          }}
+          containerStyle={{
+            bottom: 20,
+            right: 20,
           }}
         />
       </body>

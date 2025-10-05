@@ -7,6 +7,8 @@ import Breadcrumb from '@/components/common/Breadcrumb';
 import Pagination from '@/components/common/Pagination';
 import ProductGrid from '@/components/product/ProductGrid';
 import FilterSidebar from '@/components/product/FilterSidebar';
+import SearchBar from '@/components/product/SearchBar';
+import SortDropdown from '@/components/product/SortDropdown';
 import { sampleProducts } from '@/data/sampleProducts';
 import usePagination from '@/hooks/usePagination';
 import useSearch from '@/hooks/useSearch';
@@ -26,17 +28,14 @@ export default function ProductsPage() {
   const filteredProducts = useMemo(() => {
     let results = searchQuery ? searchResults : sampleProducts;
 
-    // カテゴリーフィルター
     if (filters.category) {
       results = results.filter((product) => product.category === filters.category);
     }
 
-    // ブランドフィルター
     if (filters.brand) {
       results = results.filter((product) => product.brand === filters.brand);
     }
 
-    // 価格フィルター
     if (filters.minPrice !== undefined) {
       results = results.filter((product) => product.price >= filters.minPrice!);
     }
@@ -44,7 +43,6 @@ export default function ProductsPage() {
       results = results.filter((product) => product.price <= filters.maxPrice!);
     }
 
-    // 在庫フィルター
     if (filters.inStock) {
       results = results.filter((product) => product.stock);
     }
@@ -65,6 +63,10 @@ export default function ProductsPage() {
         return sorted.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
       case 'name-desc':
         return sorted.sort((a, b) => b.name.localeCompare(a.name, 'ja'));
+      case 'rating-desc':
+        return sorted.sort((a, b) => b.rating - a.rating);
+      case 'newest':
+        return sorted;
       default:
         return sorted;
     }
@@ -75,98 +77,90 @@ export default function ProductsPage() {
     ITEMS_PER_PAGE
   );
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortBy(e.target.value as ProductSortOption);
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-grow bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* パンくずリスト */}
-          <Breadcrumb items={[{ label: '商品一覧' }]} />
+      <main className="ec-products flex-grow bg-gray-50">
+        <div className="ec-products__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Breadcrumb />
 
           {/* ページタイトル */}
-          <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">商品一覧</h1>
-            <p className="text-gray-600">
+          <div className="ec-products__header mb-6">
+            <h1 className="ec-products__title text-3xl font-bold text-gray-900 mb-2">商品一覧</h1>
+            <p className="ec-products__count text-gray-600">
               {filteredProducts.length}件の商品が見つかりました
             </p>
           </div>
 
           {/* 検索バー */}
-          <div className="mb-6">
-            <div className="relative">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="商品名、ブランド、品番で検索..."
-                className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <svg
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
+          <div className="ec-products__search mb-6">
+            <SearchBar
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder="商品名、ブランド、商品コードで検索"
+            />
           </div>
 
-          <div className="lg:grid lg:grid-cols-4 lg:gap-8">
+          <div className="ec-products__content lg:grid lg:grid-cols-4 lg:gap-8">
             {/* フィルターサイドバー */}
-            <div className="lg:col-span-1">
-              <FilterSidebar filters={filters} onFilterChange={setFilters} />
-            </div>
+            <aside className="ec-products__sidebar lg:col-span-1 mb-8 lg:mb-0">
+              <FilterSidebar
+                filters={filters}
+                onFilterChange={setFilters}
+                products={sampleProducts}
+              />
+            </aside>
 
-            {/* 商品リスト */}
-            <div className="lg:col-span-3">
-              {/* ソート */}
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-sm text-gray-600">
-                  {sortedProducts.length}件中 {(currentPage - 1) * ITEMS_PER_PAGE + 1}-
+            {/* メインコンテンツ */}
+            <div className="ec-products__main lg:col-span-3">
+              {/* ソートとカウント */}
+              <div className="ec-products__toolbar flex items-center justify-between mb-6">
+                <p className="ec-products__result-text text-sm text-gray-600">
+                  {(currentPage - 1) * ITEMS_PER_PAGE + 1}〜
                   {Math.min(currentPage * ITEMS_PER_PAGE, sortedProducts.length)}件を表示
+                  （全{sortedProducts.length}件中）
                 </p>
-                <div className="flex items-center space-x-2">
-                  <label htmlFor="sort" className="text-sm text-gray-600">
-                    並び替え:
-                  </label>
-                  <select
-                    id="sort"
-                    value={sortBy}
-                    onChange={handleSortChange}
-                    className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="name-asc">名前順 (あ→ん)</option>
-                    <option value="price-asc">価格が安い順</option>
-                    <option value="price-desc">価格が高い順</option>
-                    <option value="name-desc">名前順 (ん→あ)</option>
-                  </select>
-                </div>
+                <SortDropdown value={sortBy} onChange={setSortBy} />
               </div>
 
               {/* 商品グリッド */}
-              <ProductGrid
-                products={paginatedItems}
-                emptyMessage="条件に一致する商品が見つかりませんでした"
-              />
+              <ProductGrid products={paginatedItems} />
 
               {/* ページネーション */}
               {totalPages > 1 && (
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={handlePageChange}
-                />
+                <div className="ec-products__pagination mt-8">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
+              )}
+
+              {/* 商品なしメッセージ */}
+              {filteredProducts.length === 0 && (
+                <div className="ec-products__empty bg-white rounded-lg shadow-sm p-12 text-center">
+                  <svg
+                    className="mx-auto h-24 w-24 text-gray-400 mb-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                    商品が見つかりませんでした
+                  </h2>
+                  <p className="text-gray-600 mb-8">
+                    別のキーワードやフィルターでお試しください
+                  </p>
+                </div>
               )}
             </div>
           </div>
