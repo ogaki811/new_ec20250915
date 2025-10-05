@@ -41,7 +41,7 @@ const getProductImages = (index: number): string[] => {
 
 export const sampleProducts: Product[] = [
   { id: '1', name: 'A4コピー用紙 5000枚', code: 'AWA4132', price: 7990, image: getRandomImage(0), images: getProductImages(0), brand: 'プラス', category: '文具・事務用品', stock: true, rating: 4.5, tags: ['人気'] },
-  { id: '2', name: 'オフィスチェア エルゴノミック', code: 'AW75238', price: 45800, image: getRandomImage(1), images: getProductImages(1), brand: 'オカムラ', category: '家具', stock: true, rating: 4.8, tags: ['高評価'] },
+  { id: '2', name: 'オフィスチェア エルゴノミック', code: 'AW75238', price: 45800, image: getRandomImage(1), images: getProductImages(1), brand: 'プラス', category: '家具', stock: true, rating: 4.8, tags: ['高評価'] },
   { id: '3', name: 'ボールペン 10本セット', code: '8027341', price: 1200, image: getRandomImage(2), images: getProductImages(2), brand: 'ゼブラ', category: '文具・事務用品', stock: true, rating: 4.3, tags: [] },
   { id: '4', name: 'クリアファイル 20枚', code: 'AH85168', price: 980, image: getRandomImage(3), images: getProductImages(3), brand: 'プラス', category: '文具・事務用品', stock: true, rating: 4.2, tags: [] },
   { id: '5', name: 'デスクマット 透明', code: 'DM110BK', price: 2500, image: getRandomImage(4), images: getProductImages(4), brand: 'プラス', category: '家具', stock: false, rating: 4.0, tags: [] },
@@ -75,7 +75,7 @@ export const sampleProducts: Product[] = [
 export const categories: Category[] = ['文具・事務用品', '家具', '電化製品', '収納用品'];
 
 export const brands: string[] = [
-  'プラス', 'オカムラ', 'ゼブラ', 'ぺんてる', 'ロジクール', 'パナソニック',
+  'プラス', 'ゼブラ', 'ぺんてる', 'ロジクール', 'パナソニック',
   'アイリスオーヤマ', 'ニトリ', 'カシオ', 'オルファ', 'スリーエム', 'トンボ鉛筆',
   'エルゴトロン', 'エレコム', 'サンワサプライ', 'エーワン', 'マックス'
 ];
