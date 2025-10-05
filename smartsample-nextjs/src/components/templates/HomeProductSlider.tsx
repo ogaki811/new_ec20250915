@@ -8,7 +8,7 @@ import type { Product } from '@/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import './ProductSlider.css';
+import './HomeProductSlider.css';
 
 interface ProductSliderProps {
   products: Product[];
