@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import QuantitySelector from './QuantitySelector';
+import QuantitySelector from '@/components/molecules/QuantitySelector';
 
 interface HorizontalProductCardProps {
   id: string;

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import ProductImageGallery from './ProductImageGallery';
-import QuantitySelector from './QuantitySelector';
+import ProductImageGallery from '@/components/organisms/ProductImageGallery';
+import QuantitySelector from '@/components/molecules/QuantitySelector';
 import type { Product } from '@/types';
 import useCartStore from '@/store/useCartStore';
 import useFavoritesStore from '@/store/useFavoritesStore';

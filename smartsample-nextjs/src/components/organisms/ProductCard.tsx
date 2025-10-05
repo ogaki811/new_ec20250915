@@ -7,7 +7,7 @@ import type { Product } from '@/types';
 import useCartStore from '@/store/useCartStore';
 import useFavoritesStore from '@/store/useFavoritesStore';
 import Badge from '@/components/atoms/Badge';
-import QuantitySelector from './QuantitySelector';
+import QuantitySelector from '@/components/molecules/QuantitySelector';
 
 interface ProductCardProps {
   product: Product;
