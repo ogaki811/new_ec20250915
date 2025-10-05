@@ -40,13 +40,13 @@ const getProductImages = (index: number): string[] => {
 };
 
 export const sampleProducts: Product[] = [
-  { id: '1', name: 'A4コピー用紙 5000枚', code: 'AWA4132', price: 7990, image: getRandomImage(0), images: getProductImages(0), brand: 'コクヨ', category: '文具・事務用品', stock: true, rating: 4.5, tags: ['人気'] },
+  { id: '1', name: 'A4コピー用紙 5000枚', code: 'AWA4132', price: 7990, image: getRandomImage(0), images: getProductImages(0), brand: 'プラス', category: '文具・事務用品', stock: true, rating: 4.5, tags: ['人気'] },
   { id: '2', name: 'オフィスチェア エルゴノミック', code: 'AW75238', price: 45800, image: getRandomImage(1), images: getProductImages(1), brand: 'オカムラ', category: '家具', stock: true, rating: 4.8, tags: ['高評価'] },
   { id: '3', name: 'ボールペン 10本セット', code: '8027341', price: 1200, image: getRandomImage(2), images: getProductImages(2), brand: 'ゼブラ', category: '文具・事務用品', stock: true, rating: 4.3, tags: [] },
-  { id: '4', name: 'クリアファイル 20枚', code: 'AH85168', price: 980, image: getRandomImage(3), images: getProductImages(3), brand: 'コクヨ', category: '文具・事務用品', stock: true, rating: 4.2, tags: [] },
+  { id: '4', name: 'クリアファイル 20枚', code: 'AH85168', price: 980, image: getRandomImage(3), images: getProductImages(3), brand: 'プラス', category: '文具・事務用品', stock: true, rating: 4.2, tags: [] },
   { id: '5', name: 'デスクマット 透明', code: 'DM110BK', price: 2500, image: getRandomImage(4), images: getProductImages(4), brand: 'プラス', category: '家具', stock: false, rating: 4.0, tags: [] },
   { id: '6', name: 'シャープペンシル 0.5mm', code: 'SP05', price: 450, image: getRandomImage(5), images: getProductImages(5), brand: 'ぺんてる', category: '文具・事務用品', stock: true, rating: 4.6, tags: ['人気'] },
-  { id: '7', name: 'ノート A5 5冊パック', code: 'NT5001', price: 1500, image: getRandomImage(6), images: getProductImages(6), brand: 'コクヨ', category: '文具・事務用品', stock: true, rating: 4.4, tags: [] },
+  { id: '7', name: 'ノート A5 5冊パック', code: 'NT5001', price: 1500, image: getRandomImage(6), images: getProductImages(6), brand: 'プラス', category: '文具・事務用品', stock: true, rating: 4.4, tags: [] },
   { id: '8', name: 'マウス ワイヤレス', code: 'MS2000', price: 2980, image: getRandomImage(7), images: getProductImages(7), brand: 'ロジクール', category: '電化製品', stock: true, rating: 4.7, tags: ['新商品', '人気'] },
   { id: '9', name: 'キーボード メカニカル', code: 'KB5500', price: 12800, image: getRandomImage(8), images: getProductImages(8), brand: 'ロジクール', category: '電化製品', stock: true, rating: 4.9, tags: ['高評価'] },
   { id: '10', name: 'デスクライト LED', code: 'DL3300', price: 5800, image: getRandomImage(9), images: getProductImages(9), brand: 'パナソニック', category: '電化製品', stock: true, rating: 4.5, tags: [] },
@@ -54,7 +54,7 @@ export const sampleProducts: Product[] = [
   { id: '12', name: 'ホワイトボード 90x60cm', code: 'WB9060', price: 3500, image: getRandomImage(11), images: getProductImages(11), brand: 'プラス', category: '文具・事務用品', stock: true, rating: 4.3, tags: [] },
   { id: '13', name: 'デスク 120x60cm', code: 'DK1260', price: 18900, image: getRandomImage(12), images: getProductImages(12), brand: 'ニトリ', category: '家具', stock: true, rating: 4.4, tags: ['セール'] },
   { id: '14', name: '書類ケース A4 3段', code: 'BC3A4', price: 2200, image: getRandomImage(13), images: getProductImages(13), brand: 'アイリスオーヤマ', category: '収納用品', stock: true, rating: 4.2, tags: [] },
-  { id: '15', name: 'ファイルボックス 5個セット', code: 'FB5SET', price: 1800, image: getRandomImage(14), images: getProductImages(14), brand: 'コクヨ', category: '収納用品', stock: true, rating: 4.6, tags: ['人気'] },
+  { id: '15', name: 'ファイルボックス 5個セット', code: 'FB5SET', price: 1800, image: getRandomImage(14), images: getProductImages(14), brand: 'プラス', category: '収納用品', stock: true, rating: 4.6, tags: ['人気'] },
   { id: '16', name: '電卓 12桁', code: 'CL1200', price: 1200, image: getRandomImage(15), images: getProductImages(15), brand: 'カシオ', category: '電化製品', stock: true, rating: 4.5, tags: [] },
   { id: '17', name: 'ハサミ チタンコート', code: 'SC8800', price: 980, image: getRandomImage(16), images: getProductImages(16), brand: 'プラス', category: '文具・事務用品', stock: true, rating: 4.7, tags: [] },
   { id: '18', name: 'カッターナイフ', code: 'KN0500', price: 350, image: getRandomImage(17), images: getProductImages(17), brand: 'オルファ', category: '文具・事務用品', stock: true, rating: 4.3, tags: [] },
@@ -64,7 +64,7 @@ export const sampleProducts: Product[] = [
   { id: '22', name: 'USBハブ 4ポート', code: 'UH4000', price: 1980, image: getRandomImage(21), images: getProductImages(21), brand: 'エレコム', category: '電化製品', stock: true, rating: 4.3, tags: [] },
   { id: '23', name: 'クッション オフィス用', code: 'CS5500', price: 2800, image: getRandomImage(22), images: getProductImages(22), brand: 'ニトリ', category: '家具', stock: true, rating: 4.5, tags: [] },
   { id: '24', name: 'フットレスト', code: 'FR3300', price: 3200, image: getRandomImage(23), images: getProductImages(23), brand: 'サンワサプライ', category: '家具', stock: true, rating: 4.4, tags: [] },
-  { id: '25', name: 'ペンケース 大容量', code: 'PC8800', price: 1500, image: getRandomImage(24), images: getProductImages(24), brand: 'コクヨ', category: '文具・事務用品', stock: true, rating: 4.6, tags: ['人気'] },
+  { id: '25', name: 'ペンケース 大容量', code: 'PC8800', price: 1500, image: getRandomImage(24), images: getProductImages(24), brand: 'プラス', category: '文具・事務用品', stock: true, rating: 4.6, tags: ['人気'] },
   { id: '26', name: 'マーカー 蛍光 6色', code: 'MK6600', price: 880, image: getRandomImage(25), images: getProductImages(25), brand: 'ゼブラ', category: '文具・事務用品', stock: true, rating: 4.2, tags: [] },
   { id: '27', name: '修正テープ 5mm', code: 'MT0500', price: 320, image: getRandomImage(26), images: getProductImages(26), brand: 'トンボ鉛筆', category: '文具・事務用品', stock: true, rating: 4.3, tags: [] },
   { id: '28', name: 'ラベルシール A4', code: 'LS4400', price: 950, image: getRandomImage(27), images: getProductImages(27), brand: 'エーワン', category: '文具・事務用品', stock: false, rating: 4.0, tags: [] },
@@ -75,7 +75,7 @@ export const sampleProducts: Product[] = [
 export const categories: Category[] = ['文具・事務用品', '家具', '電化製品', '収納用品'];
 
 export const brands: string[] = [
-  'コクヨ', 'オカムラ', 'ゼブラ', 'プラス', 'ぺんてる', 'ロジクール', 'パナソニック',
+  'プラス', 'オカムラ', 'ゼブラ', 'ぺんてる', 'ロジクール', 'パナソニック',
   'アイリスオーヤマ', 'ニトリ', 'カシオ', 'オルファ', 'スリーエム', 'トンボ鉛筆',
   'エルゴトロン', 'エレコム', 'サンワサプライ', 'エーワン', 'マックス'
 ];
