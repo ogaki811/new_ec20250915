@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface ProductImageGalleryProps {
   images: string[];
@@ -12,46 +12,35 @@ export default function ProductImageGallery({
   productName,
 }: ProductImageGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0);
-  const [imageError, setImageError] = useState(false);
 
-  const currentImage = imageError ? '/img/placeholder.png' : images[selectedImage];
+  // 画像が変更されたらselectedImageをリセット
+  useEffect(() => {
+    setSelectedImage(0);
+  }, [images]);
 
   return (
-    <div className="space-y-4">
+    <div className="ec-product-detail__images">
       {/* メイン画像 */}
-      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+      <div className="ec-product-detail__main-image bg-gray-100 rounded-lg overflow-hidden mb-4">
         <img
-          src={currentImage}
-          alt={`${productName} - 画像${selectedImage + 1}`}
-          className="w-full h-full object-cover"
-          onError={() => setImageError(true)}
+          src={images[selectedImage]}
+          alt={productName}
+          className="w-full h-auto object-cover"
         />
       </div>
 
-      {/* サムネイル */}
+      {/* 画像が2枚以上ある場合のみサムネイル表示 */}
       {images.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
+        <div className="ec-product-detail__thumbnails flex gap-2 flex-wrap">
           {images.map((image, index) => (
             <button
               key={index}
-              onClick={() => {
-                setSelectedImage(index);
-                setImageError(false);
-              }}
-              className={`aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 transition-all ${
-                selectedImage === index
-                  ? 'border-blue-600'
-                  : 'border-transparent hover:border-gray-300'
+              onClick={() => setSelectedImage(index)}
+              className={`ec-product-detail__thumbnail ${selectedImage === index ? 'ec-product-detail__thumbnail--active' : ''} w-24 h-24 border-2 rounded-lg overflow-hidden flex-shrink-0 ${
+                selectedImage === index ? 'border-blue-600' : 'border-gray-200'
               }`}
             >
-              <img
-                src={image}
-                alt={`${productName} サムネイル${index + 1}`}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/img/placeholder.png';
-                }}
-              />
+              <img src={image} alt={`${productName} ${index + 1}`} className="w-full h-full object-cover" />
             </button>
           ))}
         </div>

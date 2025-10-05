@@ -20,6 +20,7 @@ const pathLabels: Record<string, string> = {
   '/checkout': 'ご注文手続き',
   '/order-complete': 'ご注文完了',
   '/products': '商品一覧',
+  '/search': '検索結果',
   '/mypage': 'マイページ',
   '/favorites': 'お気に入り',
 };
@@ -67,7 +68,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
 
   return (
     <section className="ec-breadcrumb">
-      <div className="ec-breadcrumb__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="ec-breadcrumb__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
         <nav className="ec-breadcrumb__nav flex items-center space-x-2 text-sm text-gray-600">
           {breadcrumbItems.map((item, index) => (
             <div key={index} className="ec-breadcrumb__item flex items-center space-x-2">

@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CartState } from '@/types';
+import { sampleProducts } from '@/data/sampleProducts';
 
 const useCartStore = create<CartState>()(
   persist(
@@ -274,6 +275,27 @@ const useCartStore = create<CartState>()(
         if (items.length === 0) return false;
         if (get().hasOutOfStockItems()) return false;
         return true;
+      },
+
+      // デモデータ追加（開発用）
+      addDemoData: () => {
+        // sampleProductsから最初の3つの商品を取得してカートアイテムに変換
+        const demoItems = sampleProducts.slice(0, 3).map((product, index) => ({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: index === 1 ? 2 : 1, // 2番目の商品は数量2
+          image: product.image,
+          brand: product.brand,
+          category: product.category,
+          stock: 50, // デモ用の在庫数
+          code: product.code,
+        }));
+
+        set({
+          items: demoItems,
+          selectedItems: demoItems.map((item) => item.id),
+        });
       },
     }),
     {

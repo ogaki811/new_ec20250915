@@ -12,13 +12,15 @@ interface UseSearchReturn<T> {
  * 検索フック
  * @param items - 検索対象のアイテムリスト
  * @param searchKeys - 検索対象のキー名配列
+ * @param initialQuery - 初期検索クエリ
  * @returns 検索結果とコントロール関数
  */
 function useSearch<T extends object>(
   items: T[],
-  searchKeys: (keyof T)[] = ['name', 'code'] as (keyof T)[]
+  searchKeys: (keyof T)[] = ['name', 'code'] as (keyof T)[],
+  initialQuery: string = ''
 ): UseSearchReturn<T> {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
 
   const filteredItems = useMemo(() => {
     if (!searchQuery.trim()) {

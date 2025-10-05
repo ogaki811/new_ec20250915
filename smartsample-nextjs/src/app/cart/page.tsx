@@ -142,100 +142,100 @@ export default function CartPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="ec-cart flex-grow bg-gray-50">
-        <div className="ec-cart__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Breadcrumb />
-          <StepIndicator currentStep={1} />
+      <main className="ec-cart flex-grow">
+        <Breadcrumb />
+        <StepIndicator currentStep={1} />
 
-          <div className="ec-cart__content lg:grid lg:grid-cols-3 lg:gap-8 mt-8">
-            {/* カート商品リスト */}
-            <div className="ec-cart__items lg:col-span-2 space-y-4">
-              {/* 全選択と削除ボタン */}
-              <div className="ec-cart__select-all bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
-                <label className="ec-cart__select-all-label flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={allSelected}
-                    onChange={() => toggleSelectAll()}
-                    className="ec-cart__select-all-checkbox w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <span className="ml-3 font-medium">すべて選択</span>
-                </label>
-                {selectedItems.length > 0 && (
-                  <button
-                    onClick={handleRemoveSelected}
-                    className="ec-cart__remove-selected-btn flex items-center gap-2 px-4 py-2 text-sm text-red-600 border border-red-300 rounded-md hover:bg-red-50 transition-colors"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
-                    </svg>
-                    選択商品を削除
-                  </button>
-                )}
-              </div>
-
-              {/* 最近削除した商品の復元 */}
-              {recentlyDeleted.length > 0 && (
-                <div className="ec-cart__restore bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-blue-800">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M3 12a9 9 0 019-9 9.75 9.75 0 016.74 2.74L21 8" />
-                        <path d="M21 3v5h-5" />
-                        <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 16" />
-                        <path d="M3 21v-5h5" />
-                      </svg>
-                      <span>{recentlyDeleted[0].name}を削除しました</span>
-                    </div>
+        <section className="ec-cart__content py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="lg:grid lg:grid-cols-3 lg:gap-8">
+              {/* カート商品リスト */}
+              <div className="ec-cart__items lg:col-span-2 space-y-4">
+                {/* 全選択と削除ボタン */}
+                <div className="ec-cart__select-all bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
+                  <label className="ec-cart__select-all-label flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={allSelected}
+                      onChange={() => toggleSelectAll()}
+                      className="ec-cart__select-all-checkbox w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <span className="ml-3 font-medium">すべて選択</span>
+                  </label>
+                  {selectedItems.length > 0 && (
                     <button
-                      onClick={() => handleRestoreItem(recentlyDeleted[0])}
-                      className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline"
+                      onClick={handleRemoveSelected}
+                      className="ec-cart__remove-selected-btn flex items-center gap-2 px-4 py-2 text-sm text-red-600 border border-red-300 rounded-md hover:bg-red-50 transition-colors"
                     >
-                      元に戻す
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                      </svg>
+                      選択商品を削除
                     </button>
-                  </div>
+                  )}
                 </div>
-              )}
 
-              {/* カート商品 */}
-              {items.map((item) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  isSelected={selectedItems.includes(item.id)}
-                  onToggleSelect={toggleSelectItem}
-                  onUpdateQuantity={updateQuantity}
-                  onRemove={handleRemove}
-                />
-              ))}
-            </div>
+                {/* 最近削除した商品の復元 */}
+                {recentlyDeleted.length > 0 && (
+                  <div className="ec-cart__restore bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm text-blue-800">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M3 12a9 9 0 019-9 9.75 9.75 0 016.74 2.74L21 8" />
+                          <path d="M21 3v5h-5" />
+                          <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 16" />
+                          <path d="M3 21v-5h5" />
+                        </svg>
+                        <span>{recentlyDeleted[0].name}を削除しました</span>
+                      </div>
+                      <button
+                        onClick={() => handleRestoreItem(recentlyDeleted[0])}
+                        className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline"
+                      >
+                        元に戻す
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-            {/* 注文サマリー */}
-            <div className="ec-cart__sidebar lg:col-span-1 mt-8 lg:mt-0">
-              <div className="ec-cart__sidebar-content bg-white rounded-lg shadow-sm p-6 sticky top-8">
-                <h2 className="ec-cart__sidebar-title text-xl font-bold mb-6">ご注文内容</h2>
+                {/* カート商品 */}
+                {items.map((item) => (
+                  <CartItem
+                    key={item.id}
+                    item={item}
+                    isSelected={selectedItems.includes(item.id)}
+                    onToggleSelect={toggleSelectItem}
+                    onUpdateQuantity={updateQuantity}
+                    onRemove={handleRemove}
+                  />
+                ))}
+              </div>
 
-                {/* カートサマリー（金額） */}
-                <CartSummary
-                  subtotal={selectedTotal}
-                  shippingFee={shippingFee}
-                  total={finalTotal}
-                  itemCount={selectedItemCount}
-                />
+              {/* 注文サマリー */}
+              <div className="ec-cart__sidebar lg:col-span-1 mt-8 lg:mt-0">
+                <div className="ec-cart__sidebar-content bg-white rounded-lg shadow-sm p-6 sticky top-8">
+                  <h2 className="ec-cart__sidebar-title text-xl font-semibold text-gray-900 mb-6">ご注文内容</h2>
+
+                  {/* カートサマリー（金額） */}
+                  <CartSummary
+                    subtotal={selectedTotal}
+                    shippingFee={shippingFee}
+                    total={finalTotal}
+                    itemCount={selectedItemCount}
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* おすすめ商品スライダー */}
-          {recommendedProducts.length > 0 && (
-            <section className="ec-cart__recommended py-12">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* おすすめ商品スライダー */}
+            {recommendedProducts.length > 0 && (
+              <div className="ec-cart__recommended mt-12">
                 <h2 className="ec-cart__recommended-title text-3xl font-bold text-gray-900 mb-8">こちらもおすすめ</h2>
                 <ProductSlider products={recommendedProducts} />
               </div>
-            </section>
-          )}
-        </div>
+            )}
+          </div>
+        </section>
       </main>
 
       <Footer />

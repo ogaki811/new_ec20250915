@@ -7,6 +7,7 @@ import type { Product } from '@/types';
 import useCartStore from '@/store/useCartStore';
 import useFavoritesStore from '@/store/useFavoritesStore';
 import { Badge } from '@/components/ui';
+import QuantitySelector from './QuantitySelector';
 
 interface ProductCardProps {
   product: Product;
@@ -15,6 +16,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, size = 'default' }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore((state) => state.addItem);
   const { toggleFavorite, isFavorite } = useFavoritesStore();
   const isInFavorites = isFavorite(product.id);
@@ -47,8 +49,8 @@ export default function ProductCard({ product, size = 'default' }: ProductCardPr
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    addItem({ ...product, quantity: 1 });
-    toast.success(`${product.name}をカートに追加しました`);
+    addItem({ ...product, quantity });
+    toast.success(`${product.name}を${quantity}個カートに追加しました`);
   };
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
@@ -148,8 +150,18 @@ export default function ProductCard({ product, size = 'default' }: ProductCardPr
         </div>
       </Link>
 
-      {/* カートに追加ボタン */}
-      <div className="px-4 pb-4">
+      {/* 数量選択とカートに追加ボタン */}
+      <div className="px-4 pb-4 space-y-2">
+        {product.stock && (
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-600">数量:</span>
+            <QuantitySelector
+              value={quantity}
+              onChange={setQuantity}
+              max={99}
+            />
+          </div>
+        )}
         <button
           onClick={handleAddToCart}
           disabled={!product.stock}

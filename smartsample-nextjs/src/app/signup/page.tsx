@@ -19,6 +19,8 @@ export default function SignupPage() {
     password: '',
     confirmPassword: '',
     phoneNumber: '',
+    dealerCode: '',
+    userCode: '',
     agreeToTerms: false,
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -90,6 +92,8 @@ export default function SignupPage() {
       password: 'DemoPass123!',
       confirmPassword: 'DemoPass123!',
       phoneNumber: '090-1234-5678',
+      dealerCode: 'D12345',
+      userCode: 'U98765',
       agreeToTerms: true,
     });
     setPasswordStrength(calculatePasswordStrength('DemoPass123!'));
@@ -156,6 +160,28 @@ export default function SignupPage() {
                   setFormData({ ...formData, phoneNumber: e.target.value })
                 }
                 placeholder="090-1234-5678"
+              />
+
+              <Input
+                label="販売店コード"
+                type="text"
+                value={formData.dealerCode}
+                onChange={(e) =>
+                  setFormData({ ...formData, dealerCode: e.target.value })
+                }
+                required
+                placeholder="D12345"
+              />
+
+              <Input
+                label="ユーザーコード"
+                type="text"
+                value={formData.userCode}
+                onChange={(e) =>
+                  setFormData({ ...formData, userCode: e.target.value })
+                }
+                required
+                placeholder="U98765"
               />
 
               <div>

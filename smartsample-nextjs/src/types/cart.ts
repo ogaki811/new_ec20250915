@@ -65,6 +65,9 @@ export interface CartState {
   hasLowStockItems: () => boolean;
   getOutOfStockItems: () => CartItem[];
   canCheckout: () => boolean;
+
+  // 開発用
+  addDemoData: () => void;
 }
 
 // お気に入りストア State

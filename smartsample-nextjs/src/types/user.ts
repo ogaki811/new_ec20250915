@@ -49,6 +49,8 @@ export interface SignupData {
   name: string;
   nameKana?: string;
   phoneNumber?: string;
+  dealerCode: string;      // 販売店コード（必須）
+  userCode: string;        // ユーザーコード（必須）
   agreeToTerms: boolean;
 }
 
