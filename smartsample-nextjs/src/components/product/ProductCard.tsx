@@ -10,13 +10,40 @@ import { Badge } from '@/components/ui';
 
 interface ProductCardProps {
   product: Product;
+  size?: 'compact' | 'default' | 'large';
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, size = 'default' }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
   const { toggleFavorite, isFavorite } = useFavoritesStore();
   const isInFavorites = isFavorite(product.id);
+
+  const sizeClasses = {
+    compact: {
+      card: 'text-sm',
+      image: 'aspect-square',
+      title: 'text-sm',
+      price: 'text-base',
+      button: 'py-1.5 text-sm',
+    },
+    default: {
+      card: '',
+      image: 'aspect-square',
+      title: 'text-sm',
+      price: 'text-xl',
+      button: 'py-2',
+    },
+    large: {
+      card: '',
+      image: 'aspect-[4/3]',
+      title: 'text-lg',
+      price: 'text-2xl',
+      button: 'py-3',
+    },
+  };
+
+  const classes = sizeClasses[size];
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -35,14 +62,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group relative bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <div className={`ec-product-card ec-product-card--${size} group relative bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 ${classes.card}`}>
       <Link href={`/products/${product.id}`}>
         {/* 商品画像 */}
-        <div className="relative aspect-square bg-gray-100">
+        <div className={`ec-product-card__image-container relative bg-gray-100 ${classes.image}`}>
           <img
             src={imageError ? '/img/placeholder.png' : product.image}
             alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="ec-product-card__image w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             onError={() => setImageError(true)}
           />
 
@@ -86,9 +113,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* 商品情報 */}
-        <div className="p-4">
+        <div className="ec-product-card__content p-4">
           <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
-          <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2">
+          <h3 className={`ec-product-card__title font-medium text-gray-900 line-clamp-2 mb-2 ${classes.title}`}>
             {product.name}
           </h3>
           <p className="text-xs text-gray-500 mb-2">品番: {product.code}</p>
@@ -113,8 +140,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {/* 価格 */}
-          <div className="flex items-center justify-between">
-            <p className="text-xl font-bold text-gray-900">
+          <div className="ec-product-card__price-container mb-3">
+            <p className={`ec-product-card__price font-bold text-gray-900 ${classes.price}`}>
               ¥{product.price.toLocaleString()}
             </p>
           </div>
@@ -126,7 +153,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <button
           onClick={handleAddToCart}
           disabled={!product.stock}
-          className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          className={`ec-product-card__cart-btn w-full px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors ${classes.button}`}
         >
           {product.stock ? 'カートに追加' : '在庫切れ'}
         </button>
