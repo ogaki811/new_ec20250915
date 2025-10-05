@@ -112,6 +112,171 @@ export default function OrdersPage() {
         address: '東京都千代田区千代田1-1-1',
         phone: '090-1234-5678'
       }
+    },
+    {
+      id: '20231228-004',
+      date: '2023年12月28日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '12,800',
+      subtotal: '12,800',
+      shippingFee: '0',
+      items: [
+        { name: 'キーボード メカニカル', code: 'KB5500', price: '12,800', quantity: 1, image: 'AW75542_l1.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
+    },
+    {
+      id: '20231220-005',
+      date: '2023年12月20日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '5,800',
+      subtotal: '5,800',
+      shippingFee: '0',
+      items: [
+        { name: 'デスクライト LED', code: 'DL3300', price: '5,800', quantity: 1, image: 'AW74957_l1.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
+    },
+    {
+      id: '20231215-006',
+      date: '2023年12月15日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '4,680',
+      subtotal: '4,680',
+      shippingFee: '0',
+      items: [
+        { name: 'ホワイトボード 90x60cm', code: 'WB9060', price: '3,500', quantity: 1, image: 'AW75003_l1.jpg' },
+        { name: 'ボールペン 10本セット', code: '8027341', price: '1,180', quantity: 1, image: '8027341_l1.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
+    },
+    {
+      id: '20231210-007',
+      date: '2023年12月10日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '2,980',
+      subtotal: '2,980',
+      shippingFee: '0',
+      items: [
+        { name: 'マウス ワイヤレス', code: 'MS2000', price: '2,980', quantity: 1, image: 'A0188601.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
+    },
+    {
+      id: '20231205-008',
+      date: '2023年12月5日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '18,900',
+      subtotal: '18,900',
+      shippingFee: '0',
+      items: [
+        { name: 'デスク 120x60cm', code: 'DK1260', price: '18,900', quantity: 1, image: 'A0190941.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
+    },
+    {
+      id: '20231201-009',
+      date: '2023年12月1日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '3,780',
+      subtotal: '3,780',
+      shippingFee: '0',
+      items: [
+        { name: 'ファイルボックス 5個セット', code: 'FB5SET', price: '1,800', quantity: 1, image: 'AH85168_l1.jpg' },
+        { name: 'USBハブ 4ポート', code: 'UH4000', price: '1,980', quantity: 1, image: 'A0192561.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
+    },
+    {
+      id: '20231125-010',
+      date: '2023年11月25日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '2,500',
+      subtotal: '2,500',
+      shippingFee: '0',
+      items: [
+        { name: 'デスクマット 透明', code: 'DM110BK', price: '2,500', quantity: 1, image: 'A0195891.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
+    },
+    {
+      id: '20231120-011',
+      date: '2023年11月20日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '6,000',
+      subtotal: '6,000',
+      shippingFee: '0',
+      items: [
+        { name: 'クッション オフィス用', code: 'CS5500', price: '2,800', quantity: 1, image: 'A0201691.jpg' },
+        { name: 'フットレスト', code: 'FR3300', price: '3,200', quantity: 1, image: 'A0209361.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
+    },
+    {
+      id: '20231115-012',
+      date: '2023年11月15日',
+      status: '配送完了',
+      statusVariant: 'success',
+      total: '1,200',
+      subtotal: '1,200',
+      shippingFee: '0',
+      items: [
+        { name: '電卓 12桁', code: 'CL1200', price: '1,200', quantity: 1, image: 'A0209481.jpg' }
+      ],
+      shippingAddress: {
+        name: '山田 太郎',
+        postalCode: '100-0001',
+        address: '東京都千代田区千代田1-1-1',
+        phone: '090-1234-5678'
+      }
     }
   ];
 
