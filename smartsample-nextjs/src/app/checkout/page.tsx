@@ -201,9 +201,6 @@ export default function CheckoutPage() {
       deliveryTime: formData.deliveryTime ? getDeliveryTimeLabel(formData.deliveryTime) : '指定なし',
     };
 
-    // 注文データをログに出力（開発用）
-    console.log('注文データ:', orderData);
-
     // カートをクリア
     clearCart();
 
@@ -212,6 +209,26 @@ export default function CheckoutPage() {
 
     // 注文完了ページへ遷移
     router.push('/order-complete');
+  };
+
+  // デモデータ入力
+  const handleDemoFill = () => {
+    setFormData({
+      lastName: '山田',
+      firstName: '太郎',
+      email: 'demo@example.com',
+      phone: '090-1234-5678',
+      postalCode: '100-0001',
+      prefecture: '東京都',
+      city: '千代田区',
+      address: '千代田1-1-1',
+      building: 'サンプルビル101',
+      paymentMethod: 'credit',
+      deliveryDate: '',
+      deliveryTime: 'morning',
+      usePoints: false,
+    });
+    toast.success('デモデータを入力しました');
   };
 
   // 金額計算
@@ -265,6 +282,20 @@ export default function CheckoutPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* フォームエリア */}
               <div className="ec-checkout__form-area lg:col-span-2">
+                {/* デモデータ入力ボタン */}
+                <div className="mb-6">
+                  <button
+                    type="button"
+                    onClick={handleDemoFill}
+                    className="ec-checkout__demo-btn w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                    デモデータを入力
+                  </button>
+                </div>
+
                 <form onSubmit={handleSubmit} className="ec-checkout__form space-y-8">
                   {/* お客様情報 */}
                   <CustomerInfoForm

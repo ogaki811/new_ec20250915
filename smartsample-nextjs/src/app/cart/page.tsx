@@ -13,6 +13,7 @@ import EmptyCart from '@/components/cart/EmptyCart';
 import ProductSlider from '@/components/home/ProductSlider';
 import useCartStore from '@/store/useCartStore';
 import { sampleProducts } from '@/data/sampleProducts';
+import { calculateShippingFee } from '@/utils';
 
 export default function CartPage() {
   const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; type: 'single' | 'bulk' | null; itemId: string | null }>({
@@ -39,7 +40,7 @@ export default function CartPage() {
   const selectedTotal = getSelectedTotal();
   const selectedItemCount = getSelectedItemCount();
   const allSelected = items.length > 0 && selectedItems.length === items.length;
-  const shippingFee = selectedTotal >= 3000 ? 0 : 500;
+  const shippingFee = calculateShippingFee(selectedTotal);
   const finalTotal = selectedTotal + shippingFee;
 
   // おすすめ商品の計算

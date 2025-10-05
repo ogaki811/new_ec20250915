@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import MyPageSidebar from '@/components/mypage/MyPageSidebar';
-import ProductGrid from '@/components/product/ProductGrid';
+import FavoriteItem from '@/components/favorites/FavoriteItem';
 import useFavoritesStore from '@/store/useFavoritesStore';
 
 export default function FavoritesPage() {
@@ -90,7 +90,12 @@ export default function FavoritesPage() {
                   </div>
                 ) : (
                   <>
-                    <ProductGrid products={favorites} />
+                    {/* お気に入り商品リスト */}
+                    <div className="ec-favorites__list space-y-4">
+                      {favorites.map((item) => (
+                        <FavoriteItem key={item.id} item={item} />
+                      ))}
+                    </div>
 
                     {/* お気に入りのヒント */}
                     <div className="ec-favorites__hint mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6">

@@ -13,9 +13,10 @@ import './ProductSlider.css';
 interface ProductSliderProps {
   products: Product[];
   size?: 'compact' | 'default';
+  hideTags?: boolean;
 }
 
-export default function ProductSlider({ products, size = 'compact' }: ProductSliderProps) {
+export default function ProductSlider({ products, size = 'compact', hideTags = false }: ProductSliderProps) {
   return (
     <div className="ec-product-slider product-slider relative">
       <Swiper
@@ -43,7 +44,7 @@ export default function ProductSlider({ products, size = 'compact' }: ProductSli
       >
         {products.map((product) => (
           <SwiperSlide key={product.id} className="ec-product-slider__slide">
-            <ProductCard product={product} size={size} />
+            <ProductCard product={product} size={size} hideTags={hideTags} />
           </SwiperSlide>
         ))}
       </Swiper>

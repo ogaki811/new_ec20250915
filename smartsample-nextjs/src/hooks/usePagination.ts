@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface UsePaginationReturn<T> {
   currentPage: number;
@@ -20,6 +21,7 @@ function usePagination<T>(
   items: T[],
   itemsPerPage: number = 12
 ): UsePaginationReturn<T> {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(items.length / itemsPerPage);
@@ -33,6 +35,10 @@ function usePagination<T>(
   const handlePageChange = (page: number): void => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      // ページトップにスクロール
+      window.scrollTo(0, 0);
+      // ページをリフレッシュ
+      router.refresh();
     }
   };
 

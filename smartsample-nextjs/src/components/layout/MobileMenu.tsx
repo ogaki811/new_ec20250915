@@ -37,8 +37,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const handleLogout = () => {
     logout();
     toast.success('ログアウトしました');
@@ -54,13 +52,17 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     <>
       {/* オーバーレイ */}
       <div
-        className="ec-mobile-menu__overlay fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+        className={`ec-mobile-menu__overlay fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* ドロワーメニュー */}
-      <div className="ec-mobile-menu fixed top-0 left-0 h-full w-80 bg-white shadow-xl z-50 overflow-y-auto lg:hidden transform transition-transform duration-300">
+      <div className={`ec-mobile-menu fixed top-0 left-0 h-full w-80 bg-white shadow-xl z-50 overflow-y-auto transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
         {/* ヘッダー */}
         <div className="ec-mobile-menu__header bg-gray-800 text-white p-4 flex items-center justify-between">
           {isAuthenticated ? (

@@ -28,6 +28,7 @@ export interface CartState {
   selectedItems: string[];
   recentlyDeleted: (CartItem & { deletedAt: number })[];
   appliedCoupon: Coupon | null;
+  lastAddedItem: CartItem | null;
 
   // Actions
   addItem: (product: CartItem) => void;

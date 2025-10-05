@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import SimpleHeader from '@/components/layout/SimpleHeader';
+import SimpleFooter from '@/components/layout/SimpleFooter';
 import { Input, Button } from '@/components/ui';
 
 export default function ForgotPasswordPage() {
@@ -24,7 +24,6 @@ export default function ForgotPasswordPage() {
       toast.success('パスワードリセット用のメールを送信しました');
     } catch (error) {
       toast.error('メールの送信に失敗しました');
-      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -33,7 +32,7 @@ export default function ForgotPasswordPage() {
   if (emailSent) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header />
+        <SimpleHeader />
 
         <main className="flex-grow bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md w-full">
@@ -91,14 +90,14 @@ export default function ForgotPasswordPage() {
           </div>
         </main>
 
-        <Footer />
+        <SimpleFooter />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <SimpleHeader />
 
       <main className="flex-grow bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
@@ -125,6 +124,7 @@ export default function ForgotPasswordPage() {
                 required
                 placeholder="example@example.com"
                 autoComplete="email"
+                fullWidth
               />
 
               <Button type="submit" fullWidth loading={isLoading}>
@@ -168,7 +168,7 @@ export default function ForgotPasswordPage() {
         </div>
       </main>
 
-      <Footer />
+      <SimpleFooter />
     </div>
   );
 }

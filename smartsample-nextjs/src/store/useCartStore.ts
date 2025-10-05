@@ -13,24 +13,30 @@ const useCartStore = create<CartState>()(
       selectedItems: [],
       recentlyDeleted: [],
       appliedCoupon: null,
+      lastAddedItem: null,
 
       // Actions
       addItem: (product) => {
         const { items, selectedItems } = get();
         const existingItem = items.find((item) => item.id === product.id);
 
+        const updatedProduct = { ...product, quantity: product.quantity || 1 };
+
         if (existingItem) {
+          const newQuantity = existingItem.quantity + (product.quantity || 1);
           set({
             items: items.map((item) =>
               item.id === product.id
-                ? { ...item, quantity: item.quantity + (product.quantity || 1) }
+                ? { ...item, quantity: newQuantity }
                 : item
             ),
+            lastAddedItem: { ...existingItem, quantity: product.quantity || 1 },
           });
         } else {
           set({
-            items: [...items, { ...product, quantity: product.quantity || 1 }],
+            items: [...items, updatedProduct],
             selectedItems: [...selectedItems, product.id],
+            lastAddedItem: updatedProduct,
           });
         }
       },

@@ -46,15 +46,14 @@ export default function OrdersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 5;
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/login');
-    }
-  }, [isAuthenticated, router]);
-
-  if (!isAuthenticated) {
-    return null;
-  }
+  // ページ変更ハンドラー
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // ページトップにスクロール
+    window.scrollTo(0, 0);
+    // ページをリフレッシュ
+    router.refresh();
+  };
 
   // デモ用の注文データ
   const allOrders: Order[] = [
@@ -304,6 +303,16 @@ export default function OrdersPage() {
     setIsModalOpen(true);
   };
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/login');
+    }
+  }, [isAuthenticated, router]);
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -457,7 +466,7 @@ export default function OrdersPage() {
                   <div className="ec-order-history__pagination mt-8 flex justify-center">
                     <nav className="ec-order-history__pagination-nav flex items-center space-x-2">
                       <button
-                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                         disabled={currentPage === 1}
                         className="ec-order-history__pagination-button px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
@@ -466,7 +475,7 @@ export default function OrdersPage() {
                       {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                         <button
                           key={page}
-                          onClick={() => setCurrentPage(page)}
+                          onClick={() => handlePageChange(page)}
                           className={`ec-order-history__pagination-button px-4 py-2 rounded-lg ${
                             currentPage === page
                               ? 'ec-order-history__pagination-button--active bg-blue-600 text-white'
@@ -477,7 +486,7 @@ export default function OrdersPage() {
                         </button>
                       ))}
                       <button
-                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                        onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                         disabled={currentPage === totalPages}
                         className="ec-order-history__pagination-button px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                       >

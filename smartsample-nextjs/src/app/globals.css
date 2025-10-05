@@ -48,6 +48,57 @@ body {
   }
 }
 
+/* カートホバーカードのバウンスアニメーション */
+@keyframes bounceIn {
+  0% {
+    transform: translateY(-10px) scale(0.95);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(5px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* カートバッジのポップアニメーション */
+@keyframes badgePop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-badge-pop {
+  animation: badgePop 0.4s ease-out;
+}
+
+/* カート追加通知のスライドバウンスアニメーション */
+@keyframes slideInBounce {
+  0% {
+    transform: translateY(-20px) scale(0.9);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(5px) scale(1.03);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-2px) scale(0.98);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
 /* トーストのアニメーション適用 */
 [data-sonner-toast],
 [data-toast] {

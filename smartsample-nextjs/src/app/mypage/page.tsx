@@ -8,7 +8,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import MyPageSidebar from '@/components/mypage/MyPageSidebar';
-import ProductCard from '@/components/product/ProductCard';
+import RecommendedItem from '@/components/product/RecommendedItem';
 import Badge from '@/components/ui/Badge';
 import useAuthStore from '@/store/useAuthStore';
 import { sampleProducts } from '@/data/sampleProducts';
@@ -181,9 +181,9 @@ export default function MyPage() {
                   <h3 className="ec-mypage__section-title text-xl font-semibold text-gray-900 mb-6">
                     おすすめ商品
                   </h3>
-                  <div className="ec-mypage__recommended-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="ec-mypage__recommended-list space-y-4">
                     {recommendedProducts.map((product) => (
-                      <ProductCard key={product.id} product={product} />
+                      <RecommendedItem key={product.id} product={product} />
                     ))}
                   </div>
                 </section>

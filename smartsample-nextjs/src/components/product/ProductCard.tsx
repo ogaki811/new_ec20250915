@@ -12,9 +12,10 @@ import QuantitySelector from './QuantitySelector';
 interface ProductCardProps {
   product: Product;
   size?: 'compact' | 'default' | 'large';
+  hideTags?: boolean;
 }
 
-export default function ProductCard({ product, size = 'default' }: ProductCardProps) {
+export default function ProductCard({ product, size = 'default', hideTags = false }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore((state) => state.addItem);
@@ -76,7 +77,7 @@ export default function ProductCard({ product, size = 'default' }: ProductCardPr
           />
 
           {/* タグ */}
-          {product.tags && product.tags.length > 0 && (
+          {!hideTags && product.tags && product.tags.length > 0 && (
             <div className="absolute top-2 left-2 flex flex-wrap gap-1">
               {product.tags.map((tag) => (
                 <Badge key={tag} variant={tag === 'セール' ? 'danger' : 'primary'} size="sm">

@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import SimpleHeader from '@/components/layout/SimpleHeader';
+import SimpleFooter from '@/components/layout/SimpleFooter';
 import { Input, Button } from '@/components/ui';
 import useAuthStore from '@/store/useAuthStore';
 
@@ -41,7 +41,6 @@ export default function LoginPage() {
       router.push('/mypage');
     } catch (error) {
       toast.error('ログインに失敗しました');
-      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +55,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <SimpleHeader />
 
       <main className="flex-grow bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
@@ -81,6 +80,7 @@ export default function LoginPage() {
                 required
                 placeholder="example@example.com"
                 autoComplete="email"
+                fullWidth
               />
 
               <div>
@@ -94,6 +94,7 @@ export default function LoginPage() {
                   required
                   placeholder="パスワードを入力"
                   autoComplete="current-password"
+                  fullWidth
                 />
                 <div className="flex items-center justify-between mt-2">
                   <label className="flex items-center cursor-pointer">
@@ -201,7 +202,7 @@ export default function LoginPage() {
         </div>
       </main>
 
-      <Footer />
+      <SimpleFooter />
     </div>
   );
 }

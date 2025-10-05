@@ -1,21 +1,66 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
 import useCartStore from '@/store/useCartStore';
 import useAuthStore from '@/store/useAuthStore';
+import { CartAddedNotification } from '@/components/cart';
 import MobileMenu from './MobileMenu';
+import { useScrollDirection } from '@/hooks/useScrollDirection';
 
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const [notificationTimeout, setNotificationTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [badgeAnimation, setBadgeAnimation] = useState(false);
+  const prevItemCountRef = useRef<number>(0);
+
+  // スクロール方向検知カスタムフック
+  const { isScrolled, showHeader } = useScrollDirection(100);
 
   const itemCount = useCartStore((state) => state.getItemCount());
+  const lastAddedItem = useCartStore((state) => state.lastAddedItem);
   const { isAuthenticated, logout } = useAuthStore();
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (notificationTimeout) {
+        clearTimeout(notificationTimeout);
+      }
+    };
+  }, [notificationTimeout]);
+
+  // カート追加時に通知表示
+  useEffect(() => {
+    if (itemCount > prevItemCountRef.current && prevItemCountRef.current > 0) {
+      // カートにアイテムが追加された
+      if (notificationTimeout) {
+        clearTimeout(notificationTimeout);
+      }
+
+      // 通知トーストを即座に表示
+      setIsNotificationVisible(true);
+
+      // バッジのアニメーション
+      setBadgeAnimation(true);
+      setTimeout(() => setBadgeAnimation(false), 400);
+
+      // 3.5秒後に通知を自動で閉じる
+      const timeout = setTimeout(() => {
+        setIsNotificationVisible(false);
+      }, 3500);
+      setNotificationTimeout(timeout);
+    }
+
+    // 現在のitemCountを保存
+    prevItemCountRef.current = itemCount;
+  }, [itemCount, notificationTimeout]);
 
   // URLのクエリパラメータから検索キーワードを取得して検索窓に反映
   useEffect(() => {
@@ -29,6 +74,7 @@ export default function Header() {
       }
     }
   }, [pathname]);
+
 
   const handleLogout = () => {
     logout();
@@ -44,9 +90,13 @@ export default function Header() {
   };
 
   return (
-    <header className="ec-header w-full">
-      {/* デスクトップヘッダー */}
-      <div className="ec-header--desktop hidden lg:block">
+    <>
+      {/* ヘッダー固定時のスペーサー */}
+      {isScrolled && <div className="hidden lg:block" style={{ height: '88px' }} />}
+
+      <header className="ec-header w-full">
+        {/* デスクトップヘッダー */}
+        <div className={`ec-header--desktop hidden lg:block transition-transform duration-300 ${isScrolled ? 'fixed top-0 left-0 right-0 z-50 shadow-md' : ''} ${isScrolled && !showHeader ? '-translate-y-full' : 'translate-y-0'}`}>
         {/* メインヘッダー */}
         <div className="bg-white">
           <div className="w-full px-4 sm:px-6 lg:px-8">
@@ -91,7 +141,7 @@ export default function Header() {
                       <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
                     {itemCount > 0 && (
-                      <span className="ec-header__badge absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{itemCount}</span>
+                      <span className={`ec-header__badge absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ${badgeAnimation ? 'animate-badge-pop' : ''}`}>{itemCount}</span>
                     )}
                   </div>
                   <span className="text-xs mt-1">カート</span>
@@ -132,20 +182,33 @@ export default function Header() {
         </div>
 
         {/* ナビゲーションメニュー */}
-        <nav className="ec-header__nav bg-gray-800 text-white">
-          <div className="w-full px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-12">
-              <div className="flex items-center space-x-8">
-                <Link href="/" className="hover:text-blue-400 transition-colors">ホーム</Link>
-                <Link href="/products" className="hover:text-blue-400 transition-colors">商品一覧</Link>
-                <Link href="/category/office" className="hover:text-blue-400 transition-colors">オフィス用品</Link>
-                <Link href="/category/stationery" className="hover:text-blue-400 transition-colors">文具</Link>
-                <Link href="/category/electronics" className="hover:text-blue-400 transition-colors">電化製品</Link>
-                <Link href="/category/furniture" className="hover:text-blue-400 transition-colors">家具</Link>
+        {!isScrolled && (
+          <nav className="ec-header__nav bg-gray-100 text-gray-700">
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-12">
+                <div className="flex items-center space-x-8">
+                  <button
+                    onClick={() => setIsMobileMenuOpen(true)}
+                    className="flex items-center gap-2 hover:text-blue-600 transition-colors font-medium"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="3" y1="12" x2="21" y2="12"></line>
+                      <line x1="3" y1="6" x2="21" y2="6"></line>
+                      <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    メニュー
+                  </button>
+                  <Link href="/" className="hover:text-blue-600 transition-colors">ホーム</Link>
+                  <Link href="/products" className="hover:text-blue-600 transition-colors">商品一覧</Link>
+                  <Link href="/category/office" className="hover:text-blue-600 transition-colors">オフィス用品</Link>
+                  <Link href="/category/stationery" className="hover:text-blue-600 transition-colors">文具</Link>
+                  <Link href="/category/electronics" className="hover:text-blue-600 transition-colors">電化製品</Link>
+                  <Link href="/category/furniture" className="hover:text-blue-600 transition-colors">家具</Link>
+                </div>
               </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        )}
       </div>
 
       {/* モバイルメニュー */}
@@ -191,6 +254,13 @@ export default function Header() {
           </form>
         </div>
       </div>
-    </header>
+      </header>
+
+      {/* カート追加通知トースト */}
+      <CartAddedNotification
+        item={lastAddedItem}
+        isVisible={isNotificationVisible}
+      />
+    </>
   );
 }

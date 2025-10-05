@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import SimpleHeader from '@/components/layout/SimpleHeader';
+import SimpleFooter from '@/components/layout/SimpleFooter';
 import { Input, Button } from '@/components/ui';
 import useAuthStore from '@/store/useAuthStore';
 import type { SignupData } from '@/types';
@@ -44,6 +44,16 @@ export default function SignupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.dealerCode || formData.dealerCode.trim() === '') {
+      toast.error('販売店コードを入力してください');
+      return;
+    }
+
+    if (!formData.userCode || formData.userCode.trim() === '') {
+      toast.error('ユーザーコードを入力してください');
+      return;
+    }
+
     if (!formData.agreeToTerms) {
       toast.error('利用規約に同意してください');
       return;
@@ -79,7 +89,6 @@ export default function SignupPage() {
       router.push('/mypage');
     } catch (error) {
       toast.error('アカウント作成に失敗しました');
-      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -113,7 +122,7 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <SimpleHeader />
 
       <main className="flex-grow bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto">
@@ -138,6 +147,7 @@ export default function SignupPage() {
                 }
                 required
                 placeholder="山田 太郎"
+                fullWidth
               />
 
               <Input
@@ -150,6 +160,7 @@ export default function SignupPage() {
                 required
                 placeholder="example@example.com"
                 autoComplete="email"
+                fullWidth
               />
 
               <Input
@@ -160,6 +171,7 @@ export default function SignupPage() {
                   setFormData({ ...formData, phoneNumber: e.target.value })
                 }
                 placeholder="090-1234-5678"
+                fullWidth
               />
 
               <Input
@@ -171,6 +183,7 @@ export default function SignupPage() {
                 }
                 required
                 placeholder="D12345"
+                fullWidth
               />
 
               <Input
@@ -182,6 +195,7 @@ export default function SignupPage() {
                 }
                 required
                 placeholder="U98765"
+                fullWidth
               />
 
               <div>
@@ -193,6 +207,7 @@ export default function SignupPage() {
                   required
                   placeholder="8文字以上で入力"
                   autoComplete="new-password"
+                  fullWidth
                 />
                 {formData.password && (
                   <div className="mt-2">
@@ -233,6 +248,7 @@ export default function SignupPage() {
                 required
                 placeholder="パスワードを再入力"
                 autoComplete="new-password"
+                fullWidth
               />
 
               {formData.password &&
@@ -357,7 +373,7 @@ export default function SignupPage() {
         </div>
       </main>
 
-      <Footer />
+      <SimpleFooter />
     </div>
   );
 }
