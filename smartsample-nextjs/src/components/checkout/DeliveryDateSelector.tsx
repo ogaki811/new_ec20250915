@@ -1,6 +1,7 @@
 'use client';
 
-import { Select, Icon } from '@/components/ui';
+import Select from '@/components/ui/Select';
+import Icon from '@/components/ui/Icon';
 
 interface DeliveryDateSelectorProps {
   deliveryDate: string;

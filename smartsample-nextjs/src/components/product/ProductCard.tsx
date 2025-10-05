@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import type { Product } from '@/types';
 import useCartStore from '@/store/useCartStore';
 import useFavoritesStore from '@/store/useFavoritesStore';
-import { Badge } from '@/components/ui';
+import Badge from '@/components/ui/Badge';
 import QuantitySelector from './QuantitySelector';
 
 interface ProductCardProps {

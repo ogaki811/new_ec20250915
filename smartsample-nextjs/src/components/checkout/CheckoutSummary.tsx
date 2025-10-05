@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/components/ui';
+import Button from '@/components/ui/Button';
 import type { CartItem } from '@/types';
 
 interface CheckoutSummaryProps {

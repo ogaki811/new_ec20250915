@@ -1,6 +1,6 @@
 'use client';
 
-import { Input } from '@/components/ui';
+import Input from '@/components/ui/Input';
 
 interface CustomerInfoFormProps {
   formData: {

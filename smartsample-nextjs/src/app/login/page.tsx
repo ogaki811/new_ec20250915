@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import SimpleHeader from '@/components/layout/SimpleHeader';
 import SimpleFooter from '@/components/layout/SimpleFooter';
-import { Input, Button } from '@/components/ui';
+import Input from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
 import useAuthStore from '@/store/useAuthStore';
 
 export default function LoginPage() {

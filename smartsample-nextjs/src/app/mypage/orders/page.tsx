@@ -7,7 +7,7 @@ import Footer from '@/components/layout/Footer';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import MyPageSidebar from '@/components/mypage/MyPageSidebar';
 import Badge from '@/components/ui/Badge';
-import { Button } from '@/components/ui';
+import Button from '@/components/ui/Button';
 import OrderDetailModal from '@/components/order/OrderDetailModal';
 import useAuthStore from '@/store/useAuthStore';
 

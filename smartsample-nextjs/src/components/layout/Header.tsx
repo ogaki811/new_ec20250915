@@ -6,7 +6,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
 import useCartStore from '@/store/useCartStore';
 import useAuthStore from '@/store/useAuthStore';
-import { CartAddedNotification } from '@/components/cart';
+import CartAddedNotification from '@/components/cart/CartAddedNotification';
 import MobileMenu from './MobileMenu';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 

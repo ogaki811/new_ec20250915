@@ -8,7 +8,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import StepIndicator from '@/components/common/StepIndicator';
-import { Checkbox } from '@/components/ui';
+import Checkbox from '@/components/ui/Checkbox';
 import CustomerInfoForm from '@/components/checkout/CustomerInfoForm';
 import ShippingInfoForm from '@/components/checkout/ShippingInfoForm';
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector';

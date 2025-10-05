@@ -1,6 +1,10 @@
 'use client';
 
-import { Input, Select, Button, Icon, Loading } from '@/components/ui';
+import Input from '@/components/ui/Input';
+import Select from '@/components/ui/Select';
+import Button from '@/components/ui/Button';
+import Icon from '@/components/ui/Icon';
+import Loading from '@/components/ui/Loading';
 import prefectures from '@/data/prefectures';
 
 interface ShippingInfoFormProps {

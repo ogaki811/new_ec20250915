@@ -6,7 +6,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { Input, Button } from '@/components/ui';
+import Input from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
 
 function ResetPasswordContent() {
   const router = useRouter();
