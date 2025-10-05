@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import toast from 'react-hot-toast';
+import type { CartItem as CartItemType } from '@/types';
 import Header from '@/components/organisms/Header';
 import Footer from '@/components/organisms/Footer';
 import Breadcrumb from '@/components/molecules/Breadcrumb';
@@ -93,7 +94,7 @@ export default function CartPage() {
     setDeleteModal({ isOpen: false, type: null, itemId: null });
   };
 
-  const handleRestoreItem = (item: any) => {
+  const handleRestoreItem = (item: CartItemType) => {
     restoreItem(item);
     toast.success(`${item.name}を復元しました`);
   };

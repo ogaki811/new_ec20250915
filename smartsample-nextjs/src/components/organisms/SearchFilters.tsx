@@ -3,15 +3,17 @@
 import { useState } from 'react';
 import Checkbox from '@/components/atoms/Checkbox';
 
+interface FilterOptions {
+  categories: string[];
+  brands: string[];
+  priceRange: [number, number];
+  inStock: boolean;
+  minRating: number;
+}
+
 interface SearchFiltersProps {
-  filters: {
-    categories: string[];
-    brands: string[];
-    priceRange: [number, number];
-    inStock: boolean;
-    minRating: number;
-  };
-  onFilterChange: (filters: any) => void;
+  filters: FilterOptions;
+  onFilterChange: (filters: FilterOptions) => void;
   categories: string[];
   brands: string[];
 }
