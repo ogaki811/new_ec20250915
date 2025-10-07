@@ -1,394 +1,587 @@
-# Storybookコンポーネント優先度マトリクス
+# Storybookコンポーネント優先度マトリクス（アトミックデザインベース）
 
 **プロジェクト**: smartsample Next.js ECサイト
 **作成日**: 2025年10月7日
-**更新日**: 2025年10月7日
+**更新日**: 2025年10月7日（アトミックデザイン対応）
 
 ---
 
-## 優先度判定基準
+## 優先度判定基準（アトミックデザイン準拠）
 
-コンポーネントの実装優先度を以下の4つの軸で評価：
+コンポーネントの実装優先度を**アトミックデザイン階層**と**依存関係**を軸に評価：
 
-| 評価軸 | 配点 | 説明 |
-|--------|------|------|
-| **使用頻度** | 0-5点 | 全ページで使用=5、特定ページのみ=1 |
-| **再利用性** | 0-5点 | 高度に再利用可能=5、特定用途のみ=1 |
-| **複雑度** | 0-5点 | シンプル=5、複雑=1（早く着手すべき） |
-| **ビジネス価値** | 0-5点 | コア機能=5、補助機能=1 |
+### 評価基準
 
-**合計点**: 20点満点
-**優先度分類**:
-- **P0（最優先）**: 18-20点
-- **P1（高）**: 14-17点
-- **P2（中）**: 10-13点
-- **P3（低）**: 6-9点
-- **P4（将来）**: 0-5点
+| 評価軸 | 説明 | 重要度 |
+|--------|------|--------|
+| **階層** | Atoms > Molecules > Organisms（下位層優先） | 最重要 |
+| **依存関係** | 依存なし > 依存あり（依存が少ない順） | 重要 |
+| **使用頻度** | 全ページで使用 > 特定ページのみ | 中 |
+| **複雑度** | シンプル > 複雑（学習コスト考慮） | 中 |
 
----
+### 実装順序の原則
 
-## UIコンポーネント（11個）
+```
+Phase 2: Atoms（依存なし）
+  ↓ すべてのAtoms完成後
+Phase 3: Molecules（Atomsに依存）
+  ↓ すべてのMolecules完成後
+Phase 4: Organisms（Atoms + Molecules + Storeに依存）
+```
 
-### P0: 最優先（18-20点）
-
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **Button** | 5 | 5 | 5 | 5 | **20** | 0.25日 |
-| **Input** | 5 | 5 | 4 | 5 | **19** | 0.25日 |
-
-#### Button
-- **バリエーション**: 5 variants × 3 sizes = 15パターン
-- **使用箇所**: 全ページ（フォーム、CTA、ナビゲーション）
-- **Story例**:
-  - Primary/Secondary/Outline/Ghost/Danger
-  - Small/Medium/Large
-  - Loading状態
-  - Disabled状態
-  - Full Width
-
-#### Input
-- **バリエーション**: 通常/エラー/ヘルパーテキスト
-- **使用箇所**: ログイン、サインアップ、検索、チェックアウト
-- **Story例**:
-  - Default
-  - With Label
-  - With Error
-  - With Helper Text
-  - Disabled
-  - Full Width
+**重要**: 下位層の完成なしに上位層は着手しない
 
 ---
 
-### P1: 高（14-17点）
+## Phase 2: Atoms（原子） - 11コンポーネント
 
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **Card** | 5 | 5 | 4 | 3 | **17** | 0.25日 |
-| **Badge** | 4 | 5 | 5 | 3 | **17** | 0.25日 |
-| **Checkbox** | 4 | 5 | 4 | 3 | **16** | 0.25日 |
-| **Radio** | 4 | 5 | 4 | 3 | **16** | 0.25日 |
-| **Select** | 4 | 4 | 3 | 3 | **14** | 0.25日 |
+### 特徴
+- **依存関係**: なし（完全に独立）
+- **再利用性**: 最大
+- **実装難易度**: 低～中
+- **合計工数**: 2.5日
 
-#### Card
-- **使用箇所**: 商品カード、情報パネル、ダッシュボード
-- **Story例**:
-  - Default
-  - With Header
-  - With Footer
-  - Hover Effect
-  - Shadow Variants
+### P0: 最優先（Day 1-2）
 
-#### Badge
-- **バリエーション**: 4 variants × 2 sizes = 8パターン
-- **使用箇所**: 商品タグ、ステータス表示、通知
-- **Story例**:
-  - Primary/Success/Warning/Danger
-  - Small/Medium
-  - Rounded/Square
+| # | コンポーネント | バリエーション数 | 使用箇所 | 実装工数 | 理由 |
+|---|--------------|----------------|---------|---------|------|
+| 1 | **Button** | 15+ (5 variants × 3 sizes) | 全ページ | 0.25日 | 全システムの基盤、最も使用頻度が高い |
+| 2 | **Input** | 8+ (通常/エラー/ヘルパー等) | フォーム全般 | 0.25日 | フォームの基盤、認証・検索・チェックアウト |
 
-#### Checkbox
-- **使用箇所**: フォーム、フィルター、利用規約同意
-- **Story例**:
-  - Default
-  - Checked
-  - With Label
-  - With Error
-  - Disabled
+#### Button実装詳細
+```typescript
+// 5 variants: primary, secondary, outline, ghost, danger
+// 3 sizes: sm, md, lg
+// 状態: default, hover, active, disabled, loading
+// オプション: fullWidth
+// 合計Story数: 15+
+```
 
-#### Radio
-- **使用箇所**: 支払い方法選択、配送方法選択
-- **Story例**:
-  - Default
-  - Selected
-  - Group
-  - With Label
-  - Disabled
-
-#### Select
-- **使用箇所**: 並び替え、カテゴリー選択、フォーム
-- **Story例**:
-  - Default
-  - With Options
-  - With Error
-  - Disabled
-  - Multiple
+#### Input実装詳細
+```typescript
+// バリエーション:
+// - 通常（label有/無）
+// - エラー状態（error message表示）
+// - ヘルパーテキスト付き
+// - Disabled状態
+// - Full Width
+// 合計Story数: 8+
+```
 
 ---
 
-### P2: 中（10-13点）
+### P1: 高優先度（Day 3-4）
 
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **Textarea** | 3 | 4 | 4 | 2 | **13** | 0.25日 |
-| **Icon** | 4 | 3 | 4 | 2 | **13** | 0.25日 |
-
-#### Textarea
-- **使用箇所**: お問い合わせフォーム、レビュー投稿
-- **Story例**:
-  - Default
-  - With Label
-  - With Error
-  - Resizable
-  - Character Count
-
-#### Icon
-- **使用箇所**: ボタン、ナビゲーション、ステータス
-- **Story例**:
-  - All Icons Showcase
-  - Size Variants
-  - Color Variants
-  - Interactive Icons
+| # | コンポーネント | バリエーション数 | 使用箇所 | 実装工数 | 理由 |
+|---|--------------|----------------|---------|---------|------|
+| 3 | **Card** | 6+ (variant, padding) | 商品カード、情報パネル | 0.25日 | コンテナとして広く使用 |
+| 4 | **Badge** | 8+ (4 variants × 2 sizes) | 商品タグ、ステータス | 0.25日 | 視覚的フィードバック |
+| 5 | **Checkbox** | 6+ (通常/checked/error) | フォーム、フィルター | 0.25日 | フォーム必須要素 |
+| 6 | **Radio** | 6+ (通常/selected/group) | 支払い方法、配送方法 | 0.25日 | フォーム必須要素 |
+| 7 | **Select** | 6+ (通常/error/multiple) | 並び替え、カテゴリー選択 | 0.25日 | ドロップダウン選択 |
 
 ---
 
-### P3: 低（6-9点）
+### P2: 中優先度（Day 5）
 
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **Divider** | 3 | 3 | 5 | 1 | **12** | 0.1日 |
-| **Loading** | 3 | 3 | 4 | 1 | **11** | 0.1日 |
-
-#### Divider
-- **使用箇所**: セクション区切り、リスト区切り
-- **Story例**:
-  - Horizontal
-  - Vertical
-  - With Text
-  - Dashed/Solid
-
-#### Loading
-- **使用箇所**: データ読み込み中、ページ遷移
-- **Story例**:
-  - Spinner
-  - With Text
-  - Size Variants
-  - Full Page Overlay
+| # | コンポーネント | バリエーション数 | 使用箇所 | 実装工数 | 理由 |
+|---|--------------|----------------|---------|---------|------|
+| 8 | **Textarea** | 6+ (通常/error/resizable) | お問い合わせ、レビュー | 0.25日 | 長文入力 |
+| 9 | **Icon** | 20+ (アイコン一覧) | ボタン、ナビゲーション | 0.25日 | UI装飾 |
 
 ---
 
-## 機能コンポーネント（13個 - product/）
+### P3: 低優先度（Day 5）
 
-### P0: 最優先（18-20点）
-
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **ProductCard** | 5 | 5 | 3 | 5 | **18** | 1日 |
-
-#### ProductCard
-- **バリエーション**: 3 sizes × 複数状態
-- **依存**: Zustand (useCartStore, useFavoritesStore)
-- **使用箇所**: トップページ、商品一覧、検索結果、関連商品
-- **Story例**:
-  - Compact Size
-  - Default Size
-  - Large Size
-  - With Tags
-  - Out of Stock
-  - In Favorites
-  - Loading State
-
-**特記事項**:
-- Zustandモックが必須
-- Toastモックが必要
-- 画像エラーハンドリング確認
+| # | コンポーネント | バリエーション数 | 使用箇所 | 実装工数 | 理由 |
+|---|--------------|----------------|---------|---------|------|
+| 10 | **Divider** | 4+ (horizontal/vertical) | セクション区切り | 0.1日 | シンプルな区切り線 |
+| 11 | **Loading** | 4+ (spinner/size) | データ読み込み中 | 0.1日 | ローディング表示 |
 
 ---
 
-### P1: 高（14-17点）
+### Atoms完了チェックリスト
 
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **QuantitySelector** | 4 | 5 | 4 | 3 | **16** | 0.5日 |
-| **ProductImageGallery** | 3 | 4 | 3 | 4 | **14** | 0.5日 |
-
----
-
-### P2: 中（10-13点）
-
-その他のproductコンポーネント（ProductFilter, ProductSort等）
-
----
-
-## レイアウトコンポーネント（5個）
-
-### P1: 高（14-17点）
-
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **Header** | 5 | 5 | 2 | 4 | **16** | 1日 |
-| **Footer** | 5 | 5 | 3 | 2 | **15** | 0.5日 |
-
-#### Header
-- **複雑度**: 高（検索、カート、メニュー）
-- **依存**: Zustand (useCartStore)
-- **Story例**:
-  - Desktop View
-  - Mobile View
-  - With Search Open
-  - With User Logged In
-  - With Cart Items
-
-#### Footer
-- **Story例**:
-  - Desktop (4カラム)
-  - Mobile (アコーディオン)
-
----
-
-### P2: 中（10-13点）
-
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **MobileMenu** | 4 | 3 | 3 | 3 | **13** | 0.5日 |
-| **SimpleHeader** | 3 | 3 | 4 | 2 | **12** | 0.25日 |
-| **SimpleFooter** | 3 | 3 | 4 | 2 | **12** | 0.25日 |
-
----
-
-## 共通コンポーネント（4個 - common/）
-
-### P1: 高（14-17点）
-
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **Breadcrumb** | 4 | 5 | 4 | 3 | **16** | 0.5日 |
-| **Pagination** | 4 | 5 | 4 | 3 | **16** | 0.5日 |
-
-#### Breadcrumb
-- **使用箇所**: 全詳細ページ
-- **Story例**:
-  - 2 Levels
-  - 3 Levels
-  - 4+ Levels
-  - With Icons
-
-#### Pagination
-- **使用箇所**: 商品一覧、検索結果、注文履歴
-- **Story例**:
-  - First Page
-  - Middle Page
-  - Last Page
-  - Many Pages
-
----
-
-## カート/チェックアウトコンポーネント
-
-### P1: 高（14-17点）
-
-| コンポーネント | 使用頻度 | 再利用性 | 複雑度 | ビジネス価値 | 合計 | 実装工数 |
-|--------------|---------|---------|--------|-------------|------|----------|
-| **CartItem** | 3 | 3 | 3 | 5 | **14** | 0.5日 |
-
----
-
-## 実装スケジュール（優先度ベース）
-
-### Week 1: Phase 1 - セットアップ + P0 UIコンポーネント
-
-**Day 1-2**: 環境構築
-- Storybookインストール
-- Tailwind/Next.js統合
-- モックProvider作成
-
-**Day 3**: P0 UIコンポーネント
-- Button (0.25日)
-- Input (0.25日)
-
-**Day 4-5**: 動作確認とドキュメント整備
-
----
-
-### Week 2: Phase 2 - P1 UIコンポーネント
-
-**Day 1-3**:
-- Card, Badge, Checkbox, Radio, Select (各0.25日 = 1.25日)
-
-**Day 4-5**:
-- Textarea, Icon (各0.25日)
-- 残りのP3コンポーネント（Divider, Loading）
-
----
-
-### Week 3: Phase 3a - P0/P1 機能コンポーネント
-
-**Day 1-2**:
-- ProductCard (1日) ← 最重要
-
-**Day 3-4**:
-- QuantitySelector (0.5日)
-- ProductImageGallery (0.5日)
-- Breadcrumb (0.5日)
-
-**Day 5**:
-- Pagination (0.5日)
-
----
-
-### Week 4: Phase 3b - レイアウトコンポーネント
-
-**Day 1-2**:
-- Header (1日)
-
-**Day 3**:
-- Footer (0.5日)
-
-**Day 4-5**:
-- MobileMenu (0.5日)
-- CartItem (0.5日)
-
----
-
-### Week 5: Phase 4 - 高度な機能
-
-**Day 1-2**: アクセシビリティ対応
-**Day 3**: ドキュメント整備
-**Day 4**: ビルド・デプロイ
-**Day 5**: 運用ルール策定
-
----
-
-## 合計工数見積もり
-
-| カテゴリ | コンポーネント数 | 合計工数 |
-|---------|----------------|---------|
-| **UIコンポーネント** | 11個 | 2.5日 |
-| **機能コンポーネント** | 5個（優先） | 3.5日 |
-| **レイアウト** | 3個（優先） | 2日 |
-| **共通** | 2個 | 1日 |
-| **環境構築・その他** | - | 5日 |
-| **合計** | 21個 | **14日（約3週間）** |
-
----
-
-## 進捗トラッキング
-
-### Phase 1完了チェックリスト
-
-- [ ] Button Story完成
-- [ ] Input Story完成
-- [ ] Storybookが正常起動
-- [ ] Tailwind CSSスタイル適用確認
-
-### Phase 2完了チェックリスト
-
-- [ ] 11個のUIコンポーネントStory完成
-- [ ] 全バリエーションのテスト完了
-- [ ] インタラクティブControls動作確認
-
-### Phase 3完了チェックリスト
-
-- [ ] ProductCard Story完成
-- [ ] Zustandモック動作確認
-- [ ] レスポンシブ表示確認
-
-### Phase 4完了チェックリスト
-
+- [ ] 11個すべてのAtoms Storyが完成
+- [ ] 各Atomsで全バリエーション（variant, size等）のStoryが作成（合計70+ Stories）
+- [ ] Interactive Controls（argTypes）が動作
+- [ ] autodocs が自動生成
 - [ ] a11yアドオンでスコア90点以上
-- [ ] Storybook静的サイト公開
-- [ ] 運用ガイドライン作成
+- [ ] すべてのAtomsでレスポンシブ表示確認
+
+**Phase 3への進行条件**: 上記すべてチェック完了
 
 ---
 
-**文書バージョン**: 1.0
+## Phase 3: Molecules（分子） - 4コンポーネント
+
+### 特徴
+- **依存関係**: Atomsのみ
+- **構成**: 2-3個のAtomsの組み合わせ
+- **実装難易度**: 中
+- **合計工数**: 2日
+
+### P0: 最優先（Day 1-2）
+
+| # | コンポーネント | 構成 | 依存Atoms | 使用箇所 | 実装工数 |
+|---|--------------|------|----------|---------|---------|
+| 1 | **Breadcrumb** | Link + Text | なし（Next.js） | 全詳細ページ | 0.5日 |
+| 2 | **Pagination** | Button + Text | Button | 商品一覧、検索結果 | 0.5日 |
+
+#### Breadcrumb実装詳細
+```typescript
+// バリエーション:
+// - 2階層 (ホーム > 商品一覧)
+// - 3階層 (ホーム > 商品一覧 > カテゴリー)
+// - 4階層以上
+// - アイコン付き
+// 合計Story数: 6+
+```
+
+#### Pagination実装詳細
+```typescript
+// バリエーション:
+// - 最初のページ (← disabled, 1, 2, 3, →)
+// - 中間ページ (←, ..., 4, 5, 6, ..., →)
+// - 最後のページ (←, 8, 9, 10, → disabled)
+// - 多ページ (1...5...10...20)
+// 合計Story数: 6+
+```
+
+---
+
+### P1: 高優先度（Day 3-4）
+
+| # | コンポーネント | 構成 | 依存Atoms | 使用箇所 | 実装工数 |
+|---|--------------|------|----------|---------|---------|
+| 3 | **StepIndicator** | Badge + Line + Text | Badge | チェックアウトフロー | 0.5日 |
+| 4 | **Modal** | Card + Button + Overlay | Card, Button | 確認ダイアログ | 0.5日 |
+
+#### StepIndicator実装詳細
+```typescript
+// バリエーション:
+// - 3ステップ (カート > 情報入力 > 確認)
+// - 4ステップ
+// - 現在ステップ強調
+// - 完了ステップ表示
+// 合計Story数: 6+
+```
+
+#### Modal実装詳細
+```typescript
+// バリエーション:
+// - シンプルモーダル（タイトル + 本文 + ボタン）
+// - 確認モーダル（OK/キャンセル）
+// - フォームモーダル
+// - フルスクリーンモーダル
+// 合計Story数: 6+
+```
+
+---
+
+### Molecules完了チェックリスト
+
+- [ ] 4個すべてのMolecules Storyが完成
+- [ ] Atomsとの組み合わせが正しく動作
+- [ ] Next.jsのLinkコンポーネントがモックで動作
+- [ ] レスポンシブ表示確認（viewport切替）
+- [ ] 合計24+ Storiesが作成
+- [ ] a11yアドオンでスコア85点以上
+
+**Phase 4への進行条件**: 上記すべてチェック完了
+
+---
+
+## Phase 4: Organisms（有機体） - 8-10コンポーネント
+
+### 特徴
+- **依存関係**: Atoms + Molecules + 状態管理（Zustand）
+- **構成**: 4個以上のコンポーネント + ビジネスロジック
+- **実装難易度**: 高
+- **合計工数**: 5日
+
+---
+
+### Week 4: 最優先Organisms
+
+#### P0: 最優先（Day 1-2）
+
+| # | コンポーネント | 構成 | 依存 | Storeモック | 使用箇所 | 実装工数 |
+|---|--------------|------|------|-----------|---------|---------|
+| 1 | **ProductCard** | Badge + Button + QuantitySelector + Image | Atoms + Molecules | useCartStore, useFavoritesStore | トップ、一覧、検索 | 1日 |
+
+##### ProductCard実装詳細
+```typescript
+// 構成要素:
+// - 商品画像 (Image)
+// - バッジ (Badge × 複数: 新着、セール、おすすめ)
+// - お気に入りボタン (Button + Icon)
+// - ブランド名 (Text)
+// - 商品名 (Text)
+// - 品番 (Text)
+// - 評価 (Icon × 5)
+// - 価格 (Text)
+// - 数量選択 (QuantitySelector)
+// - カートに追加ボタン (Button)
+
+// 状態管理:
+// - useCartStore: カート追加機能
+// - useFavoritesStore: お気に入り機能
+
+// バリエーション:
+// - 3サイズ (compact, default, large)
+// - 在庫あり/なし
+// - タグあり/なし
+// - お気に入り済み/未登録
+// - ローディング状態
+// 合計Story数: 10+
+```
+
+---
+
+#### P1: 高優先度（Day 3）
+
+| # | コンポーネント | 構成 | 依存 | Storeモック | 実装工数 |
+|---|--------------|------|------|-----------|---------|
+| 2 | **QuantitySelector** | Button × 2 + Input | Button, Input | なし | 0.5日 |
+| 3 | **SearchBar** | Input + Button + Icon | Input, Button, Icon | なし | 0.5日 |
+
+---
+
+#### P0: 最複雑（Day 4-5）
+
+| # | コンポーネント | 構成 | 依存 | Storeモック | 使用箇所 | 実装工数 |
+|---|--------------|------|------|-----------|---------|---------|
+| 4 | **Header** | Logo + SearchBar + Navigation + Cart + UserMenu | Molecules + Atoms | useCartStore | 全ページ | 1日 |
+
+##### Header実装詳細
+```typescript
+// 構成要素:
+// - ロゴ (Image + Link)
+// - 検索バー (SearchBar)
+// - ナビゲーション (Links)
+// - カートアイコン + バッジ (Icon + Badge)
+// - ユーザーメニュー (Dropdown)
+
+// 状態管理:
+// - useCartStore: カート内商品数表示
+
+// バリエーション:
+// - デスクトップ表示
+// - モバイル表示（ハンバーガーメニュー）
+// - カート0件/複数件
+// - ログイン済み/未ログイン
+// - 検索バー展開/折りたたみ
+// 合計Story数: 8+
+```
+
+---
+
+### Week 5: その他のOrganisms
+
+#### P1: レイアウトOrganisms（Day 1-2）
+
+| # | コンポーネント | 構成 | 依存 | Storeモック | 実装工数 |
+|---|--------------|------|------|-----------|---------|
+| 5 | **Footer** | Links + Text + SNS Icons | Atoms | なし | 0.5日 |
+| 6 | **MobileMenu** | Links + Icons + Accordion | Atoms + Molecules | なし | 0.5日 |
+
+---
+
+#### P2: 機能Organisms（Day 3-4）
+
+| # | コンポーネント | 構成 | 依存 | Storeモック | 実装工数 |
+|---|--------------|------|------|-----------|---------|
+| 7 | **ProductImageGallery** | Image + Thumbnails + Navigation | Atoms | なし | 0.5日 |
+| 8 | **ProductGrid** | ProductCard × n + Pagination | Molecules + Organisms | なし | 0.5日 |
+| 9 | **CartItem** | Image + Text + QuantitySelector + Button | Atoms + Molecules | useCartStore | 0.5日 |
+| 10 | **CheckoutForm** | Input × n + Select + Checkbox + Button | Atoms + Molecules | なし | 0.5日 |
+
+---
+
+### Organisms完了チェックリスト
+
+- [ ] ProductCard Storyが完成（10+ バリエーション）
+- [ ] Header Storyが完成（8+ バリエーション）
+- [ ] Zustand StoreのモックProviderが動作
+- [ ] 合計8-10個のOrganisms Storyが完成
+- [ ] 状態管理依存コンポーネントがStorybook上で正常動作
+- [ ] レスポンシブ表示確認（mobile/tablet/desktop）
+- [ ] インタラクション記録（Interactions addon）
+- [ ] a11yアドオンでスコア80点以上
+
+**Phase 5への進行条件**: 上記すべてチェック完了
+
+---
+
+## 合計工数見積もり（アトミックデザインベース）
+
+| Phase | 階層 | コンポーネント数 | 合計工数 | 期間 |
+|-------|------|----------------|---------|------|
+| **Phase 1** | 環境構築 | - | 1週間 | Week 1 |
+| **Phase 2** | Atoms | 11個 | 2.5日 | Week 2 |
+| **Phase 3** | Molecules | 4個 | 2日 | Week 3 |
+| **Phase 4** | Organisms | 8-10個 | 5日 | Week 4-5 |
+| **Phase 5** | 高度な機能 | - | 1週間 | Week 6 |
+| **合計** | - | **23-25個** | **約6週間** | - |
+
+---
+
+## アトミックデザイン階層別サマリー
+
+### Atoms（Phase 2）
+
+```
+合計: 11コンポーネント
+工数: 2.5日
+Story数: 70+
+
+優先度:
+  P0: Button, Input (0.5日)
+  P1: Card, Badge, Checkbox, Radio, Select (1.25日)
+  P2: Textarea, Icon (0.5日)
+  P3: Divider, Loading (0.2日)
+
+特徴:
+  - 依存関係なし
+  - 最も再利用性が高い
+  - 実装難易度: 低～中
+```
+
+### Molecules（Phase 3）
+
+```
+合計: 4コンポーネント
+工数: 2日
+Story数: 24+
+
+優先度:
+  P0: Breadcrumb, Pagination (1日)
+  P1: StepIndicator, Modal (1日)
+
+特徴:
+  - Atomsに依存
+  - 2-3個のAtomsの組み合わせ
+  - 実装難易度: 中
+```
+
+### Organisms（Phase 4）
+
+```
+合計: 8-10コンポーネント
+工数: 5日
+Story数: 50+
+
+優先度:
+  P0: ProductCard, Header (2日)
+  P1: QuantitySelector, SearchBar, Footer, MobileMenu (2日)
+  P2: ProductImageGallery, ProductGrid, CartItem, CheckoutForm (2日)
+
+特徴:
+  - Atoms + Molecules + Storeに依存
+  - 4個以上のコンポーネント組み合わせ
+  - ビジネスロジック含む
+  - 実装難易度: 高
+```
+
+---
+
+## 依存関係グラフ
+
+```
+Phase 2: Atoms（独立）
+  │
+  ├── Button ──────────┐
+  ├── Input ───────────┤
+  ├── Card ────────────┤
+  ├── Badge ───────────┤
+  ├── Icon ────────────┤
+  └── その他 ───────────┤
+                      │
+Phase 3: Molecules    ↓
+  │
+  ├── Breadcrumb ← (Next.js Link)
+  ├── Pagination ← Button
+  ├── StepIndicator ← Badge
+  └── Modal ← Card + Button
+                      │
+Phase 4: Organisms    ↓
+  │
+  ├── ProductCard ← Badge + Button + QuantitySelector + useCartStore + useFavoritesStore
+  ├── QuantitySelector ← Button + Input
+  ├── SearchBar ← Input + Button + Icon
+  ├── Header ← SearchBar + Logo + Navigation + useCartStore
+  ├── Footer ← Atoms
+  ├── MobileMenu ← Atoms + Molecules
+  ├── ProductImageGallery ← Atoms
+  ├── ProductGrid ← ProductCard + Pagination
+  ├── CartItem ← Image + QuantitySelector + useCartStore
+  └── CheckoutForm ← Input + Select + Checkbox + Button
+```
+
+---
+
+## 実装スケジュール（6週間）
+
+### Week 1: Phase 1 - 基盤構築
+- Storybookインストール
+- アトミックデザイン階層設定
+- モックProvider作成
+- イントロダクションページ
+
+### Week 2: Phase 2 - Atoms（11コンポーネント）
+- **Day 1-2**: Button, Input（P0）
+- **Day 3-4**: Card, Badge, Checkbox, Radio, Select（P1）
+- **Day 5**: Textarea, Icon, Divider, Loading（P2-P3）
+
+### Week 3: Phase 3 - Molecules（4コンポーネント）
+- **Day 1-2**: Breadcrumb, Pagination（P0）
+- **Day 3-4**: StepIndicator, Modal（P1）
+- **Day 5**: レビューと調整
+
+### Week 4: Phase 4a - Organisms（ProductCard重点）
+- **Day 1-2**: ProductCard（最重要）
+- **Day 3**: QuantitySelector, SearchBar
+- **Day 4-5**: Header（最複雑）
+
+### Week 5: Phase 4b - Organisms（その他）
+- **Day 1-2**: Footer, MobileMenu
+- **Day 3-4**: ProductImageGallery, ProductGrid
+- **Day 5**: CartItem, CheckoutForm
+
+### Week 6: Phase 5 - 高度な機能と運用
+- **Day 1-2**: アクセシビリティ対応（a11y）
+- **Day 3**: デザインシステムドキュメント作成
+- **Day 4**: ビルド・デプロイ・CI/CD
+- **Day 5**: 運用ルール策定
+
+---
+
+## Phase別進捗トラッキング
+
+### Phase 2完了チェックリスト（Atoms）
+
+**P0 - 最優先**
+- [ ] Button.stories.tsx（15+ Stories）
+- [ ] Input.stories.tsx（8+ Stories）
+
+**P1 - 高優先度**
+- [ ] Card.stories.tsx（6+ Stories）
+- [ ] Badge.stories.tsx（8+ Stories）
+- [ ] Checkbox.stories.tsx（6+ Stories）
+- [ ] Radio.stories.tsx（6+ Stories）
+- [ ] Select.stories.tsx（6+ Stories）
+
+**P2-P3 - 中低優先度**
+- [ ] Textarea.stories.tsx（6+ Stories）
+- [ ] Icon.stories.tsx（20+ Stories）
+- [ ] Divider.stories.tsx（4+ Stories）
+- [ ] Loading.stories.tsx（4+ Stories）
+
+**完了条件**
+- [ ] 合計70+ Stories作成完了
+- [ ] autodocs自動生成確認
+- [ ] a11yスコア90点以上
+- [ ] すべてのControls動作確認
+
+---
+
+### Phase 3完了チェックリスト（Molecules）
+
+**P0 - 最優先**
+- [ ] Breadcrumb.stories.tsx（6+ Stories）
+- [ ] Pagination.stories.tsx（6+ Stories）
+
+**P1 - 高優先度**
+- [ ] StepIndicator.stories.tsx（6+ Stories）
+- [ ] Modal.stories.tsx（6+ Stories）
+
+**完了条件**
+- [ ] 合計24+ Stories作成完了
+- [ ] Atomsとの統合動作確認
+- [ ] Next.js機能モック動作確認
+- [ ] a11yスコア85点以上
+
+---
+
+### Phase 4完了チェックリスト（Organisms）
+
+**Week 4 - 最優先Organisms**
+- [ ] ProductCard.stories.tsx（10+ Stories）
+- [ ] QuantitySelector.stories.tsx（4+ Stories）
+- [ ] SearchBar.stories.tsx（4+ Stories）
+- [ ] Header.stories.tsx（8+ Stories）
+
+**Week 5 - その他Organisms**
+- [ ] Footer.stories.tsx（4+ Stories）
+- [ ] MobileMenu.stories.tsx（4+ Stories）
+- [ ] ProductImageGallery.stories.tsx（4+ Stories）
+- [ ] ProductGrid.stories.tsx（4+ Stories）
+- [ ] CartItem.stories.tsx（4+ Stories）
+- [ ] CheckoutForm.stories.tsx（4+ Stories）
+
+**完了条件**
+- [ ] 合計50+ Stories作成完了
+- [ ] Zustand Storeモック動作確認
+- [ ] レスポンシブ表示確認（全デバイス）
+- [ ] Interactions addon動作確認
+- [ ] a11yスコア80点以上
+
+---
+
+## アトミックデザイン分類の判断基準
+
+コンポーネントがどの階層に属するか迷った場合の判断フローチャート：
+
+```
+START
+  │
+  ├─ 他のコンポーネントに依存しない？
+  │   YES → Atoms
+  │   NO  → 次へ
+  │
+  ├─ 依存するのはAtomsのみ？
+  │   YES → Molecules
+  │   NO  → 次へ
+  │
+  ├─ 状態管理（Zustand）に依存する？
+  │   YES → Organisms
+  │   NO  → 次へ
+  │
+  ├─ 4個以上のコンポーネントを組み合わせる？
+  │   YES → Organisms
+  │   NO  → Molecules
+  │
+END
+```
+
+### 判断基準表
+
+| 基準 | Atoms | Molecules | Organisms |
+|------|-------|-----------|-----------|
+| **依存関係** | なし | Atomsのみ | Atoms + Molecules + Store |
+| **構成要素数** | 1 | 2-3 | 4+ |
+| **ビジネスロジック** | なし | 最小限 | あり |
+| **状態管理** | なし | ローカルのみ | グローバル可 |
+| **再利用性** | 最大 | 高 | 中～低 |
+| **実装難易度** | 低～中 | 中 | 高 |
+
+### 具体例
+
+| コンポーネント | 階層 | 理由 |
+|--------------|------|------|
+| Button | Atoms | 単一要素、依存なし |
+| Input | Atoms | 単一要素、依存なし |
+| Breadcrumb | Molecules | Link + Text（2要素） |
+| Pagination | Molecules | Button + Text（2要素） |
+| QuantitySelector | Molecules | Button × 2 + Input（3要素） |
+| ProductCard | Organisms | Badge + Button + QuantitySelector + useCartStore（4要素以上 + 状態管理） |
+| Header | Organisms | SearchBar + Navigation + Cart + useCartStore（4要素以上 + 状態管理） |
+
+---
+
+**文書バージョン**: 2.0（アトミックデザイン対応版）
 **最終更新**: 2025年10月7日
+**変更履歴**:
+- v1.0: 初版作成（機能ベース優先度）
+- v2.0: アトミックデザイン階層ベースに全面改訂
