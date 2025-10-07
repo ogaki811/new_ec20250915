@@ -1,10 +1,18 @@
-# Storybook導入計画書（アトミックデザインベース）
+# Orchestra デザインシステム - Storybook導入計画書
 
-**プロジェクト**: smartsample Next.js ECサイト
+**プロジェクト**: Orchestra Design System for Maestro Headless Commerce
 **作成日**: 2025年10月7日
-**更新日**: 2025年10月7日（アトミックデザイン対応）
-**ステータス**: 計画中
-**ブランチ**: `feature/storybook`
+**更新日**: 2025年10月7日（Orchestra/Maestro命名）
+**バージョン**: 5.0
+**ステータス**: Phase 1完了
+**ブランチ**: なし（独立プロジェクト）
+
+---
+
+## プロジェクト名
+
+- **Orchestra（オーケストラ）**: デザインシステムの名称
+- **Maestro（マエストロ）**: ヘッドレスコマースプラットフォームの名称
 
 ---
 
@@ -25,11 +33,16 @@
 
 ## プロジェクト概要
 
-Next.js 15 + TypeScript + Tailwind CSSで構築されたECサイトプロジェクトに、**アトミックデザインの原則に基づいて**Storybook 8系を導入し、体系的なデザインシステムとコンポーネントカタログを構築する。
+**Orchestra（オーケストラ）**デザインシステムは、アトミックデザインの原則に基づいて構築された、体系的で再利用可能なコンポーネントライブラリです。
+
+**Maestro（マエストロ）**ヘッドレスコマースは、Next.js 15 + TypeScript + Tailwind CSSで構築され、Orchestraデザインシステムを使用したヘッドレスコマースプラットフォームです。
+
+このStorybookプロジェクトは、Orchestraデザインシステムのコンポーネントカタログを可視化・管理します。
 
 ### ビジョン
 
-- **デザインシステムの可視化**: アトミックデザイン階層に沿ったコンポーネントカタログ
+- **Orchestra（デザインシステム）の確立**: アトミックデザイン階層に沿った体系的なコンポーネントライブラリ
+- **Maestro（プラットフォーム）の構築**: Orchestraを活用した高品質なヘッドレスコマース
 - **開発効率の向上**: Atoms → Molecules → Organisms の順で段階的に開発
 - **品質の保証**: 依存関係を意識した視覚的リグレッションテスト基盤
 - **チーム協業**: デザイナー・開発者間の共通言語としてのStorybook
@@ -38,31 +51,130 @@ Next.js 15 + TypeScript + Tailwind CSSで構築されたECサイトプロジェ�
 
 ## アトミックデザインとStorybook
 
-### アトミックデザイン階層とStorybookカテゴリのマッピング
+### アトミックデザイン階層とStorybookディレクトリ構造
 
-このプロジェクトは既に `DESIGN_SYSTEM.md` でアトミックデザインの原則に基づいて設計されています。Storybookもこの構造に沿って構築します。
+このプロジェクトは既に `DESIGN_SYSTEM.md` でアトミックデザインの原則に基づいて設計されています。Storybookは**完全に独立したプロジェクト**として構築します。
 
-| 階層 | 説明 | ディレクトリ | Storybookカテゴリ | 依存関係 |
-|------|------|------------|-----------------|---------|
-| **Atoms** | 最小単位のUI | `src/components/ui/` | `Atoms/*` | なし |
-| **Molecules** | Atomsの組み合わせ | `src/components/common/` | `Molecules/*` | Atoms |
-| **Organisms** | 複雑な機能ブロック | `src/components/layout/`, `product/`, `home/` 等 | `Organisms/*` | Atoms + Molecules |
-| **Templates** | ページの骨格 | `src/app/**/layout.tsx` | `Templates/*` | すべて |
-| **Pages** | 完成したページ | `src/app/**/page.tsx` | （Storybook対象外） | すべて |
+| 階層 | 説明 | コンポーネント元ディレクトリ | Storybook配置先 | 依存関係 |
+|------|------|--------------------------|----------------|---------|
+| **Atoms** | 最小単位のUI | `smartsample-nextjs/src/components/ui/` | `storybook/stories/atoms/` | なし |
+| **Molecules** | Atomsの組み合わせ | `smartsample-nextjs/src/components/common/` | `storybook/stories/molecules/` | Atoms |
+| **Organisms** | 複雑な機能ブロック | `smartsample-nextjs/src/components/layout/`, `product/`, `home/` 等 | `storybook/stories/organisms/` | Atoms + Molecules |
+| **Templates** | ページの骨格 | `smartsample-nextjs/src/app/**/layout.tsx` | `storybook/stories/templates/` | すべて |
+| **Pages** | 完成したページ | `smartsample-nextjs/src/app/**/page.tsx` | （Storybook対象外） | すべて |
 
-### Story命名規則
+### ディレクトリ構造
+
+```
+ec_Design/
+│
+├── smartsample-nextjs/            # Next.jsプロジェクト（既存）
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ui/               # Atoms実装
+│   │   │   ├── common/           # Molecules実装
+│   │   │   ├── layout/           # Organisms実装
+│   │   │   └── product/          # Organisms実装
+│   │   ├── app/
+│   │   └── ...
+│   ├── package.json
+│   └── tsconfig.json
+│
+└── storybook/                     # Storybook専用プロジェクト（新規作成）
+    ├── .storybook/                # Storybook設定
+    │   ├── main.ts
+    │   ├── preview.ts
+    │   ├── manager.ts
+    │   └── decorators/
+    │       └── StoreDecorator.tsx
+    │
+    ├── stories/                   # Stories配置
+    │   ├── Introduction.mdx       # デザインシステム概要
+    │   ├── DesignTokens.mdx       # トークン定義
+    │   │
+    │   ├── atoms/                 # Atoms Stories
+    │   │   ├── Button.stories.tsx
+    │   │   ├── Input.stories.tsx
+    │   │   ├── Card.stories.tsx
+    │   │   ├── Badge.stories.tsx
+    │   │   ├── Checkbox.stories.tsx
+    │   │   ├── Radio.stories.tsx
+    │   │   ├── Select.stories.tsx
+    │   │   ├── Textarea.stories.tsx
+    │   │   ├── Icon.stories.tsx
+    │   │   ├── Divider.stories.tsx
+    │   │   ├── Loading.stories.tsx
+    │   │   └── README.mdx         # Atoms設計原則
+    │   │
+    │   ├── molecules/             # Molecules Stories
+    │   │   ├── Breadcrumb.stories.tsx
+    │   │   ├── Pagination.stories.tsx
+    │   │   ├── StepIndicator.stories.tsx
+    │   │   ├── Modal.stories.tsx
+    │   │   └── README.mdx         # Molecules設計原則
+    │   │
+    │   ├── organisms/             # Organisms Stories
+    │   │   ├── ProductCard.stories.tsx
+    │   │   ├── QuantitySelector.stories.tsx
+    │   │   ├── SearchBar.stories.tsx
+    │   │   ├── Header.stories.tsx
+    │   │   ├── Footer.stories.tsx
+    │   │   ├── MobileMenu.stories.tsx
+    │   │   ├── ProductImageGallery.stories.tsx
+    │   │   ├── ProductGrid.stories.tsx
+    │   │   ├── CartItem.stories.tsx
+    │   │   ├── CheckoutForm.stories.tsx
+    │   │   └── README.mdx         # Organisms設計原則
+    │   │
+    │   └── templates/             # Templates Stories（Phase 5以降）
+    │       └── README.mdx
+    │
+    ├── package.json               # Storybook専用依存関係
+    ├── tsconfig.json              # TypeScript設定（Next.js継承）
+    └── README.md                  # Storybookプロジェクト説明
+```
+
+### Story命名規則とimportパス
 
 ```typescript
-// ❌ 旧: カテゴリベース
-title: 'UI/Button'
-title: 'Product/ProductCard'
+// storybook/stories/atoms/Button.stories.tsx
+import Button from '../../../smartsample-nextjs/src/components/ui/Button';
 
-// ✅ 新: アトミックデザインベース
-title: 'Atoms/Button'
-title: 'Atoms/Input'
-title: 'Molecules/Breadcrumb'
-title: 'Organisms/ProductCard'
-title: 'Organisms/Header'
+const meta = {
+  title: 'Atoms/Button',  // Storybook階層表示
+  component: Button,
+} satisfies Meta<typeof Button>;
+
+// storybook/stories/molecules/Breadcrumb.stories.tsx
+import Breadcrumb from '../../../smartsample-nextjs/src/components/common/Breadcrumb';
+
+const meta = {
+  title: 'Molecules/Breadcrumb',
+  component: Breadcrumb,
+} satisfies Meta<typeof Breadcrumb>;
+
+// storybook/stories/organisms/ProductCard.stories.tsx
+import ProductCard from '../../../smartsample-nextjs/src/components/product/ProductCard';
+
+const meta = {
+  title: 'Organisms/ProductCard',
+  component: ProductCard,
+} satisfies Meta<typeof ProductCard>;
+```
+
+**Note**: tsconfig.jsonでパスエイリアスを設定することで、相対パスを短縮可能：
+
+```json
+// storybook/tsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["../smartsample-nextjs/src/components/*"],
+      "@/app/*": ["../smartsample-nextjs/src/app/*"]
+    }
+  }
+}
 ```
 
 ---
@@ -240,15 +352,22 @@ Storybook環境の構築とアトミックデザイン対応設定
    npx storybook@latest init --type nextjs
    ```
 
-2. **設定ファイル作成**
+2. **ディレクトリ構造作成**
+   ```bash
+   mkdir -p storybook/{.storybook/decorators,stories/{atoms,molecules,organisms,templates}}
+   ```
 
-   `.storybook/main.ts`:
+3. **設定ファイル作成**
+
+   `storybook/.storybook/main.ts`:
    ```typescript
    import type { StorybookConfig } from '@storybook/nextjs';
+   import path from 'path';
 
    const config: StorybookConfig = {
      stories: [
-       '../src/components/**/*.stories.@(js|jsx|ts|tsx)',
+       '../stories/**/*.mdx',
+       '../stories/**/*.stories.@(js|jsx|ts|tsx)',
      ],
      addons: [
        '@storybook/addon-essentials',
@@ -257,14 +376,23 @@ Storybook環境の構築とアトミックデザイン対応設定
        '@storybook/addon-viewport',
      ],
      framework: '@storybook/nextjs',
+     webpackFinal: async (config) => {
+       // Next.jsプロジェクトへのエイリアス設定
+       config.resolve = config.resolve || {};
+       config.resolve.alias = {
+         ...config.resolve.alias,
+         '@': path.resolve(__dirname, '../../smartsample-nextjs/src'),
+       };
+       return config;
+     },
    };
 
    export default config;
    ```
 
-   `.storybook/preview.ts`:
+   `storybook/.storybook/preview.ts`:
    ```typescript
-   import '../src/app/globals.css'; // Tailwind CSS
+   import '../../smartsample-nextjs/src/app/globals.css'; // Tailwind CSS
 
    export const parameters = {
      // アトミックデザイン階層でのソート
@@ -334,9 +462,9 @@ Storybook環境の構築とアトミックデザイン対応設定
 
 1. **Button** - 全システムの基盤
    ```typescript
-   // src/components/ui/Button.stories.tsx
+   // storybook/stories/atoms/Button.stories.tsx
    import type { Meta, StoryObj } from '@storybook/react';
-   import Button from './Button';
+   import Button from '@/components/ui/Button';
 
    const meta = {
      title: 'Atoms/Button',
@@ -438,9 +566,9 @@ Storybook環境の構築とアトミックデザイン対応設定
    - **依存Atoms**: なし（Next.jsコンポーネント）
 
    ```typescript
-   // src/components/common/Breadcrumb.stories.tsx
+   // storybook/stories/molecules/Breadcrumb.stories.tsx
    import type { Meta, StoryObj } from '@storybook/react';
-   import Breadcrumb from './Breadcrumb';
+   import Breadcrumb from '@/components/common/Breadcrumb';
 
    const meta = {
      title: 'Molecules/Breadcrumb',
@@ -564,10 +692,10 @@ Storybook環境の構築とアトミックデザイン対応設定
    - **モック戦略**: StoreDecoratorで状態を注入
 
    ```typescript
-   // src/components/product/ProductCard.stories.tsx
+   // storybook/stories/organisms/ProductCard.stories.tsx
    import type { Meta, StoryObj } from '@storybook/react';
-   import ProductCard from './ProductCard';
-   import { withMockStore } from '../../../.storybook/decorators/StoreDecorator';
+   import ProductCard from '@/components/product/ProductCard';
+   import { withMockStore } from '../../.storybook/decorators/StoreDecorator';
 
    const meta = {
      title: 'Organisms/ProductCard',
@@ -847,39 +975,43 @@ Storybookの運用体制確立とデザインシステムドキュメント
 - [ ] `.storybook/decorators/StoreDecorator.tsx`
 
 **Phase 2: Atoms（11ファイル）**
-- [ ] `src/components/ui/Button.stories.tsx`
-- [ ] `src/components/ui/Input.stories.tsx`
-- [ ] `src/components/ui/Card.stories.tsx`
-- [ ] `src/components/ui/Badge.stories.tsx`
-- [ ] `src/components/ui/Checkbox.stories.tsx`
-- [ ] `src/components/ui/Radio.stories.tsx`
-- [ ] `src/components/ui/Select.stories.tsx`
-- [ ] `src/components/ui/Textarea.stories.tsx`
-- [ ] `src/components/ui/Icon.stories.tsx`
-- [ ] `src/components/ui/Divider.stories.tsx`
-- [ ] `src/components/ui/Loading.stories.tsx`
+- [ ] `storybook/stories/atoms/Button.stories.tsx`
+- [ ] `storybook/stories/atoms/Input.stories.tsx`
+- [ ] `storybook/stories/atoms/Card.stories.tsx`
+- [ ] `storybook/stories/atoms/Badge.stories.tsx`
+- [ ] `storybook/stories/atoms/Checkbox.stories.tsx`
+- [ ] `storybook/stories/atoms/Radio.stories.tsx`
+- [ ] `storybook/stories/atoms/Select.stories.tsx`
+- [ ] `storybook/stories/atoms/Textarea.stories.tsx`
+- [ ] `storybook/stories/atoms/Icon.stories.tsx`
+- [ ] `storybook/stories/atoms/Divider.stories.tsx`
+- [ ] `storybook/stories/atoms/Loading.stories.tsx`
+- [ ] `storybook/stories/atoms/README.mdx`
 
 **Phase 3: Molecules（4ファイル）**
-- [ ] `src/components/common/Breadcrumb.stories.tsx`
-- [ ] `src/components/common/Pagination.stories.tsx`
-- [ ] `src/components/common/StepIndicator.stories.tsx`
-- [ ] `src/components/common/Modal.stories.tsx`
+- [ ] `storybook/stories/molecules/Breadcrumb.stories.tsx`
+- [ ] `storybook/stories/molecules/Pagination.stories.tsx`
+- [ ] `storybook/stories/molecules/StepIndicator.stories.tsx`
+- [ ] `storybook/stories/molecules/Modal.stories.tsx`
+- [ ] `storybook/stories/molecules/README.mdx`
 
 **Phase 4: Organisms（8-10ファイル）**
-- [ ] `src/components/product/ProductCard.stories.tsx`
-- [ ] `src/components/product/QuantitySelector.stories.tsx`
-- [ ] `src/components/product/SearchBar.stories.tsx`
-- [ ] `src/components/layout/Header.stories.tsx`
-- [ ] `src/components/layout/Footer.stories.tsx`
-- [ ] `src/components/layout/MobileMenu.stories.tsx`
-- [ ] その他
+- [ ] `storybook/stories/organisms/ProductCard.stories.tsx`
+- [ ] `storybook/stories/organisms/QuantitySelector.stories.tsx`
+- [ ] `storybook/stories/organisms/SearchBar.stories.tsx`
+- [ ] `storybook/stories/organisms/Header.stories.tsx`
+- [ ] `storybook/stories/organisms/Footer.stories.tsx`
+- [ ] `storybook/stories/organisms/MobileMenu.stories.tsx`
+- [ ] `storybook/stories/organisms/ProductImageGallery.stories.tsx`
+- [ ] `storybook/stories/organisms/ProductGrid.stories.tsx`
+- [ ] `storybook/stories/organisms/CartItem.stories.tsx`
+- [ ] `storybook/stories/organisms/CheckoutForm.stories.tsx`
+- [ ] `storybook/stories/organisms/README.mdx`
 
 **Phase 5: ドキュメント（MDX）**
-- [ ] `stories/Introduction.mdx`
-- [ ] `stories/DesignTokens.mdx`
-- [ ] `stories/Atoms/README.mdx`
-- [ ] `stories/Molecules/README.mdx`
-- [ ] `stories/Organisms/README.mdx`
+- [ ] `storybook/stories/Introduction.mdx`
+- [ ] `storybook/stories/DesignTokens.mdx`
+- [ ] `storybook/stories/templates/README.mdx`
 
 ### 運用
 
@@ -1106,10 +1238,13 @@ npm run storybook
 
 ---
 
-**文書バージョン**: 2.0（アトミックデザイン対応版）
+**文書バージョン**: 5.0（Orchestra/Maestro命名版）
 **作成者**: Claude Code
 **承認者**: -
 **次回レビュー日**: Phase 2完了時
 **変更履歴**:
 - v1.0: 初版作成（機能ベース分類）
 - v2.0: アトミックデザインベースに全面改訂
+- v3.0: Storybookを独立ディレクトリ構造（src/stories/）に変更
+- v4.0: Storybookを完全独立プロジェクト（ec_Design/storybook/）として分離
+- v5.0: デザインシステム名を「Orchestra」、ヘッドレスコマース名を「Maestro」に命名

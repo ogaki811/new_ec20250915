@@ -1,0 +1,255 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# Orchestra デザインシステム
+
+**Maestro ヘッドレスコマース**のコンポーネントライブラリへようこそ。
+
+Orchestra（オーケストラ）は、アトミックデザインの原則に基づいて構築されたデザインシステムです。
+Maestro（マエストロ）は、このOrchestraデザインシステムを使用して構築されるNext.js 15ベースのヘッドレスコマースプラットフォームです。
+
+---
+
+## アトミックデザインとは
+
+アトミックデザインは、Brad Frostが提唱したデザインシステム構築のための方法論です。
+UIコンポーネントを5つの階層に分類することで、体系的で再利用可能なデザインシステムを構築します。
+
+### 階層構造
+
+```
+Atoms（原子）
+  ↓
+Molecules（分子）
+  ↓
+Organisms（有機体）
+  ↓
+Templates（テンプレート）
+  ↓
+Pages（ページ）
+```
+
+---
+
+## このプロジェクトの階層定義
+
+### 🔹 Atoms（原子）
+
+**最小単位のUIコンポーネント**
+
+- **特徴**: 完全に独立、他のコンポーネントに依存しない
+- **例**: Button, Input, Badge, Card, Checkbox
+- **配置**: `src/components/ui/`
+- **依存関係**: なし
+
+**開発原則**:
+- 単一責任の原則を遵守
+- 高い再利用性
+- すべてのvariant/sizeを網羅
+
+### 🔸 Molecules（分子）
+
+**Atomsの組み合わせ**
+
+- **特徴**: 2-3個のAtomsを組み合わせた小さな機能単位
+- **例**: Breadcrumb, Pagination, SearchBar
+- **配置**: `src/components/common/`
+- **依存関係**: Atomsのみ
+
+**開発原則**:
+- ビジネスロジックは最小限
+- Atomsの組み合わせで表現
+- 表示ロジックのみを持つ
+
+### 🔶 Organisms（有機体）
+
+**複雑な機能ブロック**
+
+- **特徴**: Atoms + Molecules + ビジネスロジック + 状態管理
+- **例**: ProductCard, Header, Footer, CartItem
+- **配置**: `src/components/layout/`, `product/`, `home/` 等
+- **依存関係**: Atoms + Molecules + Zustand Store
+
+**開発原則**:
+- ビジネスロジックを含む
+- 状態管理（Zustand）と連携
+- 複雑なインタラクション
+
+### 📄 Templates
+
+**ページの骨格**
+
+- **特徴**: レイアウト構造のみ、実データは含まない
+- **例**: ProductPageTemplate, CheckoutTemplate
+- **配置**: `src/app/**/layout.tsx`
+- **依存関係**: すべての下位層
+
+### 📱 Pages
+
+**完成したページ**
+
+- **特徴**: 実データを含む完全なページ
+- **例**: `/products`, `/cart`, `/checkout`
+- **配置**: `src/app/**/page.tsx`
+- **Storybook対象**: 対象外（Next.js App Routerで管理）
+
+---
+
+## コンポーネント数
+
+| 階層 | コンポーネント数 | Storybook対応 |
+|------|----------------|--------------|
+| **Atoms** | 11 | ✅ Phase 2 |
+| **Molecules** | 4 | ✅ Phase 3 |
+| **Organisms** | 37 | ✅ Phase 4 |
+| **Templates** | - | 🔜 Phase 5 |
+| **Pages** | 16 | ❌ 対象外 |
+
+---
+
+## 実装フェーズ
+
+### Phase 1: 環境構築 ✅
+- Storybook 8.x セットアップ
+- Next.js 15統合
+- Tailwind CSS 4.x設定
+- Zustandモック準備
+
+### Phase 2: Atoms 🔄（Week 2）
+- Button, Input, Card, Badge
+- Checkbox, Radio, Select
+- Textarea, Icon, Divider, Loading
+- **目標**: 11コンポーネント完成
+
+### Phase 3: Molecules（Week 3）
+- Breadcrumb, Pagination
+- StepIndicator, Modal
+- **目標**: 4コンポーネント完成
+
+### Phase 4: Organisms（Week 4-5）
+- ProductCard, Header, Footer
+- SearchBar, QuantitySelector
+- ProductGrid, CartItem
+- **目標**: 8-10コンポーネント完成
+
+### Phase 5: 高度な機能（Week 6）
+- アクセシビリティ対応
+- デザイントークンドキュメント
+- デプロイ・CI/CD統合
+
+---
+
+## 技術スタック
+
+### フレームワーク
+- **Next.js**: 15.1.4 (App Router)
+- **React**: 19.0.0
+- **TypeScript**: 5.7.3
+
+### スタイリング
+- **Tailwind CSS**: 4.0.14
+- **BEM命名規則**: `ec-[block]__[element]--[modifier]`
+
+### 状態管理
+- **Zustand**: 5.0.8
+- **ストア**: useCartStore, useFavoritesStore, useAuthStore
+
+### 開発ツール
+- **Storybook**: 8.4.7
+- **Cypress**: 15.3.0 (E2Eテスト)
+
+---
+
+## アクセシビリティ目標
+
+このプロジェクトでは、すべてのコンポーネントでアクセシビリティを重視しています。
+
+| 階層 | a11yスコア目標 | 確認方法 |
+|------|---------------|----------|
+| **Atoms** | 90点以上 | @storybook/addon-a11y |
+| **Molecules** | 85点以上 | @storybook/addon-a11y |
+| **Organisms** | 80点以上 | @storybook/addon-a11y |
+
+**確認項目**:
+- ✅ キーボードナビゲーション
+- ✅ スクリーンリーダー対応
+- ✅ 適切なARIA属性
+- ✅ カラーコントラスト（WCAG AA以上）
+
+---
+
+## レスポンシブ対応
+
+すべてのコンポーネントは3つのブレークポイントで動作確認を行います。
+
+| デバイス | 解像度 | 確認方法 |
+|---------|--------|----------|
+| **Mobile** | 375x667 | Viewport addon |
+| **Tablet** | 768x1024 | Viewport addon |
+| **Desktop** | 1280x720 | Viewport addon |
+
+---
+
+## 使い方
+
+### 1. コンポーネントを探す
+
+左サイドバーから階層（Atoms/Molecules/Organisms）を選択してコンポーネントを探します。
+
+### 2. Storiesを確認
+
+各コンポーネントには複数のStoryがあります：
+- **Default**: 基本状態
+- **Variants**: バリエーション（primary/secondary等）
+- **Sizes**: サイズバリエーション
+- **States**: 状態バリエーション（disabled/loading等）
+
+### 3. Controlsで操作
+
+下部の「Controls」タブでPropsを動的に変更できます。
+
+### 4. アクセシビリティチェック
+
+「Accessibility」タブで自動的にa11yスコアを確認できます。
+
+### 5. レスポンシブ確認
+
+ツールバーのデバイスアイコンでViewportを切り替えられます。
+
+---
+
+## 開発ガイドライン
+
+### コンポーネント作成時のルール
+
+1. **要件定義を先に行う**
+   - `docs/nextjs-version/requirements/` にドキュメント作成
+   - テンプレート: `docs/nextjs-version/templates/REQUIREMENTS_TEMPLATE.md`
+
+2. **アトミックデザインの階層を守る**
+   - 判断基準: `docs/nextjs-version/design/DESIGN_SYSTEM.md`
+   - 上位層は下位層に依存できるが、逆は不可
+
+3. **Storyは必須**
+   - 新規コンポーネント作成時は必ずStoryも作成
+   - 全バリエーションをカバーする
+
+4. **変更履歴を記録**
+   - 要件変更時はドキュメントに追記
+   - バージョン番号を更新
+
+---
+
+## 参考リンク
+
+- [Atomic Design by Brad Frost](https://bradfrost.com/blog/post/atomic-web-design/)
+- [Storybook公式ドキュメント](https://storybook.js.org/docs)
+- [Next.js公式ドキュメント](https://nextjs.org/docs)
+- [Tailwind CSS公式ドキュメント](https://tailwindcss.com/docs)
+
+---
+
+**プロジェクトバージョン**: 1.0.0
+**最終更新**: 2025-10-07
+**管理者**: プロジェクトチーム
