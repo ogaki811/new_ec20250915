@@ -1,0 +1,339 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Design System/Accessibility Guide" />
+
+# アクセシビリティガイド
+
+Orchestra Design Systemは、すべてのユーザーがアクセス可能なコンポーネントを提供することを目指しています。
+
+## アクセシビリティの重要性
+
+アクセシビリティ(a11y)は、障害を持つユーザーを含むすべての人がWebサイトやアプリケーションを利用できるようにすることです。
+
+### 対象ユーザー
+- **視覚障害**: スクリーンリーダーユーザー、色覚異常、低視力
+- **聴覚障害**: 動画コンテンツの字幕
+- **運動機能障害**: キーボードのみの操作
+- **認知障害**: シンプルで明確なUI
+
+## a11y アドオンの使い方
+
+Storybookの各コンポーネントページには、右側のパネルに **Accessibility** タブが表示されます。
+
+### 確認項目
+1. **Violations (違反)**: 修正必須の問題
+2. **Passes (合格)**: クリアしているチェック項目
+3. **Incomplete (不完全)**: 手動確認が必要な項目
+
+### スコア目標
+- **Atoms (基本要素)**: 90点以上
+- **Molecules (複合要素)**: 85点以上
+- **Organisms (有機体)**: 80点以上
+- **Templates (テンプレート)**: 75点以上
+
+## WCAG 2.1 準拠レベル
+
+Orchestra Design Systemは **WCAG 2.1 Level AA** に準拠することを目標としています。
+
+### Level A (最低限)
+- テキストの代替
+- キーボード操作
+- 十分な時間
+
+### Level AA (推奨)
+- コントラスト比 4.5:1 以上
+- 文字サイズ変更対応
+- フォーカス順序の適切性
+
+### Level AAA (理想)
+- コントラスト比 7:1 以上
+- より厳格な要件
+
+## 主要なアクセシビリティ原則
+
+### 1. セマンティックHTML
+
+適切なHTML要素を使用することで、スクリーンリーダーがコンテンツを正しく解釈できます。
+
+```tsx
+// ❌ Bad
+<div onClick={handleClick}>Click me</div>
+
+// ✅ Good
+<button onClick={handleClick}>Click me</button>
+```
+
+### 2. ARIA属性
+
+必要に応じてARIA属性を追加して、スクリーンリーダーに追加情報を提供します。
+
+```tsx
+// aria-label: 要素の説明
+<button aria-label="閉じる">
+  <XIcon />
+</button>
+
+// aria-describedby: 詳細説明への参照
+<input
+  type="email"
+  aria-describedby="email-help"
+/>
+<span id="email-help">メールアドレスを入力してください</span>
+
+// aria-live: 動的コンテンツの通知
+<div aria-live="polite" aria-atomic="true">
+  カートに追加されました
+</div>
+
+// aria-expanded: 展開/折りたたみ状態
+<button aria-expanded={isOpen}>
+  メニュー
+</button>
+```
+
+### 3. キーボードナビゲーション
+
+すべてのインタラクティブ要素はキーボードで操作できる必要があります。
+
+#### 主要なキー
+- **Tab**: 次の要素へフォーカス移動
+- **Shift + Tab**: 前の要素へフォーカス移動
+- **Enter / Space**: ボタン・リンクの実行
+- **Esc**: モーダル・ドロワーを閉じる
+- **矢印キー**: リスト・メニューのナビゲーション
+
+```tsx
+// カスタムインタラクション要素にはtabIndexとキーハンドラを追加
+<div
+  role="button"
+  tabIndex={0}
+  onClick={handleClick}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
+  }}
+>
+  Custom Button
+</div>
+```
+
+### 4. カラーコントラスト
+
+テキストと背景のコントラスト比を確保します。
+
+#### WCAG AA 基準
+- **通常テキスト** (16px未満): 4.5:1 以上
+- **大きいテキスト** (18px以上, 14px太字以上): 3:1 以上
+
+#### Tailwindクラスの推奨組み合わせ
+```tsx
+// ✅ Good contrast
+<div className="bg-blue-600 text-white">  // 4.54:1
+<div className="bg-gray-800 text-white">  // 15.3:1
+<div className="bg-white text-gray-900">  // 18.5:1
+
+// ❌ Poor contrast
+<div className="bg-gray-300 text-gray-400">  // 1.5:1 (不十分)
+<div className="bg-yellow-200 text-yellow-300">  // 1.2:1 (不十分)
+```
+
+### 5. フォーカス表示
+
+フォーカス状態を視覚的に明確にします。
+
+```tsx
+// Tailwindのfocus-visible擬似クラスを使用
+<button className="focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none">
+  Click me
+</button>
+```
+
+### 6. 代替テキスト
+
+画像には適切な代替テキストを提供します。
+
+```tsx
+// 装飾的な画像
+<img src="/decoration.png" alt="" role="presentation" />
+
+// 意味のある画像
+<img src="/product.jpg" alt="ワイヤレスヘッドフォン ブラック" />
+
+// Next.js Image
+<Image
+  src="/logo.png"
+  alt="Orchestra ロゴ"
+  width={200}
+  height={50}
+/>
+```
+
+## コンポーネント別ガイドライン
+
+### Buttons
+
+```tsx
+// 基本
+<button type="button">送信</button>
+
+// アイコンのみボタンにはaria-label必須
+<button type="button" aria-label="お気に入りに追加">
+  <HeartIcon />
+</button>
+
+// ローディング状態
+<button type="button" aria-busy="true" disabled>
+  <Spinner /> 送信中...
+</button>
+```
+
+### Forms
+
+```tsx
+// Label必須
+<label htmlFor="email">メールアドレス</label>
+<input
+  id="email"
+  type="email"
+  required
+  aria-required="true"
+/>
+
+// エラー表示
+<input
+  id="password"
+  type="password"
+  aria-invalid={hasError}
+  aria-describedby={hasError ? "password-error" : undefined}
+/>
+{hasError && (
+  <span id="password-error" role="alert">
+    パスワードは8文字以上必要です
+  </span>
+)}
+```
+
+### Modals / Dialogs
+
+```tsx
+<div
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+  aria-describedby="modal-description"
+>
+  <h2 id="modal-title">確認</h2>
+  <p id="modal-description">本当に削除しますか?</p>
+  <button>削除</button>
+  <button>キャンセル</button>
+</div>
+```
+
+### Navigation
+
+```tsx
+<nav aria-label="メインナビゲーション">
+  <ul>
+    <li><a href="/" aria-current="page">ホーム</a></li>
+    <li><a href="/products">商品一覧</a></li>
+  </ul>
+</nav>
+
+// パンくずリスト
+<nav aria-label="パンくずリスト">
+  <ol>
+    <li><a href="/">ホーム</a></li>
+    <li><a href="/category">カテゴリ</a></li>
+    <li aria-current="page">商品名</li>
+  </ol>
+</nav>
+```
+
+### Lists
+
+```tsx
+// 順序なしリスト
+<ul role="list">
+  <li>商品A</li>
+  <li>商品B</li>
+</ul>
+
+// 商品グリッド
+<div role="list" aria-label="商品一覧">
+  <div role="listitem">商品カード1</div>
+  <div role="listitem">商品カード2</div>
+</div>
+```
+
+## テストツール
+
+### 自動テスト
+- **Storybook a11y addon**: 各Storyで自動チェック
+- **axe DevTools**: ブラウザ拡張機能
+- **WAVE**: ブラウザ拡張機能
+
+### 手動テスト
+- **キーボードのみ操作**: Tabキーで全機能にアクセス可能か
+- **スクリーンリーダー**:
+  - macOS: VoiceOver (Cmd + F5)
+  - Windows: NVDA (無料)
+  - Chrome: ChromeVox拡張機能
+
+### カラーコントラストチェック
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+- [Contrast Ratio](https://contrast-ratio.com/)
+
+## チェックリスト
+
+各コンポーネント実装時に確認すべき項目:
+
+### 基本
+- [ ] セマンティックHTMLを使用
+- [ ] すべてのインタラクティブ要素がキーボードでアクセス可能
+- [ ] フォーカス状態が視覚的に明確
+- [ ] カラーコントラストがWCAG AA準拠
+
+### ARIA
+- [ ] 必要な場合のみARIA属性を追加（セマンティックHTML優先）
+- [ ] aria-label / aria-labelledby で適切にラベル付け
+- [ ] aria-describedby で補足説明を提供
+- [ ] aria-live で動的コンテンツを通知
+
+### フォーム
+- [ ] すべてのinputにlabelが関連付け
+- [ ] エラーメッセージがaria-describedbyで関連付け
+- [ ] required属性とaria-required="true"を併用
+- [ ] エラー時はaria-invalid="true"を設定
+
+### 画像・アイコン
+- [ ] 意味のある画像にalt属性
+- [ ] 装飾的な画像はalt=""とrole="presentation"
+- [ ] アイコンのみボタンにaria-label
+
+### ナビゲーション
+- [ ] ランドマークロール（nav, main, aside, footer）を使用
+- [ ] 複数のnavにはaria-labelで区別
+- [ ] 現在ページをaria-current="page"で示す
+- [ ] スキップリンクを提供（メインコンテンツへ）
+
+## 参考リソース
+
+### 公式ドキュメント
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+- [MDN Accessibility](https://developer.mozilla.org/ja/docs/Web/Accessibility)
+
+### ツール
+- [axe DevTools](https://www.deque.com/axe/devtools/)
+- [WAVE Browser Extension](https://wave.webaim.org/extension/)
+- [Lighthouse](https://developers.google.com/web/tools/lighthouse)
+
+### 学習リソース
+- [A11ycasts (Google Chrome Developers)](https://www.youtube.com/playlist?list=PLNYkxOF6rcICWx0C9LVWWVqvHlYJyqw7g)
+- [WebAIM Articles](https://webaim.org/articles/)
+
+---
+
+**アクセシビリティは継続的な取り組みです。** 新しいコンポーネントを追加する際は、必ずa11yチェックを実施してください。

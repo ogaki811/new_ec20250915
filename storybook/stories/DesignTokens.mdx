@@ -1,0 +1,444 @@
+import { Meta, ColorPalette, ColorItem, Typeset } from '@storybook/blocks';
+
+<Meta title="Design System/Design Tokens" />
+
+# デザイントークン
+
+Orchestra Design Systemで使用されるデザイントークン（色、タイポグラフィ、スペーシング、その他のデザイン値）を定義します。
+
+## カラーパレット
+
+### プライマリカラー
+
+<ColorPalette>
+  <ColorItem
+    title="Blue (Primary)"
+    subtitle="メインアクション、リンク、フォーカス"
+    colors={{
+      'blue-50': '#eff6ff',
+      'blue-100': '#dbeafe',
+      'blue-200': '#bfdbfe',
+      'blue-300': '#93c5fd',
+      'blue-400': '#60a5fa',
+      'blue-500': '#3b82f6',
+      'blue-600': '#2563eb',
+      'blue-700': '#1d4ed8',
+      'blue-800': '#1e40af',
+      'blue-900': '#1e3a8a',
+    }}
+  />
+</ColorPalette>
+
+**主な用途:**
+- **blue-600** (`#2563eb`): プライマリボタン、リンク、フォーカスリング
+- **blue-500** (`#3b82f6`): ホバー状態
+- **blue-100** (`#dbeafe`): 軽い背景色、バッジ
+
+### セマンティックカラー
+
+<ColorPalette>
+  <ColorItem
+    title="Green (Success)"
+    subtitle="成功状態、確認メッセージ"
+    colors={{
+      'green-50': '#f0fdf4',
+      'green-100': '#dcfce7',
+      'green-500': '#22c55e',
+      'green-600': '#16a34a',
+      'green-700': '#15803d',
+    }}
+  />
+  <ColorItem
+    title="Red (Error/Danger)"
+    subtitle="エラー、削除、警告"
+    colors={{
+      'red-50': '#fef2f2',
+      'red-100': '#fee2e2',
+      'red-500': '#ef4444',
+      'red-600': '#dc2626',
+      'red-700': '#b91c1c',
+    }}
+  />
+  <ColorItem
+    title="Yellow (Warning)"
+    subtitle="注意、警告"
+    colors={{
+      'yellow-50': '#fefce8',
+      'yellow-100': '#fef9c3',
+      'yellow-500': '#eab308',
+      'yellow-600': '#ca8a04',
+      'yellow-700': '#a16207',
+    }}
+  />
+</ColorPalette>
+
+**主な用途:**
+- **green-600**: 成功ボタン、確認メッセージ、在庫あり
+- **red-600**: エラーメッセージ、削除ボタン、必須マーク
+- **yellow-600**: 警告メッセージ、注意バッジ
+
+### ニュートラルカラー
+
+<ColorPalette>
+  <ColorItem
+    title="Gray (Neutral)"
+    subtitle="テキスト、ボーダー、背景"
+    colors={{
+      'gray-50': '#f9fafb',
+      'gray-100': '#f3f4f6',
+      'gray-200': '#e5e7eb',
+      'gray-300': '#d1d5db',
+      'gray-400': '#9ca3af',
+      'gray-500': '#6b7280',
+      'gray-600': '#4b5563',
+      'gray-700': '#374151',
+      'gray-800': '#1f2937',
+      'gray-900': '#111827',
+    }}
+  />
+</ColorPalette>
+
+**主な用途:**
+- **gray-900** (`#111827`): メインテキスト
+- **gray-600** (`#4b5563`): セカンダリテキスト
+- **gray-400** (`#9ca3af`): プレースホルダー、無効状態
+- **gray-300** (`#d1d5db`): ボーダー
+- **gray-100** (`#f3f4f6`): 背景色
+- **gray-50** (`#f9fafb`): カードの背景
+
+### アクセントカラー
+
+<ColorPalette>
+  <ColorItem
+    title="Orange (Sale/Discount)"
+    subtitle="セール、割引、お気に入り"
+    colors={{
+      'orange-500': '#f97316',
+      'orange-600': '#ea580c',
+    }}
+  />
+  <ColorItem
+    title="Purple (Premium)"
+    subtitle="プレミアム機能、特典"
+    colors={{
+      'purple-500': '#a855f7',
+      'purple-600': '#9333ea',
+    }}
+  />
+</ColorPalette>
+
+**主な用途:**
+- **orange-600**: セール価格、割引バッジ、お気に入りアイコン
+- **purple-600**: プレミアム機能、VIP特典
+
+## タイポグラフィ
+
+### フォントファミリー
+
+```css
+/* プライマリフォント */
+font-family: Arial, Helvetica, sans-serif;
+
+/* モノスペースフォント */
+font-family: 'Courier New', monospace;
+```
+
+### フォントサイズ
+
+<Typeset
+  fontSizes={[
+    '0.75rem',   // text-xs (12px)
+    '0.875rem',  // text-sm (14px)
+    '1rem',      // text-base (16px)
+    '1.125rem',  // text-lg (18px)
+    '1.25rem',   // text-xl (20px)
+    '1.5rem',    // text-2xl (24px)
+    '1.875rem',  // text-3xl (30px)
+    '2.25rem',   // text-4xl (36px)
+  ]}
+  fontFamily="Arial, Helvetica, sans-serif"
+/>
+
+**使用ガイドライン:**
+
+| サイズ | Tailwind | 用途 |
+|--------|----------|------|
+| 12px | `text-xs` | キャプション、補足テキスト |
+| 14px | `text-sm` | ボタンテキスト、ラベル |
+| 16px | `text-base` | 本文、入力フィールド |
+| 18px | `text-lg` | 小見出し |
+| 20px | `text-xl` | セクション見出し |
+| 24px | `text-2xl` | ページ見出し |
+| 30px | `text-3xl` | 大見出し |
+| 36px | `text-4xl` | ヒーロータイトル |
+
+### フォントウェイト
+
+| ウェイト | Tailwind | 用途 |
+|----------|----------|------|
+| 400 | `font-normal` | 通常テキスト |
+| 500 | `font-medium` | 強調テキスト、ラベル |
+| 600 | `font-semibold` | 小見出し、ボタン |
+| 700 | `font-bold` | 見出し、重要な情報 |
+
+### 行間 (Line Height)
+
+| 行間 | Tailwind | 用途 |
+|------|----------|------|
+| 1.25 | `leading-tight` | 見出し |
+| 1.5 | `leading-normal` | 本文 |
+| 1.75 | `leading-relaxed` | 読みやすさ重視 |
+
+## スペーシング
+
+Tailwind CSSのスペーシングスケール（4pxベース）を使用します。
+
+### マージン・パディング
+
+| サイズ | Tailwind | ピクセル値 | 用途 |
+|--------|----------|-----------|------|
+| 1 | `p-1`, `m-1` | 4px | 最小スペース |
+| 2 | `p-2`, `m-2` | 8px | 密なレイアウト |
+| 3 | `p-3`, `m-3` | 12px | 標準的な間隔 |
+| 4 | `p-4`, `m-4` | 16px | コンポーネント内パディング |
+| 6 | `p-6`, `m-6` | 24px | カード内パディング |
+| 8 | `p-8`, `m-8` | 32px | セクション間マージン |
+| 12 | `p-12`, `m-12` | 48px | 大きなセクション |
+| 16 | `p-16`, `m-16` | 64px | ページセクション |
+
+### コンポーネント別スペーシング
+
+#### ボタン
+```tsx
+// 小サイズ
+px-3 py-1.5  // padding: 6px 12px
+
+// 中サイズ (デフォルト)
+px-4 py-2    // padding: 8px 16px
+
+// 大サイズ
+px-6 py-3    // padding: 12px 24px
+```
+
+#### カード
+```tsx
+p-6          // padding: 24px (デスクトップ)
+p-4          // padding: 16px (モバイル)
+```
+
+#### 入力フィールド
+```tsx
+px-4 py-2.5  // padding: 10px 16px
+h-10         // height: 40px
+```
+
+## ボーダー半径
+
+| サイズ | Tailwind | ピクセル値 | 用途 |
+|--------|----------|-----------|------|
+| Small | `rounded-sm` | 2px | チェックボックス、小さなバッジ |
+| Medium | `rounded-md` | 6px | ボタン、入力フィールド、カード |
+| Large | `rounded-lg` | 8px | モーダル、大きなカード |
+| XL | `rounded-xl` | 12px | ヒーローセクション |
+| 2XL | `rounded-2xl` | 16px | 特大カード |
+| Full | `rounded-full` | 9999px | アバター、丸ボタン |
+
+## シャドウ
+
+| サイズ | Tailwind | 用途 |
+|--------|----------|------|
+| Small | `shadow-sm` | 軽い浮き上がり、カードホバー |
+| Medium | `shadow-md` | カード、ドロップダウン |
+| Large | `shadow-lg` | モーダル、フローティング要素 |
+| XL | `shadow-xl` | 重要な浮き上がり |
+
+**定義:**
+```css
+shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05)
+shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)
+shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)
+shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)
+```
+
+## ブレークポイント
+
+| 名前 | Tailwind | ピクセル値 | デバイス |
+|------|----------|-----------|----------|
+| Mobile | (default) | < 640px | スマートフォン |
+| Tablet | `sm:` | ≥ 640px | タブレット縦 |
+| Desktop | `md:` | ≥ 768px | タブレット横、小型PC |
+| Large | `lg:` | ≥ 1024px | デスクトップ |
+| XL | `xl:` | ≥ 1280px | 大型ディスプレイ |
+
+**使用例:**
+```tsx
+<div className="px-4 md:px-6 lg:px-8">
+  {/* モバイル: 16px, タブレット: 24px, デスクトップ: 32px */}
+</div>
+```
+
+## トランジション
+
+### デュレーション
+
+| 時間 | Tailwind | 用途 |
+|------|----------|------|
+| 75ms | `duration-75` | 即座のフィードバック |
+| 150ms | `duration-150` | ホバー、フォーカス |
+| 300ms | `duration-300` | モーダル、ドロワー |
+| 500ms | `duration-500` | スライド、フェード |
+
+### イージング
+
+| タイプ | Tailwind | 用途 |
+|--------|----------|------|
+| Linear | `ease-linear` | 一定速度 |
+| In | `ease-in` | 加速 |
+| Out | `ease-out` | 減速 |
+| In-Out | `ease-in-out` | 加速→減速 |
+
+**使用例:**
+```tsx
+<button className="transition-colors duration-150 ease-out hover:bg-blue-700">
+  Click me
+</button>
+```
+
+## z-index階層
+
+| レイヤー | z-index | Tailwind | 用途 |
+|----------|---------|----------|------|
+| Base | 0 | `z-0` | 通常レイヤー |
+| Dropdown | 10 | `z-10` | ドロップダウンメニュー |
+| Sticky | 20 | `z-20` | 固定ヘッダー |
+| Modal Overlay | 40 | `z-40` | モーダルオーバーレイ |
+| Modal | 50 | `z-50` | モーダル本体 |
+| Toast | 60 | - | トースト通知 |
+
+## カスタムCSS変数
+
+globals.cssで定義されているカスタム変数:
+
+```css
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+```
+
+## アニメーション
+
+### カスタムアニメーション
+
+| アニメーション | 用途 |
+|---------------|------|
+| `slideInRight` | トースト通知の表示 |
+| `slideOutRight` | トースト通知の非表示 |
+| `bounceIn` | カートホバーカードの表示 |
+| `badgePop` | カートバッジの更新 |
+| `slideInBounce` | カート追加通知 |
+
+**使用例:**
+```tsx
+<div className="animate-badge-pop">
+  {/* バッジがポップアニメーション */}
+</div>
+```
+
+## フォーム要素の統一スタイル
+
+### Input / Select
+```css
+height: 42px
+padding: 10px 16px
+border: 1px solid gray-300
+border-radius: 6px (rounded-md)
+font-size: 16px
+```
+
+**フォーカス時:**
+```css
+border-color: blue-600
+box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1)
+```
+
+### Textarea
+```css
+min-height: 120px
+padding: 10px 16px
+resize: vertical
+```
+
+### Radio / Checkbox
+```css
+width: 16px
+height: 16px
+accent-color: blue-600
+```
+
+## 使用ガイドライン
+
+### 色の組み合わせ
+
+#### プライマリボタン
+```tsx
+bg-blue-600 text-white hover:bg-blue-700
+```
+
+#### セカンダリボタン
+```tsx
+bg-gray-200 text-gray-900 hover:bg-gray-300
+```
+
+#### 危険なアクション
+```tsx
+bg-red-600 text-white hover:bg-red-700
+```
+
+### カラーコントラスト
+
+WCAG AA準拠のコントラスト比を確保:
+- **通常テキスト**: 4.5:1 以上
+- **大きいテキスト**: 3:1 以上
+
+**推奨組み合わせ:**
+- `bg-blue-600 text-white` ✅ (4.54:1)
+- `bg-gray-800 text-white` ✅ (15.3:1)
+- `bg-white text-gray-900` ✅ (18.5:1)
+
+**非推奨組み合わせ:**
+- `bg-gray-300 text-gray-400` ❌ (1.5:1)
+- `bg-yellow-200 text-yellow-300` ❌ (1.2:1)
+
+## Tailwind設定ファイル
+
+プロジェクトのTailwind設定は `smartsample-nextjs/tailwind.config.ts` に定義されています。
+
+```typescript
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      // カスタム拡張はここに追加
+    },
+  },
+  plugins: [],
+};
+```
+
+---
+
+**デザイントークンの一貫性を保つことで、統一感のあるUIを実現できます。** 新しいコンポーネントを作成する際は、このドキュメントを参照して適切なトークンを使用してください。

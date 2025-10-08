@@ -1,0 +1,93 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Design System/Introduction" />
+
+# Orchestra Design System
+
+**Maestro Headless Commerce**向けのコンポーネントライブラリ
+
+Orchestra Design Systemは、ECサイト構築のための包括的なUIコンポーネントライブラリです。アトミックデザイン原則に基づき、再利用可能で保守性の高いコンポーネントを提供します。
+
+## プロジェクト概要
+
+### 目的
+- **一貫性**: すべてのページで統一されたUI/UX
+- **再利用性**: コンポーネントベースの開発
+- **スケーラビリティ**: 大規模プロジェクトに対応
+- **アクセシビリティ**: WCAG 2.1 Level AA準拠を目指す
+
+### 技術スタック
+- **React 19**: UIライブラリ
+- **Next.js 15**: フレームワーク (App Router)
+- **TypeScript 5.7**: 型安全性
+- **Tailwind CSS 4.0**: ユーティリティファーストCSS
+- **Zustand 5.0**: 軽量な状態管理
+- **Storybook 8.6**: コンポーネントドキュメント
+
+## アトミックデザイン階層
+
+Orchestra Design Systemは、Brad Frostの**アトミックデザイン**手法を採用しています。
+
+\`\`\`
+Atoms (基本要素)
+  ↓
+Molecules (複合要素)
+  ↓
+Organisms (有機体)
+  ↓
+Templates (ページテンプレート)
+  ↓
+Pages (完成ページ)
+\`\`\`
+
+### Atoms (基本要素)
+最小単位のコンポーネント。他のコンポーネントに依存しません。
+
+**実装済み (11個):**
+- Button, Input, Checkbox, RadioButton, Select
+- TextArea, Badge, Tag, Rating
+- PriceDisplay, LoadingSpinner
+
+### Molecules (複合要素)
+Atomsを組み合わせた小さな機能単位。
+
+**実装済み (4個):**
+- Breadcrumb, Pagination, FilterTag, SearchSort
+
+### Organisms (有機体)
+MoleculesとAtomsを組み合わせた複雑なコンポーネント。
+
+**実装済み (10個):**
+- Header, Footer, ProductCard
+- SearchBar, SearchFilters, ProductListItem
+- ProductImageGallery, ProductGrid, CartItem, CheckoutForms
+
+### Templates (ページテンプレート)
+ページレイアウトを定義。
+
+**実装済み (5個):**
+- HomePage, ProductListPage, ProductDetailPage
+- CartPage, CheckoutPage
+
+## コンポーネント統計
+
+- **合計**: 30個のコンポーネント
+- **Stories数**: 260+ stories
+
+## 使い方
+
+\`\`\`bash
+cd storybook
+npm run storybook
+\`\`\`
+
+ブラウザで http://localhost:6006/ を開きます。
+
+## ドキュメント
+
+- [Design Tokens](/?path=/docs/design-system-design-tokens--docs) - 色、タイポグラフィ、スペーシング
+- [Accessibility Guide](/?path=/docs/design-system-accessibility-guide--docs) - アクセシビリティガイドライン
+
+---
+
+**Orchestra Design System** - 美しく、アクセシブルで、スケーラブルなECサイトを構築しましょう。
