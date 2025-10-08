@@ -1,0 +1,214 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Atoms/Overview" />
+
+# Atoms（原子）
+
+最小単位のUIコンポーネント。これ以上分割できない基本的な要素です。
+
+## 設計原則
+
+### 1. 単一責任の原則
+各Atomは1つの明確な役割のみを持ちます。
+
+**例:**
+- `Button` → クリック可能なボタン要素
+- `Input` → テキスト入力フィールド
+- `Badge` → ステータス表示
+
+### 2. 完全な独立性
+Atomsは他のコンポーネントに依存しません。
+
+- ✅ 良い例: Buttonは単独で動作
+- ❌ 悪い例: ButtonがInputに依存
+
+### 3. Props駆動
+variantやsizeなどのPropsで見た目を制御します。
+
+```typescript
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+}
+```
+
+### 4. アクセシビリティ
+すべてのAtomsはWCAG 2.1 Level AA準拠を目指します。
+
+**チェック項目:**
+- ✅ キーボードナビゲーション対応
+- ✅ スクリーンリーダー対応（ARIA属性）
+- ✅ カラーコントラスト比 4.5:1以上
+- ✅ フォーカス表示
+
+## 実装済みAtoms（11個）
+
+| コンポーネント | 用途 | variant数 | a11y目標 |
+|--------------|------|----------|---------|
+| **Button** | ボタン | 5種類 | 90点以上 |
+| **Input** | テキスト入力 | 3種類 | 90点以上 |
+| **Checkbox** | チェックボックス | 2種類 | 90点以上 |
+| **Radio** | ラジオボタン | 2種類 | 90点以上 |
+| **Select** | セレクトボックス | 2種類 | 90点以上 |
+| **Textarea** | 複数行入力 | 2種類 | 90点以上 |
+| **Badge** | バッジ | 7種類 | 90点以上 |
+| **Card** | カードコンテナ | 3種類 | 90点以上 |
+| **Divider** | 区切り線 | 2種類 | 90点以上 |
+| **Icon** | アイコン | 15種類 | 90点以上 |
+| **Loading** | ローディング | 3種類 | 90点以上 |
+
+## 使用方法
+
+### 基本的な使い方
+
+```tsx
+import Button from '@/components/ui/Button';
+
+export default function MyComponent() {
+  return (
+    <Button variant="primary" size="md">
+      Click me
+    </Button>
+  );
+}
+```
+
+### Variantパターン
+
+```tsx
+// Primary Button
+<Button variant="primary">Primary</Button>
+
+// Secondary Button
+<Button variant="secondary">Secondary</Button>
+
+// Outline Button
+<Button variant="outline">Outline</Button>
+
+// Ghost Button
+<Button variant="ghost">Ghost</Button>
+
+// Danger Button
+<Button variant="danger">Delete</Button>
+```
+
+### 状態管理
+
+```tsx
+// Disabled
+<Button disabled>Disabled</Button>
+
+// Loading
+<Button loading>Loading...</Button>
+
+// Full Width
+<Button fullWidth>Full Width</Button>
+```
+
+## BEM命名規則
+
+すべてのAtomsは以下のBEM命名規則に従います。
+
+```
+ec-[component]                    // Block
+ec-[component]__[element]         // Element
+ec-[component]--[modifier]        // Modifier
+ec-[component]__[element]--[modifier]
+```
+
+**例:**
+```css
+.ec-button                     /* Block */
+.ec-button__icon               /* Element */
+.ec-button--primary            /* Modifier */
+.ec-button--lg                 /* Modifier */
+.ec-button__icon--left         /* Element + Modifier */
+```
+
+## アクセシビリティガイドライン
+
+### キーボード操作
+
+| 要素 | キー | 動作 |
+|------|------|------|
+| Button | Enter/Space | クリック |
+| Input | Tab | フォーカス移動 |
+| Checkbox | Space | トグル |
+| Select | Arrow Up/Down | 選択肢移動 |
+
+### ARIA属性
+
+**Button:**
+```tsx
+<button
+  aria-label="閉じる"
+  aria-pressed={isPressed}
+  aria-disabled={disabled}
+>
+  ×
+</button>
+```
+
+**Input:**
+```tsx
+<input
+  aria-label="メールアドレス"
+  aria-invalid={hasError}
+  aria-describedby="email-error"
+  aria-required={required}
+/>
+```
+
+**Checkbox:**
+```tsx
+<input
+  type="checkbox"
+  aria-checked={checked}
+  aria-labelledby="checkbox-label"
+/>
+```
+
+## テスト
+
+各Atomは以下のテストを実施します。
+
+### 1. ビジュアルリグレッションテスト
+Storybookで各variantの見た目を確認
+
+### 2. アクセシビリティテスト
+`@storybook/addon-a11y`でスコア90点以上を目指す
+
+### 3. インタラクションテスト
+クリック、入力、フォーカスなどの動作確認
+
+## ベストプラクティス
+
+### ✅ DO
+
+- 単一責任の原則を守る
+- Props駆動で柔軟性を持たせる
+- アクセシビリティを最優先
+- Tailwind CSSでスタイリング
+- TypeScriptで型安全性を確保
+
+### ❌ DON'T
+
+- 複数の責任を持たせない
+- 他のコンポーネントに依存させない
+- ビジネスロジックを含めない
+- 直接CSSファイルを作成しない
+- any型を使用しない
+
+## 参考リンク
+
+- [Atomic Design by Brad Frost](https://bradfrost.com/blog/post/atomic-web-design/)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+
+---
+
+**次のステップ:** [Molecules →](/?path=/docs/molecules-overview--docs)

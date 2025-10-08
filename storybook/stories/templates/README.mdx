@@ -1,0 +1,470 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Templates/Overview" />
+
+# Templates（テンプレート）
+
+Organismsを配置したページの骨格です。実際のコンテンツは含まず、レイアウト構造のみを定義します。
+
+## 設計原則
+
+### 1. ページの骨格を定義
+Templatesはコンテンツの配置やレイアウト構造のみを定義します。
+
+**例:**
+```
+HomePage Template
+├── Header (Organism)
+├── HeroSection
+│   └── HeroSlider (Organism)
+├── RecommendedSection
+│   └── ProductGrid (Organism)
+└── Footer (Organism)
+```
+
+### 2. データは含まない
+実際のデータではなく、プレースホルダーやサンプルデータを使用します。
+
+- ✅ 良い例: `<ProductCard product={sampleProduct} />`
+- ❌ 悪い例: `<ProductCard product={fetchFromAPI()} />`
+
+### 3. すべての階層に依存
+Atoms、Molecules、Organismsすべてを組み合わせて構成します。
+
+### 4. レスポンシブレイアウト
+モバイル、タブレット、デスクトップすべてのブレークポイントに対応します。
+
+## 実装済みTemplates（5個）
+
+| テンプレート | 構成要素 | 用途 | ページ例 |
+|------------|---------|------|---------|
+| **HomePage** | Header + HeroSlider + ProductGrid + Footer | トップページ | `/` |
+| **ProductListPage** | Header + SearchFilters + ProductGrid + Pagination + Footer | 商品一覧 | `/products` |
+| **ProductDetailPage** | Header + Breadcrumb + ProductImageGallery + ProductInfo + Footer | 商品詳細 | `/products/[id]` |
+| **CartPage** | Header + CartItem + CheckoutSummary + Footer | カート | `/cart` |
+| **CheckoutPage** | Header + StepIndicator + CheckoutForms + Footer | チェックアウト | `/checkout` |
+
+## 依存関係
+
+```
+Templates
+  ├── Atoms (依存OK)
+  ├── Molecules (依存OK)
+  ├── Organisms (依存OK)
+  ├── Zustand Store (依存OK)
+  ├── Templates (依存NG)
+  └── Pages (依存NG)
+```
+
+## Templates vs Pages
+
+| 項目 | Templates | Pages |
+|------|-----------|-------|
+| **目的** | レイアウト構造 | 完成したページ |
+| **データ** | サンプル/プレースホルダー | 実データ |
+| **配置** | `storybook/stories/templates/` | `src/app/**/page.tsx` |
+| **Storybook** | 対象 ✅ | 対象外 ❌ |
+| **ビジネスロジック** | 最小限 | 含む |
+
+## 使用方法
+
+### HomePage Template
+
+```tsx
+import HomePage from '@/templates/HomePage';
+
+// Storybook Story
+export const Default = {
+  args: {
+    heroSlides: sampleHeroSlides,
+    recommendedProducts: sampleProducts,
+    newProducts: sampleProducts,
+    saleProducts: sampleProducts,
+  },
+};
+```
+
+### ProductListPage Template
+
+```tsx
+import ProductListPage from '@/templates/ProductListPage';
+
+export const Default = {
+  args: {
+    products: sampleProducts,
+    totalPages: 10,
+    currentPage: 1,
+    filters: {
+      categories: ['Tシャツ', 'パンツ'],
+      priceRange: [0, 10000],
+      colors: ['赤', '青'],
+    },
+  },
+};
+```
+
+### ProductDetailPage Template
+
+```tsx
+import ProductDetailPage from '@/templates/ProductDetailPage';
+
+export const Default = {
+  args: {
+    product: {
+      id: 1,
+      name: 'ベーシックTシャツ',
+      price: 2980,
+      images: ['/image1.jpg', '/image2.jpg'],
+      description: '商品説明...',
+      rating: 4.5,
+      reviewCount: 120,
+    },
+    relatedProducts: sampleProducts,
+  },
+};
+```
+
+## レイアウトパターン
+
+### グリッドレイアウト
+
+```tsx
+<div className="container mx-auto px-4">
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    {/* サイドバー（フィルター） */}
+    <aside className="lg:col-span-3">
+      <SearchFilters />
+    </aside>
+
+    {/* メインコンテンツ */}
+    <main className="lg:col-span-9">
+      <ProductGrid products={products} />
+      <Pagination />
+    </main>
+  </div>
+</div>
+```
+
+### 2カラムレイアウト
+
+```tsx
+<div className="container mx-auto px-4">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    {/* 左カラム（商品画像） */}
+    <div>
+      <ProductImageGallery images={product.images} />
+    </div>
+
+    {/* 右カラム（商品情報） */}
+    <div>
+      <ProductInfo product={product} />
+    </div>
+  </div>
+</div>
+```
+
+### ステップレイアウト
+
+```tsx
+<div className="container mx-auto px-4 max-w-4xl">
+  {/* ステップインジケーター */}
+  <StepIndicator currentStep={2} totalSteps={4} />
+
+  {/* フォームコンテンツ */}
+  <div className="mt-8">
+    <CheckoutForms step={2} />
+  </div>
+
+  {/* ナビゲーションボタン */}
+  <div className="flex justify-between mt-8">
+    <Button variant="outline">戻る</Button>
+    <Button variant="primary">次へ</Button>
+  </div>
+</div>
+```
+
+## レスポンシブデザイン
+
+### ブレークポイント
+
+```typescript
+const breakpoints = {
+  sm: '640px',   // モバイル（縦）
+  md: '768px',   // タブレット
+  lg: '1024px',  // デスクトップ
+  xl: '1280px',  // 大画面
+  '2xl': '1536px', // 超大画面
+};
+```
+
+### レスポンシブレイアウト例
+
+```tsx
+// モバイルファースト
+<div className="
+  px-4              /* モバイル: 16px padding */
+  md:px-6           /* タブレット: 24px padding */
+  lg:px-8           /* デスクトップ: 32px padding */
+
+  grid
+  grid-cols-1       /* モバイル: 1列 */
+  sm:grid-cols-2    /* 小画面: 2列 */
+  md:grid-cols-3    /* タブレット: 3列 */
+  lg:grid-cols-4    /* デスクトップ: 4列 */
+
+  gap-4             /* モバイル: 16px gap */
+  md:gap-6          /* タブレット: 24px gap */
+">
+  {products.map(product => (
+    <ProductCard key={product.id} product={product} />
+  ))}
+</div>
+```
+
+## コンテナ設定
+
+```tsx
+// 標準コンテナ（max-width: 1280px）
+<div className="container mx-auto px-4">
+  {/* コンテンツ */}
+</div>
+
+// 狭いコンテナ（max-width: 768px）
+<div className="container mx-auto px-4 max-w-3xl">
+  {/* コンテンツ */}
+</div>
+
+// 広いコンテナ（max-width: 1536px）
+<div className="container mx-auto px-4 max-w-screen-2xl">
+  {/* コンテンツ */}
+</div>
+```
+
+## スペーシング
+
+### セクション間のスペース
+
+```tsx
+<div className="space-y-12 md:space-y-16 lg:space-y-24">
+  <section>{/* ヒーローセクション */}</section>
+  <section>{/* おすすめ商品 */}</section>
+  <section>{/* 新着商品 */}</section>
+</div>
+```
+
+### コンポーネント間のスペース
+
+```tsx
+<div className="space-y-4 md:space-y-6">
+  <h2>商品詳細</h2>
+  <ProductInfo />
+  <ProductDescription />
+</div>
+```
+
+## アクセシビリティ
+
+### ランドマークロール
+
+```tsx
+<div>
+  <Header />
+
+  <main role="main" aria-label="メインコンテンツ">
+    {/* ページコンテンツ */}
+  </main>
+
+  <Footer />
+</div>
+```
+
+### スキップリンク
+
+```tsx
+<div>
+  <a
+    href="#main-content"
+    className="sr-only focus:not-sr-only"
+  >
+    メインコンテンツへスキップ
+  </a>
+
+  <Header />
+
+  <main id="main-content">
+    {/* ページコンテンツ */}
+  </main>
+</div>
+```
+
+### ページタイトル
+
+```tsx
+// Next.js Metadata API
+export const metadata = {
+  title: '商品一覧 | ECサイト',
+  description: '高品質な商品を取り揃えています',
+};
+```
+
+## パフォーマンス最適化
+
+### コード分割
+
+```tsx
+import dynamic from 'next/dynamic';
+
+// 非表示セクションの遅延読み込み
+const RecommendedSection = dynamic(
+  () => import('@/components/sections/RecommendedSection'),
+  { ssr: true }
+);
+
+const ReviewsSection = dynamic(
+  () => import('@/components/sections/ReviewsSection'),
+  { ssr: false } // クライアントサイドのみ
+);
+```
+
+### 画像最適化
+
+```tsx
+import Image from 'next/image';
+
+<Image
+  src={product.image}
+  alt={product.name}
+  width={600}
+  height={600}
+  priority={isAboveFold} // ファーストビューの画像
+  loading={isAboveFold ? 'eager' : 'lazy'}
+/>
+```
+
+## Storybook Stories
+
+各Templateには複数のStoryを用意します。
+
+### 基本パターン
+
+```typescript
+export const Default: Story = {
+  args: {
+    // デフォルト状態
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    isLoading: true,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    error: 'データの読み込みに失敗しました',
+  },
+};
+
+export const Empty: Story = {
+  args: {
+    products: [],
+  },
+};
+```
+
+### レスポンシブパターン
+
+```typescript
+export const Mobile: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+  },
+};
+
+export const Tablet: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'tablet',
+    },
+  },
+};
+
+export const Desktop: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'desktop',
+    },
+  },
+};
+```
+
+## テスト
+
+### 1. ビジュアルリグレッションテスト
+- すべてのStory
+- レスポンシブ表示
+- 状態バリエーション
+
+### 2. レイアウトテスト
+- グリッドレイアウト確認
+- スペーシング確認
+- オーバーフロー確認
+
+### 3. アクセシビリティテスト
+- ランドマークロール
+- スキップリンク
+- キーボードナビゲーション
+
+### 4. パフォーマンステスト
+- First Contentful Paint (FCP)
+- Largest Contentful Paint (LCP)
+- Cumulative Layout Shift (CLS)
+
+## ベストプラクティス
+
+### ✅ DO
+
+- レイアウト構造のみを定義
+- サンプルデータを使用
+- レスポンシブ対応
+- アクセシビリティ優先
+- パフォーマンス最適化
+- 複数のStoryバリエーション
+
+### ❌ DON'T
+
+- 実データを含めない
+- API呼び出しを含めない
+- ページ固有のロジックを含めない
+- 過度に複雑にしない
+- ハードコーディングしない
+
+## コンポーネント作成チェックリスト
+
+新しいTemplateを作成する際は、以下を確認してください。
+
+- [ ] レイアウト構造が明確
+- [ ] サンプルデータのみ使用
+- [ ] Atoms/Molecules/Organismsを組み合わせている
+- [ ] レスポンシブ対応（mobile/tablet/desktop）
+- [ ] ランドマークロール設定
+- [ ] スキップリンク実装
+- [ ] コンテナ・スペーシング適切
+- [ ] 複数のStory作成
+- [ ] パフォーマンス最適化
+- [ ] TypeScript型定義
+
+## 参考リンク
+
+- [← Organisms](/?path=/docs/organisms-overview--docs)
+- [Atomic Design Pattern](https://bradfrost.com/blog/post/atomic-web-design/)
+- [Next.js Layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts)
+- [Tailwind CSS Responsive Design](https://tailwindcss.com/docs/responsive-design)
+- [Web Vitals](https://web.dev/vitals/)
+
+---
+
+**Orchestraデザインシステム** で統一された美しいECサイトを構築しましょう 🎼
