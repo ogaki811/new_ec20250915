@@ -2,9 +2,9 @@
 
 **プロジェクト**: Orchestra Design System for Maestro Headless Commerce
 **作成日**: 2025年10月7日
-**更新日**: 2025年10月7日（Orchestra/Maestro命名）
-**バージョン**: 5.0
-**ステータス**: Phase 1完了
+**更新日**: 2025年10月8日（Phase 5 Templates完了）
+**バージョン**: 6.0
+**ステータス**: Phase 1-5完了
 **ブランチ**: なし（独立プロジェクト）
 
 ---
@@ -323,15 +323,17 @@ Organisms（有機体）
 ### 全体フロー（アトミックデザイン準拠）
 
 ```
-Phase 1: 基盤構築（Week 1）
+Phase 1: 基盤構築（Week 1）         ✅
   ↓
-Phase 2: Atoms（Week 2）         ← 依存なし
+Phase 2: Atoms（Week 2）            ✅ 依存なし
   ↓
-Phase 3: Molecules（Week 3）     ← Atomsに依存
+Phase 3: Molecules（Week 3）        ✅ Atomsに依存
   ↓
-Phase 4: Organisms（Week 4-5）   ← Atoms + Molecules + Storeに依存
+Phase 4: Organisms（Week 4-5）      ✅ Atoms + Molecules + Storeに依存
   ↓
-Phase 5: 高度な機能（Week 6）
+Phase 5: Templates（Week 6）        ✅ すべてに依存
+  ↓
+Phase 6: 高度な機能（今後）
 ```
 
 **重要原則**: 下位層の完成なしに上位層は着手しない
@@ -856,7 +858,52 @@ export const withMockStore = (Story: any, context: any) => {
 
 ---
 
-### Phase 5: 高度な機能とドキュメント整備（Week 6）
+### Phase 5: Templates（テンプレート）の実装（Week 6）✅
+
+#### 目標
+主要ページテンプレート（5ページ）のStory完成
+
+#### 実装原則
+- **依存関係**: Atoms + Molecules + Organisms すべて
+- **複雑度**: 最高（ページ全体の構成）
+- **モック**: 全Store + APIレスポンス
+
+#### 実装完了コンポーネント
+
+**Day 1-2: 主要ページテンプレート**
+
+1. **HomePage.stories.jsx** ✅
+   - HeroSlider + ProductSlider（おすすめ/新着/セール）
+   - 5+ stories: Default, RecommendedOnly, SaleEmphasis, MobileLayout, SimpleLayout
+
+2. **ProductListPage.stories.jsx** ✅
+   - SearchFilters + ProductGrid + Pagination
+   - 7+ stories: Default, WithFilters, NoResults, FewProducts, MultiplePages, MobileLayout, CategoryView
+
+3. **ProductDetailPage.stories.jsx** ✅
+   - ProductImageGallery + ProductInfo + RelatedProducts
+   - 8+ stories: Default, SaleProduct, OutOfStock, ExpensiveProduct, LongContent, MobileLayout
+
+**Day 3-4: カート・チェックアウトテンプレート**
+
+4. **CartPage.stories.jsx** ✅
+   - CartItem + CheckoutSummary + StepIndicator
+   - 6+ stories: Default, Empty, SingleItem, FreeShipping, PartialSelection, MobileLayout
+
+5. **CheckoutPage.stories.jsx** ✅
+   - CustomerInfoForm + ShippingInfoForm + PaymentMethodSelector + DeliveryDateSelector
+   - 5+ stories: Default, FilledForm, WithErrors, ConvenienceStorePayment, MobileLayout
+
+#### 成果物
+- [x] 5個のTemplateページStory完成
+- [x] 全31+ story variants作成
+- [x] レスポンシブ表示確認（mobile/tablet/desktop）
+- [x] サンプルデータ生成関数実装
+- [x] Zustand Store モック統合
+
+---
+
+### Phase 6: 高度な機能とドキュメント整備（今後）
 
 #### 目標
 Storybookの運用体制確立とデザインシステムドキュメント

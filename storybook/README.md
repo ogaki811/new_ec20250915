@@ -52,8 +52,12 @@ storybook/
 │   │   ├── Header.stories.tsx
 │   │   └── ...
 │   │
-│   └── templates/                 # Templates Stories（将来）
-│       └── README.mdx
+│   └── templates/                 # Templates Stories（5ページ）
+│       ├── HomePage.stories.jsx
+│       ├── ProductListPage.stories.jsx
+│       ├── ProductDetailPage.stories.jsx
+│       ├── CartPage.stories.jsx
+│       └── CheckoutPage.stories.jsx
 │
 ├── package.json                   # 依存関係
 ├── tsconfig.json                  # TypeScript設定
@@ -152,11 +156,12 @@ export const Default: Story = {
 
 ## 実装フェーズ
 
-- **Phase 1**: 環境構築（Week 1）
-- **Phase 2**: Atoms実装（Week 2）
-- **Phase 3**: Molecules実装（Week 3）
-- **Phase 4**: Organisms実装（Week 4-5）
-- **Phase 5**: 高度な機能・デプロイ（Week 6）
+- **Phase 1**: 環境構築（Week 1） ✅
+- **Phase 2**: Atoms実装（Week 2） ✅
+- **Phase 3**: Molecules実装（Week 3） ✅
+- **Phase 4**: Organisms実装（Week 4-5） ✅
+- **Phase 5**: Templates実装（Week 6） ✅
+- **Phase 6**: Pages実装（今後）
 
 詳細は `docs/nextjs-version/storybook/STORYBOOK_IMPLEMENTATION_PLAN.md` を参照。
 
@@ -224,4 +229,20 @@ const meta = {
 ---
 
 **管理者**: プロジェクトチーム
-**最終更新**: 2025-10-07
+**最終更新**: 2025-10-08
+
+## 実装完了コンポーネント一覧
+
+### Atoms (11)
+Button, Input, Checkbox, RadioButton, Select, TextArea, Badge, Tag, Rating, PriceDisplay, LoadingSpinner
+
+### Molecules (4)
+Breadcrumb, Pagination, FilterTag, SearchSort
+
+### Organisms (10)
+- P0: Header, Footer, ProductCard
+- P1: SearchBar, SearchFilters, ProductListItem
+- P2: ProductImageGallery, ProductGrid, CartItem, CheckoutForms
+
+### Templates (5)
+HomePage, ProductListPage, ProductDetailPage, CartPage, CheckoutPage
