@@ -53,14 +53,12 @@ const config: StorybookConfig = {
 
       if (cssRule && typeof cssRule === 'object' && Array.isArray(cssRule.use)) {
         // PostCSSローダーを追加
+        // postcss.config.mjsを自動的に読み込む
         cssRule.use.push({
           loader: 'postcss-loader',
           options: {
             postcssOptions: {
-              plugins: {
-                tailwindcss: {},
-                autoprefixer: {},
-              },
+              config: path.resolve(__dirname, '../postcss.config.mjs'),
             },
           },
         });
