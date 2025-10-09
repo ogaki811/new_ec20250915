@@ -11,6 +11,7 @@ export interface User {
   city?: string;
   address?: string;
   building?: string;
+  points?: number;
   createdAt: string;
   updatedAt: string;
 }

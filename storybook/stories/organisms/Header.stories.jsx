@@ -51,20 +51,22 @@ export const SearchDemo = {
 // モバイル表示
 export const Mobile = {
   render: () => <Header />,
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'mobile1',
-    },
+      value: "mobile1",
+      isRotated: false
+    }
   },
 };
 
 // タブレット表示
 export const Tablet = {
   render: () => <Header />,
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'tablet',
-    },
+      value: "tablet",
+      isRotated: false
+    }
   },
 };
 

@@ -11,6 +11,8 @@ export interface Product {
   category: string;
   stock: boolean | number; // true/false または在庫数
   rating: number;
+  reviewCount?: number;
+  description?: string;
   tags: string[];
 }
 
@@ -25,11 +27,15 @@ export type Tag = '人気' | '高評価' | '新商品' | 'セール';
 
 // 商品フィルター
 export interface ProductFilters {
+  categories: string[];
+  brands: string[];
+  priceRange: [number, number];
+  inStock: boolean;
+  minRating: number;
   category?: string;
   brand?: string;
   minPrice?: number;
   maxPrice?: number;
-  inStock?: boolean;
   tags?: string[];
   search?: string;
 }

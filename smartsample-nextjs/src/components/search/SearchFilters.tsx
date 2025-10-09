@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Checkbox } from '@/components/ui';
+import type { ProductFilters } from '@/types';
 
 interface SearchFiltersProps {
   filters: {
@@ -11,7 +12,7 @@ interface SearchFiltersProps {
     inStock: boolean;
     minRating: number;
   };
-  onFilterChange: (filters: any) => void;
+  onFilterChange: (filters: ProductFilters) => void;
   categories: string[];
   brands: string[];
 }

@@ -48,20 +48,22 @@ export const WithPageContent = {
 // モバイル表示
 export const Mobile = {
   render: () => <Footer />,
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'mobile1',
-    },
+      value: "mobile1",
+      isRotated: false
+    }
   },
 };
 
 // タブレット表示
 export const Tablet = {
   render: () => <Footer />,
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'tablet',
-    },
+      value: "tablet",
+      isRotated: false
+    }
   },
 };
 

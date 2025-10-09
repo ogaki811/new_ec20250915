@@ -21,7 +21,7 @@ const preview = {
       },
     },
     viewport: {
-      viewports: {
+      options: {
         mobile: {
           name: 'Mobile',
           styles: {

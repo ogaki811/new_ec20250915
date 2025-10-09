@@ -26,8 +26,8 @@ function SearchContent() {
   const query = searchParams.get('q') || '';
   const [sortBy, setSortBy] = useState<ProductSortOption>('name-asc');
   const [filters, setFilters] = useState({
-    categories: [],
-    brands: [],
+    categories: [] as string[],
+    brands: [] as string[],
     priceRange: [0, 100000] as [number, number],
     inStock: false,
     minRating: 0,
