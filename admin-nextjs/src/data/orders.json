@@ -1,0 +1,206 @@
+[
+  {
+    "id": "1",
+    "orderNumber": "ORD-20250109-0001",
+    "customerId": "cust1",
+    "customerName": "山田太郎",
+    "customerEmail": "yamada@example.com",
+    "items": [
+      {
+        "id": "item1",
+        "productId": "1",
+        "productName": "A4コピー用紙 5000枚",
+        "productCode": "AWA4132",
+        "price": 7990,
+        "quantity": 2,
+        "subtotal": 15980,
+        "image": "/img/product/AWA4132_l1.jpg"
+      }
+    ],
+    "subtotal": 15980,
+    "tax": 1598,
+    "shippingFee": 500,
+    "total": 18078,
+    "status": "pending",
+    "paymentStatus": "pending",
+    "paymentMethod": "credit_card",
+    "shippingMethod": "standard",
+    "shippingAddress": {
+      "name": "山田太郎",
+      "postalCode": "100-0001",
+      "prefecture": "東京都",
+      "city": "千代田区",
+      "address": "千代田1-1-1",
+      "building": "オフィスビル5F",
+      "phone": "03-1234-5678"
+    },
+    "notes": "午前中配達希望",
+    "createdAt": "2025-01-09T09:00:00Z",
+    "updatedAt": "2025-01-09T09:00:00Z"
+  },
+  {
+    "id": "2",
+    "orderNumber": "ORD-20250109-0002",
+    "customerId": "cust2",
+    "customerName": "佐藤花子",
+    "customerEmail": "sato@example.com",
+    "items": [
+      {
+        "id": "item2",
+        "productId": "8",
+        "productName": "マウス ワイヤレス",
+        "productCode": "MS2000",
+        "price": 2980,
+        "quantity": 3,
+        "subtotal": 8940,
+        "image": "/img/product/8146306_l1.jpg"
+      }
+    ],
+    "subtotal": 8940,
+    "tax": 894,
+    "shippingFee": 0,
+    "total": 9834,
+    "status": "delivered",
+    "paymentStatus": "paid",
+    "paymentMethod": "bank_transfer",
+    "shippingMethod": "standard",
+    "shippingAddress": {
+      "name": "佐藤花子",
+      "postalCode": "150-0001",
+      "prefecture": "東京都",
+      "city": "渋谷区",
+      "address": "渋谷2-2-2",
+      "phone": "03-2345-6789"
+    },
+    "createdAt": "2025-01-08T14:30:00Z",
+    "updatedAt": "2025-01-09T08:00:00Z",
+    "shippedAt": "2025-01-08T16:00:00Z",
+    "deliveredAt": "2025-01-09T08:00:00Z"
+  },
+  {
+    "id": "3",
+    "orderNumber": "ORD-20250109-0003",
+    "customerId": "cust3",
+    "customerName": "鈴木一郎",
+    "customerEmail": "suzuki@example.com",
+    "items": [
+      {
+        "id": "item3",
+        "productId": "2",
+        "productName": "オフィスチェア エルゴノミック",
+        "productCode": "AW75238",
+        "price": 45800,
+        "quantity": 1,
+        "subtotal": 45800,
+        "image": "/img/product/AW75238_l1.jpg"
+      }
+    ],
+    "subtotal": 45800,
+    "tax": 4580,
+    "shippingFee": 1500,
+    "total": 51880,
+    "status": "processing",
+    "paymentStatus": "paid",
+    "paymentMethod": "credit_card",
+    "shippingMethod": "express",
+    "shippingAddress": {
+      "name": "鈴木一郎",
+      "postalCode": "220-0001",
+      "prefecture": "神奈川県",
+      "city": "横浜市西区",
+      "address": "みなとみらい3-3-3",
+      "building": "ランドマークタワー30F",
+      "phone": "045-3456-7890"
+    },
+    "notes": "大型商品のため時間指定不可",
+    "createdAt": "2025-01-08T10:15:00Z",
+    "updatedAt": "2025-01-08T11:00:00Z"
+  },
+  {
+    "id": "4",
+    "orderNumber": "ORD-20250108-0004",
+    "customerId": "cust4",
+    "customerName": "高橋美咲",
+    "customerEmail": "takahashi@example.com",
+    "items": [
+      {
+        "id": "item4",
+        "productId": "3",
+        "productName": "ボールペン 10本セット",
+        "productCode": "8027341",
+        "price": 1200,
+        "quantity": 5,
+        "subtotal": 6000,
+        "image": "/img/product/8027341_l1.jpg"
+      },
+      {
+        "id": "item5",
+        "productId": "6",
+        "productName": "シャープペンシル 0.5mm",
+        "productCode": "SP05",
+        "price": 450,
+        "quantity": 10,
+        "subtotal": 4500,
+        "image": "/img/product/8027379_l1.jpg"
+      }
+    ],
+    "subtotal": 10500,
+    "tax": 1050,
+    "shippingFee": 500,
+    "total": 12050,
+    "status": "shipped",
+    "paymentStatus": "paid",
+    "paymentMethod": "cash_on_delivery",
+    "shippingMethod": "standard",
+    "shippingAddress": {
+      "name": "高橋美咲",
+      "postalCode": "530-0001",
+      "prefecture": "大阪府",
+      "city": "大阪市北区",
+      "address": "梅田4-4-4",
+      "phone": "06-4567-8901"
+    },
+    "createdAt": "2025-01-08T08:00:00Z",
+    "updatedAt": "2025-01-08T15:00:00Z",
+    "shippedAt": "2025-01-08T15:00:00Z"
+  },
+  {
+    "id": "5",
+    "orderNumber": "ORD-20250107-0005",
+    "customerId": "cust5",
+    "customerName": "田中次郎",
+    "customerEmail": "tanaka@example.com",
+    "items": [
+      {
+        "id": "item6",
+        "productId": "9",
+        "productName": "キーボード メカニカル",
+        "productCode": "KB5500",
+        "price": 12800,
+        "quantity": 1,
+        "subtotal": 12800,
+        "image": "/img/product/A0173711.jpg"
+      }
+    ],
+    "subtotal": 12800,
+    "tax": 1280,
+    "shippingFee": 500,
+    "total": 14580,
+    "status": "cancelled",
+    "paymentStatus": "refunded",
+    "paymentMethod": "credit_card",
+    "shippingMethod": "standard",
+    "shippingAddress": {
+      "name": "田中次郎",
+      "postalCode": "460-0001",
+      "prefecture": "愛知県",
+      "city": "名古屋市中区",
+      "address": "栄5-5-5",
+      "phone": "052-5678-9012"
+    },
+    "notes": "お客様都合によるキャンセル",
+    "createdAt": "2025-01-07T12:00:00Z",
+    "updatedAt": "2025-01-07T14:00:00Z",
+    "cancelledAt": "2025-01-07T14:00:00Z"
+  }
+]
