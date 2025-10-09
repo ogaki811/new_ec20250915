@@ -1,0 +1,305 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Molecules/Overview" />
+
+# Molecules（分子）
+
+複数のAtomsを組み合わせた小さな機能単位です。
+
+## 設計原則
+
+### 1. Atomsの組み合わせ
+MoleculesはAtomsを2〜5個程度組み合わせて構成します。
+
+**例:**
+- `Breadcrumb` = Link + Icon + Text
+- `Pagination` = Button + Text + Icon
+- `StepIndicator` = Badge + Divider + Text
+
+### 2. 特定の機能を持つ
+単なるレイアウトではなく、明確な機能を提供します。
+
+- ✅ 良い例: ページネーション（ページ切り替え機能）
+- ❌ 悪い例: ボタンを横に並べただけ
+
+### 3. 再利用可能
+複数のページや画面で使用できる設計にします。
+
+### 4. ビジネスロジックは最小限
+表示ロジックのみを持ち、複雑なビジネスロジックは含めません。
+
+## 実装済みMolecules（4個）
+
+| コンポーネント | 構成要素 | 用途 | a11y目標 |
+|--------------|---------|------|---------|
+| **Breadcrumb** | Link + Icon + Text | パンくずリスト | 85点以上 |
+| **Pagination** | Button + Text | ページネーション | 85点以上 |
+| **StepIndicator** | Badge + Divider | ステップ表示 | 85点以上 |
+| **Modal** | Card + Button + Icon | モーダルダイアログ | 85点以上 |
+
+## 依存関係
+
+```
+Molecules
+  ├── Atoms (依存OK)
+  │   ├── Button
+  │   ├── Icon
+  │   ├── Badge
+  │   └── ...
+  │
+  ├── Molecules (依存NG)
+  └── Organisms (依存NG)
+```
+
+**重要:** MoleculesはAtomsにのみ依存できます。
+
+## 使用方法
+
+### Breadcrumb（パンくずリスト）
+
+```tsx
+import Breadcrumb from '@/components/common/Breadcrumb';
+
+const items = [
+  { label: 'ホーム', href: '/' },
+  { label: '商品一覧', href: '/products' },
+  { label: 'Tシャツ' }, // 現在のページ（hrefなし）
+];
+
+export default function MyPage() {
+  return <Breadcrumb items={items} />;
+}
+```
+
+### Pagination（ページネーション）
+
+```tsx
+import Pagination from '@/components/common/Pagination';
+
+export default function ProductList() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 10;
+
+  return (
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={setCurrentPage}
+    />
+  );
+}
+```
+
+### StepIndicator（ステップ表示）
+
+```tsx
+import StepIndicator from '@/components/common/StepIndicator';
+
+const steps = [
+  { label: 'カート', completed: true },
+  { label: 'お客様情報', active: true },
+  { label: '配送情報', completed: false },
+  { label: '支払い方法', completed: false },
+];
+
+export default function Checkout() {
+  return <StepIndicator steps={steps} />;
+}
+```
+
+### Modal（モーダル）
+
+```tsx
+import Modal from '@/components/common/Modal';
+
+export default function MyComponent() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>開く</Button>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="確認"
+      >
+        <p>この操作を実行しますか？</p>
+        <Button onClick={() => setIsOpen(false)}>キャンセル</Button>
+      </Modal>
+    </>
+  );
+}
+```
+
+## BEM命名規則
+
+```
+ec-breadcrumb                    // Block
+ec-breadcrumb__item              // Element
+ec-breadcrumb__item--active      // Modifier
+ec-breadcrumb__separator         // Element
+```
+
+## アクセシビリティガイドライン
+
+### Breadcrumb
+
+```tsx
+<nav aria-label="パンくずリスト">
+  <ol className="ec-breadcrumb">
+    <li className="ec-breadcrumb__item">
+      <a href="/">ホーム</a>
+    </li>
+    <li className="ec-breadcrumb__item" aria-current="page">
+      商品詳細
+    </li>
+  </ol>
+</nav>
+```
+
+**重要な属性:**
+- `aria-label`: ナビゲーションの目的を明示
+- `aria-current="page"`: 現在のページを示す
+
+### Pagination
+
+```tsx
+<nav aria-label="ページネーション">
+  <button aria-label="前のページ" disabled={currentPage === 1}>
+    前へ
+  </button>
+
+  <button aria-label="ページ1" aria-current={currentPage === 1 ? 'page' : undefined}>
+    1
+  </button>
+
+  <button aria-label="次のページ" disabled={currentPage === totalPages}>
+    次へ
+  </button>
+</nav>
+```
+
+### Modal
+
+```tsx
+<div
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+  aria-describedby="modal-description"
+>
+  <h2 id="modal-title">タイトル</h2>
+  <p id="modal-description">説明文</p>
+  <button aria-label="閉じる">×</button>
+</div>
+```
+
+**重要な属性:**
+- `role="dialog"`: ダイアログであることを示す
+- `aria-modal="true"`: モーダルダイアログであることを示す
+- `aria-labelledby`: タイトルを参照
+- `aria-describedby`: 説明文を参照
+
+### キーボード操作
+
+| コンポーネント | キー | 動作 |
+|--------------|------|------|
+| Breadcrumb | Tab | リンク間を移動 |
+| Pagination | Tab | ボタン間を移動 |
+| Pagination | Enter/Space | ページ切り替え |
+| Modal | Escape | モーダルを閉じる |
+| Modal | Tab | フォーカストラップ |
+
+## レスポンシブデザイン
+
+すべてのMoleculesはモバイルファーストで設計されています。
+
+### ブレークポイント
+
+```typescript
+// Tailwind CSS設定
+const breakpoints = {
+  sm: '640px',   // モバイル
+  md: '768px',   // タブレット
+  lg: '1024px',  // デスクトップ
+  xl: '1280px',  // 大画面
+};
+```
+
+### レスポンシブ例
+
+```tsx
+// Breadcrumbのレスポンシブ対応
+<nav className="ec-breadcrumb">
+  {/* モバイル: 最後の2項目のみ表示 */}
+  <div className="block md:hidden">
+    {items.slice(-2).map(item => ...)}
+  </div>
+
+  {/* デスクトップ: すべて表示 */}
+  <div className="hidden md:block">
+    {items.map(item => ...)}
+  </div>
+</nav>
+```
+
+## テスト
+
+### 1. ビジュアルリグレッションテスト
+- デフォルト状態
+- 各variant
+- レスポンシブ表示
+
+### 2. アクセシビリティテスト
+- a11yスコア85点以上
+- キーボード操作
+- ARIA属性の確認
+
+### 3. インタラクションテスト
+- クリックイベント
+- ページ遷移
+- フォーカス管理
+
+## ベストプラクティス
+
+### ✅ DO
+
+- Atomsを組み合わせて構成
+- 明確な機能を提供
+- 再利用可能な設計
+- アクセシビリティを優先
+- レスポンシブ対応
+
+### ❌ DON'T
+
+- OrganismsやMoleculesに依存しない
+- 複雑なビジネスロジックを含めない
+- 状態管理（Zustand）に直接依存しない
+- ページ固有のロジックを含めない
+
+## コンポーネント作成チェックリスト
+
+新しいMoleculeを作成する際は、以下を確認してください。
+
+- [ ] Atomsのみに依存している
+- [ ] 明確な機能を持っている
+- [ ] 複数のページで再利用できる
+- [ ] TypeScript型定義がある
+- [ ] BEM命名規則に従っている
+- [ ] ARIA属性が適切に設定されている
+- [ ] キーボード操作に対応している
+- [ ] レスポンシブデザインに対応している
+- [ ] Storyが作成されている
+- [ ] a11yスコア85点以上
+
+## 参考リンク
+
+- [← Atoms](/?path=/docs/atoms-overview--docs)
+- [Organisms →](/?path=/docs/organisms-overview--docs)
+- [Atomic Design Pattern](https://bradfrost.com/blog/post/atomic-web-design/)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+
+---
+
+**次のステップ:** [Organisms →](/?path=/docs/organisms-overview--docs)

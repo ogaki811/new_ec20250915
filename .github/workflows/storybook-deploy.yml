@@ -1,0 +1,51 @@
+name: Build and Deploy Storybook
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'storybook/**'
+      - 'smartsample-nextjs/src/components/**'
+      - '.github/workflows/storybook-deploy.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'storybook/**'
+      - 'smartsample-nextjs/src/components/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: storybook
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: storybook/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook/storybook-static
+          destination_dir: storybook
+          enable_jekyll: false
+          cname: # あなたのカスタムドメインがあれば設定

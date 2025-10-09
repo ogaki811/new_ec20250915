@@ -1,0 +1,456 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Organisms/Overview" />
+
+# Organisms（有機体）
+
+MoleculesとAtomsを組み合わせた、より複雑な機能ブロックです。
+
+## 設計原則
+
+### 1. 複雑な機能ブロック
+OrganismsはAtomsとMoleculesを組み合わせて、独立した機能ブロックを形成します。
+
+**例:**
+- `Header` = Logo + Navigation + SearchBar + CartIcon
+- `ProductCard` = Image + Badge + Text + Button + Rating
+- `Footer` = Links + SocialIcons + Copyright
+
+### 2. ビジネスロジックを含む
+Organismsは状態管理（Zustand）と連携し、ビジネスロジックを持つことができます。
+
+```tsx
+import { useCartStore } from '@/store/useCartStore';
+
+export default function ProductCard({ product }) {
+  const addToCart = useCartStore((state) => state.addItem);
+
+  return (
+    <div>
+      <Button onClick={() => addToCart(product)}>
+        カートに追加
+      </Button>
+    </div>
+  );
+}
+```
+
+### 3. 再利用可能
+複数のページで使用できる独立したコンポーネントとして設計します。
+
+### 4. 複雑なインタラクション
+ユーザーインタラクション、API呼び出し、状態管理などを含みます。
+
+## 実装済みOrganisms（10個）
+
+| コンポーネント | 優先度 | 構成要素 | 用途 | a11y目標 |
+|--------------|-------|---------|------|---------|
+| **Header** | P0 | Logo + Nav + SearchBar + Cart | ヘッダー | 80点以上 |
+| **Footer** | P0 | Links + SocialIcons | フッター | 80点以上 |
+| **ProductCard** | P0 | Image + Badge + Button + Rating | 商品カード | 80点以上 |
+| **SearchBar** | P1 | Input + Button + Icon | 検索バー | 80点以上 |
+| **SearchFilters** | P1 | Checkbox + Select + Button | 絞り込みフィルター | 80点以上 |
+| **ProductListItem** | P1 | Image + Text + Button | 商品リストアイテム | 80点以上 |
+| **ProductImageGallery** | P2 | Image + Thumbnail + Button | 商品画像ギャラリー | 80点以上 |
+| **ProductGrid** | P2 | ProductCard × N | 商品グリッド | 80点以上 |
+| **CartItem** | P2 | Image + Text + QuantitySelector | カートアイテム | 80点以上 |
+| **CheckoutForms** | P2 | Input + Select + Button | チェックアウトフォーム | 80点以上 |
+
+## 依存関係
+
+```
+Organisms
+  ├── Atoms (依存OK)
+  │   ├── Button
+  │   ├── Input
+  │   ├── Badge
+  │   └── ...
+  │
+  ├── Molecules (依存OK)
+  │   ├── Breadcrumb
+  │   ├── Pagination
+  │   └── ...
+  │
+  ├── Zustand Store (依存OK)
+  │   ├── useCartStore
+  │   ├── useFavoritesStore
+  │   └── useAuthStore
+  │
+  ├── Organisms (依存NG)
+  └── Templates (依存NG)
+```
+
+## 使用方法
+
+### Header（ヘッダー）
+
+```tsx
+import Header from '@/components/layout/Header';
+
+export default function Layout({ children }) {
+  return (
+    <>
+      <Header />
+      <main>{children}</main>
+    </>
+  );
+}
+```
+
+### ProductCard（商品カード）
+
+```tsx
+import ProductCard from '@/components/product/ProductCard';
+
+export default function ProductList({ products }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {products.map(product => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
+```
+
+### SearchBar（検索バー）
+
+```tsx
+import SearchBar from '@/components/search/SearchBar';
+
+export default function ProductsPage() {
+  const handleSearch = (query: string) => {
+    // 検索処理
+  };
+
+  return <SearchBar onSearch={handleSearch} placeholder="商品を検索" />;
+}
+```
+
+### CartItem（カートアイテム）
+
+```tsx
+import CartItem from '@/components/cart/CartItem';
+import { useCartStore } from '@/store/useCartStore';
+
+export default function CartPage() {
+  const items = useCartStore((state) => state.items);
+
+  return (
+    <div>
+      {items.map(item => (
+        <CartItem key={item.id} item={item} />
+      ))}
+    </div>
+  );
+}
+```
+
+## BEM命名規則
+
+```
+ec-header                       // Block
+ec-header__logo                 // Element
+ec-header__nav                  // Element
+ec-header__nav-item             // Element
+ec-header__nav-item--active     // Modifier
+ec-header__cart                 // Element
+ec-header__cart-count           // Element
+```
+
+## アクセシビリティガイドライン
+
+### Header
+
+```tsx
+<header className="ec-header" role="banner">
+  <nav className="ec-header__nav" aria-label="メインナビゲーション">
+    <a href="/" aria-current="page">ホーム</a>
+    <a href="/products">商品一覧</a>
+  </nav>
+
+  <button
+    className="ec-header__cart"
+    aria-label="カート（3個の商品）"
+  >
+    <Icon name="cart" />
+    <span className="ec-header__cart-count">3</span>
+  </button>
+</header>
+```
+
+**重要な属性:**
+- `role="banner"`: ヘッダーであることを示す
+- `aria-label`: ナビゲーションの目的を明示
+- `aria-current="page"`: 現在のページを示す
+
+### ProductCard
+
+```tsx
+<article className="ec-product-card">
+  <img
+    src={product.image}
+    alt={product.name}
+    loading="lazy"
+  />
+
+  <h3 className="ec-product-card__title">
+    {product.name}
+  </h3>
+
+  <div
+    className="ec-product-card__rating"
+    role="img"
+    aria-label={`評価: ${product.rating}つ星`}
+  >
+    <Rating value={product.rating} />
+  </div>
+
+  <button
+    className="ec-product-card__button"
+    aria-label={`${product.name}をカートに追加`}
+  >
+    カートに追加
+  </button>
+</article>
+```
+
+### SearchBar
+
+```tsx
+<form
+  role="search"
+  aria-label="商品検索"
+  onSubmit={handleSubmit}
+>
+  <input
+    type="search"
+    aria-label="検索キーワード"
+    placeholder="商品を検索"
+  />
+
+  <button
+    type="submit"
+    aria-label="検索を実行"
+  >
+    <Icon name="search" />
+  </button>
+</form>
+```
+
+### キーボード操作
+
+| コンポーネント | キー | 動作 |
+|--------------|------|------|
+| Header | Tab | ナビゲーション項目を移動 |
+| Header | Enter | リンクを開く |
+| ProductCard | Tab | カード内要素を移動 |
+| ProductCard | Enter/Space | カートに追加 |
+| SearchBar | Tab | 入力欄とボタンを移動 |
+| SearchBar | Enter | 検索実行 |
+
+## Zustand統合
+
+Organismsは状態管理（Zustand）と直接連携できます。
+
+### カートストア連携
+
+```tsx
+import { useCartStore } from '@/store/useCartStore';
+
+export default function ProductCard({ product }) {
+  const addToCart = useCartStore((state) => state.addItem);
+  const isInCart = useCartStore((state) =>
+    state.items.some(item => item.id === product.id)
+  );
+
+  return (
+    <div>
+      <Button
+        onClick={() => addToCart(product)}
+        variant={isInCart ? 'secondary' : 'primary'}
+      >
+        {isInCart ? 'カートに追加済み' : 'カートに追加'}
+      </Button>
+    </div>
+  );
+}
+```
+
+### お気に入りストア連携
+
+```tsx
+import { useFavoritesStore } from '@/store/useFavoritesStore';
+
+export default function ProductCard({ product }) {
+  const toggleFavorite = useFavoritesStore((state) => state.toggle);
+  const isFavorite = useFavoritesStore((state) =>
+    state.items.includes(product.id)
+  );
+
+  return (
+    <button
+      onClick={() => toggleFavorite(product.id)}
+      aria-label={isFavorite ? 'お気に入りから削除' : 'お気に入りに追加'}
+      aria-pressed={isFavorite}
+    >
+      <Icon name={isFavorite ? 'heart-filled' : 'heart'} />
+    </button>
+  );
+}
+```
+
+## レスポンシブデザイン
+
+### Header（ハンバーガーメニュー）
+
+```tsx
+export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  return (
+    <header className="ec-header">
+      {/* デスクトップナビゲーション */}
+      <nav className="hidden md:flex">
+        <a href="/">ホーム</a>
+        <a href="/products">商品一覧</a>
+      </nav>
+
+      {/* モバイルハンバーガーボタン */}
+      <button
+        className="md:hidden"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="メニュー"
+        aria-expanded={isMobileMenuOpen}
+      >
+        <Icon name="menu" />
+      </button>
+
+      {/* モバイルメニュー */}
+      {isMobileMenuOpen && (
+        <nav className="md:hidden">
+          <a href="/">ホーム</a>
+          <a href="/products">商品一覧</a>
+        </nav>
+      )}
+    </header>
+  );
+}
+```
+
+### ProductGrid
+
+```tsx
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+  {products.map(product => (
+    <ProductCard key={product.id} product={product} />
+  ))}
+</div>
+```
+
+## テスト
+
+### 1. ビジュアルリグレッションテスト
+- すべてのvariant
+- レスポンシブ表示（mobile/tablet/desktop）
+- 状態変化（ローディング、エラー等）
+
+### 2. アクセシビリティテスト
+- a11yスコア80点以上
+- キーボード操作
+- スクリーンリーダー対応
+
+### 3. インタラクションテスト
+- ユーザーアクション（クリック、入力等）
+- Zustand状態の変更
+- API呼び出し（モック）
+
+### 4. E2Eテスト（Cypress）
+- 実際のユーザーフロー
+- ページ遷移
+- カート追加・削除
+
+## ベストプラクティス
+
+### ✅ DO
+
+- Atoms/Moleculesを組み合わせて構成
+- Zustand状態管理と連携
+- ビジネスロジックを含める
+- 独立した機能ブロックとして設計
+- レスポンシブ対応
+- アクセシビリティ優先
+
+### ❌ DON'T
+
+- 他のOrganismsに依存しない
+- Templatesに依存しない
+- グローバル状態を直接変更しない
+- ページ固有のロジックを含めない
+- 過度に大きくしない（適切に分割）
+
+## コンポーネント作成チェックリスト
+
+新しいOrganismを作成する際は、以下を確認してください。
+
+- [ ] Atoms/Moleculesを組み合わせている
+- [ ] 独立した機能ブロックである
+- [ ] 複数のページで再利用できる
+- [ ] TypeScript型定義がある
+- [ ] BEM命名規則に従っている
+- [ ] Zustand連携が適切（必要な場合）
+- [ ] ARIA属性が適切に設定されている
+- [ ] キーボード操作に対応している
+- [ ] レスポンシブデザインに対応している
+- [ ] Storyが作成されている
+- [ ] a11yスコア80点以上
+- [ ] E2Eテスト対象（主要コンポーネント）
+
+## パフォーマンス最適化
+
+### 画像の遅延読み込み
+
+```tsx
+<img
+  src={product.image}
+  alt={product.name}
+  loading="lazy"
+  width={300}
+  height={300}
+/>
+```
+
+### メモ化
+
+```tsx
+import { memo } from 'react';
+
+const ProductCard = memo(({ product }) => {
+  // ...
+});
+
+export default ProductCard;
+```
+
+### 動的インポート
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const MobileMenu = dynamic(
+  () => import('@/components/layout/MobileMenu'),
+  { ssr: false }
+);
+```
+
+## 参考リンク
+
+- [← Molecules](/?path=/docs/molecules-overview--docs)
+- [Templates →](/?path=/docs/templates-overview--docs)
+- [Atomic Design Pattern](https://bradfrost.com/blog/post/atomic-web-design/)
+- [Zustand Documentation](https://zustand-demo.pmnd.rs/)
+- [Next.js Performance](https://nextjs.org/docs/advanced-features/measuring-performance)
+
+---
+
+**次のステップ:** [Templates →](/?path=/docs/templates-overview--docs)
