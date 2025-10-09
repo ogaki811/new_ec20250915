@@ -1,0 +1,50 @@
+[
+  {
+    "id": "banner-001",
+    "message": "🎉 春の大セール開催中！全商品20%OFF",
+    "variant": "success",
+    "imageUrl": "https://placehold.co/1200x200/10b981/ffffff?text=Spring+Sale+20%25+OFF",
+    "actionLabel": "セール会場へ",
+    "actionUrl": "https://example.com/sale",
+    "publishStartDate": "2025-03-01T00:00:00.000Z",
+    "publishEndDate": "2025-03-31T23:59:59.000Z",
+    "createdAt": "2025-01-15T10:00:00.000Z",
+    "updatedAt": "2025-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "banner-002",
+    "message": "システムメンテナンスのお知らせ：本日23:00〜翌1:00の間、サービスを一時停止いたします",
+    "variant": "warning",
+    "imageUrl": "https://placehold.co/1200x200/f59e0b/ffffff?text=Maintenance+Notice",
+    "actionLabel": "詳細を見る",
+    "actionUrl": "https://example.com/maintenance",
+    "publishStartDate": "2025-10-09T00:00:00.000Z",
+    "publishEndDate": "2025-10-09T23:59:59.000Z",
+    "createdAt": "2025-10-08T15:00:00.000Z",
+    "updatedAt": "2025-10-08T15:00:00.000Z"
+  },
+  {
+    "id": "banner-003",
+    "message": "📦 送料無料キャンペーン実施中！5,000円以上のご注文で送料無料",
+    "variant": "info",
+    "imageUrl": "https://placehold.co/1200x200/3b82f6/ffffff?text=Free+Shipping+Campaign",
+    "actionLabel": "今すぐ購入",
+    "actionUrl": "https://example.com/products",
+    "publishStartDate": "2025-01-01T00:00:00.000Z",
+    "publishEndDate": "2025-12-31T23:59:59.000Z",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "banner-004",
+    "message": "🎁 新規会員登録で1,000円分のポイントプレゼント！",
+    "variant": "success",
+    "imageUrl": "https://placehold.co/1200x200/10b981/ffffff?text=Welcome+Bonus+1000pt",
+    "actionLabel": "会員登録",
+    "actionUrl": "https://example.com/register",
+    "publishStartDate": "2025-11-01T00:00:00.000Z",
+    "publishEndDate": "2025-11-30T23:59:59.000Z",
+    "createdAt": "2025-10-25T09:00:00.000Z",
+    "updatedAt": "2025-10-25T09:00:00.000Z"
+  }
+]

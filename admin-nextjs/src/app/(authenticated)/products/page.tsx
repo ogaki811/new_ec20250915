@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Button from '@/components/ui/Button';
+import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import ProductFilters from '@/components/admin/ProductFilters';
 import ProductTable from '@/components/admin/ProductTable';
 import type { Product } from '@/types/product';
@@ -23,6 +24,8 @@ export default function ProductsPage() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 20,
@@ -79,13 +82,12 @@ export default function ProductsPage() {
     router.push(`/products/${id}/edit`);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('この商品を削除しますか？')) {
-      return;
-    }
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
 
+    setDeleteLoading(true);
     try {
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`/api/products/${deleteTarget.id}`, {
         method: 'DELETE',
       });
 
@@ -93,6 +95,7 @@ export default function ProductsPage() {
 
       if (data.success) {
         toast.success('商品を削除しました');
+        setDeleteTarget(null);
         fetchProducts();
       } else {
         toast.error(data.message || '商品の削除に失敗しました');
@@ -100,6 +103,8 @@ export default function ProductsPage() {
     } catch (error) {
       console.error('Delete product error:', error);
       toast.error('商品の削除に失敗しました');
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -130,7 +135,7 @@ export default function ProductsPage() {
         products={products}
         loading={loading}
         onEdit={handleEdit}
-        onDelete={handleDelete}
+        onDelete={(id, name) => setDeleteTarget({ id, name })}
       />
 
       {/* ページネーション */}
@@ -199,6 +204,19 @@ export default function ProductsPage() {
           </div>
         </div>
       )}
+
+      {/* 削除確認モーダル */}
+      <ConfirmDialog
+        isOpen={deleteTarget !== null}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={handleDelete}
+        title="商品の削除"
+        message={`「${deleteTarget?.name}」を削除してもよろしいですか？この操作は取り消せません。`}
+        confirmLabel="削除"
+        cancelLabel="キャンセル"
+        variant="error"
+        isLoading={deleteLoading}
+      />
     </div>
   );
 }

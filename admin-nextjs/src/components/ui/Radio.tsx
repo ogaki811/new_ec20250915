@@ -28,7 +28,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
             ref={ref}
             type="radio"
             id={radioId}
-            className={`ec-radio__input w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 focus:ring-2 mt-0.5 ${className}`}
+            className={`ec-radio__input w-4 h-4 text-blue-600 border-gray-200 focus:ring-blue-500 focus:ring-2 mt-0.5 ${className}`}
             {...props}
           />
           {(label || description) && (

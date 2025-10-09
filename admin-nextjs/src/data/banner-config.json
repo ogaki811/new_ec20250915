@@ -1,0 +1,10 @@
+{
+  "enabled": false,
+  "message": "",
+  "variant": "info",
+  "dismissible": true,
+  "actionLabel": "",
+  "actionUrl": "",
+  "imageUrl": "",
+  "showImage": false
+}

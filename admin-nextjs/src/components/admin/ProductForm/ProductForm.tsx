@@ -7,6 +7,7 @@ import Select from '@/components/ui/Select';
 import Textarea from '@/components/ui/Textarea';
 import Button from '@/components/ui/Button';
 import Checkbox from '@/components/ui/Checkbox';
+import ImageUpload from '@/components/ui/ImageUpload';
 import type { Product, Category, Tag } from '@/types/product';
 
 interface ProductFormProps {
@@ -33,6 +34,8 @@ export default function ProductForm({ product, mode }: ProductFormProps) {
     description: product?.description || '',
     published: product?.published ?? true,
     tags: product?.tags || [],
+    image: product?.image || '',
+    images: product?.images || [],
   });
 
   const validate = () => {
@@ -86,6 +89,8 @@ export default function ProductForm({ product, mode }: ProductFormProps) {
           ...formData,
           price: Number(formData.price),
           stock: Number(formData.stock),
+          image: formData.image,
+          images: formData.images,
         }),
       });
 
@@ -210,6 +215,27 @@ export default function ProductForm({ product, mode }: ProductFormProps) {
               fullWidth
             />
           </div>
+        </div>
+      </div>
+
+      {/* 商品画像 */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">商品画像</h2>
+        <ImageUpload
+          label="メイン画像"
+          value={formData.image}
+          onChange={(url) => setFormData({ ...formData, image: url as string })}
+          helperText="商品のメイン画像を選択してください"
+        />
+        <div className="mt-6">
+          <ImageUpload
+            label="追加画像"
+            value={formData.images}
+            onChange={(urls) => setFormData({ ...formData, images: urls as string[] })}
+            multiple
+            maxFiles={5}
+            helperText="最大5枚まで追加画像をアップロードできます"
+          />
         </div>
       </div>
 

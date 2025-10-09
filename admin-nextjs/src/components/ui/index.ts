@@ -11,3 +11,5 @@ export { default as Card } from './Card';
 export { default as Textarea } from './Textarea';
 export { default as Radio } from './Radio';
 export { default as Divider } from './Divider';
+export { default as Banner } from './Banner';
+export { default as ImageUpload } from './ImageUpload';

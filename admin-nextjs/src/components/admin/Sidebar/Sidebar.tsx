@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
   { name: '注文管理', href: '/orders', icon: 'cart' },
   { name: '顧客管理', href: '/customers', icon: 'user' },
   { name: 'クーポン管理', href: '/coupons', icon: 'creditCard' },
+  { name: 'バナー管理', href: '/settings/banners', icon: 'alert' },
 ];
 
 export default function Sidebar() {

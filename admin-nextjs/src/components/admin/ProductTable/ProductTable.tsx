@@ -12,7 +12,7 @@ interface ProductTableProps {
   products: Product[];
   loading: boolean;
   onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: string, name: string) => void;
 }
 
 export default function ProductTable({
@@ -238,7 +238,7 @@ export default function ProductTable({
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => onDelete(product.id)}
+                        onClick={() => onDelete(product.id, product.name)}
                       >
                         削除
                       </Button>
