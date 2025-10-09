@@ -22,9 +22,9 @@ const Loading: React.FC<LoadingProps> = ({
 
   const spinnerSizes = {
     sm: 'border-2',
-    md: 'border-3',
+    md: 'border-4',
     lg: 'border-4',
-    xl: 'border-4',
+    xl: 'border-[6px]',
   };
 
   const LoadingSpinner = () => (

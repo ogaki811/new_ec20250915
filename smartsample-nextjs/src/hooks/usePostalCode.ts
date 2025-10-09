@@ -12,7 +12,7 @@ interface AddressData {
 interface UsePostalCodeReturn {
   searchAddress: (postalCode: string) => Promise<AddressData | null>;
   loading: boolean;
-  error: string | null;
+  error: string | undefined;
   clearError: () => void;
 }
 
@@ -22,7 +22,7 @@ interface UsePostalCodeReturn {
  */
 function usePostalCode(): UsePostalCodeReturn {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   /**
    * 郵便番号から住所を検索
@@ -38,7 +38,7 @@ function usePostalCode(): UsePostalCodeReturn {
     }
 
     setLoading(true);
-    setError(null);
+    setError(undefined);
 
     try {
       const response = await fetch(
@@ -83,7 +83,7 @@ function usePostalCode(): UsePostalCodeReturn {
    * エラーをクリア
    */
   const clearError = (): void => {
-    setError(null);
+    setError(undefined);
   };
 
   return {

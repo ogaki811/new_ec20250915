@@ -19,7 +19,7 @@ const Divider: React.FC<DividerProps> = ({
 
   const orientationStyles = {
     horizontal: 'ec-divider--horizontal w-full border-t',
-    vertical: 'ec-divider--vertical h-full border-l',
+    vertical: 'ec-divider--vertical h-full min-h-[1rem] self-stretch border-l',
   };
 
   const variantStyles = {

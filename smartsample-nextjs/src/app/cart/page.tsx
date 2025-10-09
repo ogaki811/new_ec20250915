@@ -13,6 +13,7 @@ import EmptyCart from '@/components/cart/EmptyCart';
 import ProductSlider from '@/components/home/ProductSlider';
 import useCartStore from '@/store/useCartStore';
 import { sampleProducts } from '@/data/sampleProducts';
+import type { CartItem as CartItemType } from '@/types';
 import { calculateShippingFee } from '@/utils';
 
 export default function CartPage() {
@@ -93,7 +94,7 @@ export default function CartPage() {
     setDeleteModal({ isOpen: false, type: null, itemId: null });
   };
 
-  const handleRestoreItem = (item: any) => {
+  const handleRestoreItem = (item: CartItemType) => {
     restoreItem(item);
     toast.success(`${item.name}を復元しました`);
   };

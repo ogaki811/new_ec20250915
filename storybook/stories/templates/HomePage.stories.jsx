@@ -266,10 +266,11 @@ export const MobileLayout = {
       </main>
     </div>
   ),
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'mobile1',
-    },
+      value: "mobile1",
+      isRotated: false
+    }
   },
 };
 

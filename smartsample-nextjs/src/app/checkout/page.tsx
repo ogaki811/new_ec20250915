@@ -71,12 +71,13 @@ export default function CheckoutPage() {
 
     // ログインユーザーの情報を自動入力
     if (isAuthenticated && user) {
+      const [lastName = '', firstName = ''] = user.name.split(' ');
       setFormData(prev => ({
         ...prev,
-        lastName: user.lastName || '',
-        firstName: user.firstName || '',
+        lastName,
+        firstName,
         email: user.email || '',
-        phone: user.phone || '',
+        phone: user.phoneNumber || '',
         postalCode: user.postalCode || '',
         prefecture: user.prefecture || '',
         city: user.city || '',
@@ -360,7 +361,7 @@ export default function CheckoutPage() {
                 shippingFee={shippingFee}
                 pointsUsed={pointsToUse}
                 total={total}
-                onSubmit={handleSubmit}
+                onSubmit={() => handleSubmit({ preventDefault: () => {} } as React.FormEvent)}
                 className="lg:col-span-1"
               />
             </div>
